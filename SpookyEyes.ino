@@ -47,12 +47,18 @@ unsigned int sinusoidal(float inX) {
 void checkDayLight() {
     int samples = 0;
     int daylightCount = 0;
+
+    sbi(ADCSRA, ADEN); // switch Analog to Digitalconverter ON
+
     while (samples++ < daylightReadingThreashold) {
         if (analogRead(lightPin) >= daylight) {
             ++daylightCount;
         }
         delay(1);
     }
+
+    cbi(ADCSRA, ADEN); // switch Analog to Digitalconverter OFF
+
     if (daylightCount >= (daylightReadingThreashold / 2)) {
         if (gDaylightReadings < (daylightReadingThreashold)) {
             ++gDaylightReadings;
@@ -65,6 +71,7 @@ void checkDayLight() {
 void setup() {
     pinMode(spookyPin, OUTPUT);
     pinMode(lightPin, INPUT);
+    cbi(ADCSRA, ADEN); // switch Analog to Digitalconverter OFF
 }
 
 void loop() {
@@ -73,6 +80,7 @@ void loop() {
         x = xminima;
         analogWrite(spookyPin, sinusoidal(x));
         setup_watchdog(9);
+        system_sleep();
         checkDayLight();
     } else {
         x += u;
@@ -112,15 +120,12 @@ void loop() {
 // system wakes up when watchdog is timed out
 void system_sleep() {
 
-    cbi(ADCSRA, ADEN); // switch Analog to Digitalconverter OFF
-
     set_sleep_mode(SLEEP_MODE_PWR_DOWN); // sleep mode is set here
     sleep_enable();
 
     sleep_mode(); // System sleeps here
 
     sleep_disable(); // System continues execution here when watchdog timed out
-    sbi(ADCSRA, ADEN); // switch Analog to Digitalconverter ON
 }
 
 // 0=16ms, 1=32ms,2=64ms,3=128ms,4=250ms,5=500ms
