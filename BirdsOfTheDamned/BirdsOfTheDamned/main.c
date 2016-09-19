@@ -23,11 +23,12 @@ int main() {
     uint16_t lux_val;
     while (1) 
     {
-        if (SEND_MESSAGE_UNCHECKED(service, &_als)) 
-        {
+        if (SEND_MESSAGE_UNCHECKED(service, &_als)) {
             SEND_MESSAGE_UNCHECKED(write_job, &_als, &lux_reg, 1);
             SEND_MESSAGE_UNCHECKED(read_job, &_als, (uint8_t*)&lux_val, 2);
-        }        
+        } else {
+            SEND_MESSAGE_UNCHECKED(service, &_als);
+        }
         PIN_OUT_TOGGLE(EYES);
         _delay_ms(1000);
     }

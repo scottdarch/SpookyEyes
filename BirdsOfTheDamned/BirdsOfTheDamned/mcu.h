@@ -23,12 +23,8 @@
 
 // IO HELPERS
 #define PIN_INIT_OUTPUT(NAME) PIN_##NAME##_DDRx |= (1 << PIN_##NAME##_DDRxn)
-#define PIN_INIT_INPUT(NAME, PULLUP) PIN_##NAME##_DDRx &= ~(1 << PIN_##NAME##_DDRxn); \
-if (PULLUP) { \
-    PIN_##NAME##_PORTx |= (1 << PIN_##NAME##_PORTxn); \
-} else {\
-    PIN_##NAME##_PORTx &= ~(1 << PIN_##NAME##_PORTxn); \
-}
+#define PIN_INIT_INPUT(NAME) PIN_##NAME##_DDRx &= ~(1 << PIN_##NAME##_DDRxn);\
+PIN_##NAME##_PORTx &= ~(1 << PIN_##NAME##_PORTxn)
 
 #define PIN_DISABLE_PULLUP(NAME) PIN_##NAME##_PORTx &= ~(1 << PIN_##NAME##_PORTxn)
 #define PIN_OUT_HIGH(NAME) PIN_##NAME##_PORTx |= (1 << PIN_##NAME##_PORTxn)
