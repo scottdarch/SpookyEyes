@@ -158,10 +158,10 @@
     </ToolchainSettings>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="BSI.h">
+    <Compile Include="max44009.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="BSI_AtTiny.c">
+    <Compile Include="max44009.c">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="main.c">
