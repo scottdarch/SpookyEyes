@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#define F_CPU 1000000UL
+#define F_CPU 600000UL
 #define F_CPU_KHZ (F_CPU / 1000)
 
 #include <stdbool.h>
@@ -20,8 +20,9 @@
 
 // IO HELPERS
 #define PIN_INIT_OUTPUT(NAME) PIN_##NAME##_DDRx |= (1 << PIN_##NAME##_DDRxn)
-#define PIN_INIT_INPUT(NAME) PIN_##NAME##_DDRx &= ~(1 << PIN_##NAME##_DDRxn);
-
+#define PIN_INIT_INPUT(NAME) PIN_##NAME##_DDRx &= ~(1 << PIN_##NAME##_DDRxn)
+#define PIN_INIT_INPUT_WITH_PULLUP(NAME) PIN_##NAME##_DDRx &= ~(1 << PIN_##NAME##_DDRxn); \
+PIN_##NAME##_PORTx |= (1 << PIN_##NAME##_PORTxn)
 
 #define PIN_DISABLE_PULLUP(NAME) PIN_##NAME##_PORTx &= ~(1 << PIN_##NAME##_PORTxn)
 #define PIN_OUT_HIGH(NAME) PIN_##NAME##_PORTx |= (1 << PIN_##NAME##_PORTxn)
@@ -50,6 +51,11 @@ MCUCR &= ~(1 << PUD)
 #define PIN_SWITCH_TO_OUTPUT_FROM_PULLUP(NAME) MCUCR |= (1 << PUD); \
 PIN_OUT_LOW(NAME); \
 PIN_INIT_OUTPUT(NAME); \
+MCUCR &= ~(1 << PUD)
+
+#define PIN_SWITCH_TO_INPUT(NAME) MCUCR |= (1 << PUD); \
+PIN_OUT_LOW(NAME); \
+PIN_INIT_INPUT(NAME); \
 MCUCR &= ~(1 << PUD)
 
 // +--[SPOOKY EYES]-----------------------------------------------------------+

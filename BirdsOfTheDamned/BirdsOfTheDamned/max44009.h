@@ -13,7 +13,10 @@
 // +--------------------------------------------------------------------------+
 // | I2C DEFINITIONS
 // +--------------------------------------------------------------------------+
+// A0@GND
 #define MAX44009_ADDRESS 0x4A
+// A0@VCC
+//#define MAX44009_ADDRESS 0x4B
 
 #define MAX44009_REG_INT_STAT 0x00
 #define MAX44009_REG_INT_EN 0x1
@@ -27,6 +30,6 @@
 // +--------------------------------------------------------------------------+
 // | API
 // +--------------------------------------------------------------------------+
-bool max_44009_write_to_register(uint8_t peripheral_addr, uint8_t register_addr, const uint8_t* data, uint16_t write_len);
+bool max_44009_write_to_register(uint8_t peripheral_addr, uint8_t register_addr, const uint8_t data);
 
 bool max_44009_read_from_register(uint8_t peripheral_addr, uint8_t register_addr, uint8_t* out_data);

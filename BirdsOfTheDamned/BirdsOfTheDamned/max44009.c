@@ -62,17 +62,23 @@ static void _send_byte(uint8_t byte) {
 
 static bool _read_ack() {
     bool did_ack = false;
-    PIN_SWITCH_TO_INPUT_WITH_PULLUP(BSI_SDA);
+    PIN_SWITCH_TO_INPUT(BSI_SDA);
     PIN_OUT_HIGH(BSI_SCL);
-    SCLK;
+    HCLK;
     if (!PIN_IN_IS_HIGH(BSI_SDA)) {
         did_ack = true;
     }
     if (!PIN_IN_IS_HIGH(BSI_SDA)) {
         did_ack = true;
     }
-    PIN_SWITCH_TO_OUTPUT_FROM_PULLUP(BSI_SDA);
+    if (!PIN_IN_IS_HIGH(BSI_SDA)) {
+        did_ack = true;
+    }
+    if (!PIN_IN_IS_HIGH(BSI_SDA)) {
+        did_ack = true;
+    }
     PIN_OUT_LOW(BSI_SCL);
+    PIN_SWITCH_TO_OUTPUT_FROM_PULLUP(BSI_SDA);
     return did_ack;
 }
 
@@ -119,8 +125,41 @@ static uint8_t _read_byte() {
 // +--------------------------------------------------------------------------+
 // | API
 // +--------------------------------------------------------------------------+
-bool max_44009_write_to_register(uint8_t peripheral_addr, uint8_t register_addr, const uint8_t* data, uint16_t write_len) {
-    return false;
+bool max_44009_write_to_register(uint8_t peripheral_addr, uint8_t register_addr, const uint8_t data) {
+    bool success = false;
+    
+    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
+
+        const uint8_t peripheral_addr_shifted = (peripheral_addr << 1);
+        
+        // Write register to read from.
+        _do_start();
+        _send_byte(peripheral_addr_shifted);
+        
+        if (!_read_ack()) {
+            goto DO_STOP;
+        }
+        
+        _send_byte(register_addr);
+        
+        if (!_read_ack()) {
+            goto DO_STOP;
+        }
+        
+        // write byte
+        _send_byte(data);
+        
+        if (!_read_ack()) {
+            goto DO_STOP;
+        }
+        
+        success = true;
+        
+    DO_STOP:
+        _do_stop();
+        
+    }
+    return success;
 }
 
 bool max_44009_read_from_register(uint8_t peripheral_addr, uint8_t register_addr, uint8_t* out_data) {
