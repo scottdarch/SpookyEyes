@@ -125,6 +125,7 @@ static uint8_t _read_byte() {
 // +--------------------------------------------------------------------------+
 // | API
 // +--------------------------------------------------------------------------+
+
 bool max_44009_write_to_register(uint8_t peripheral_addr, uint8_t register_addr, const uint8_t data) {
     bool success = false;
     
