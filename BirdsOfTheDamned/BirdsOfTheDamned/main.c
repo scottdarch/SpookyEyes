@@ -10,14 +10,14 @@
 #include <avr/io.h>
 #include <avr/sleep.h>
 
-
-static bool _descending = false;
-
+// +--[TYPES]-----------------------------------------------------------------+
 enum WDTSleepTimeSeconds {
     WDTSLEEPTIME_2_S = 0,
     WDTSLEEPTIME_4_S = 1,
     WDTSLEEPTIME_8_S = 2,
 };
+
+// +--[ISRs]------------------------------------------------------------------+
 
 ISR(TIM0_COMPA_vect) {
     PIN_OUT_HIGH(EYE0);
@@ -33,16 +33,23 @@ EMPTY_INTERRUPT(INT0_vect);
 
 EMPTY_INTERRUPT(WDT_vect);
 
+// +--[DATA]------------------------------------------------------------------+
+
 // Mantissa (LM[7:4]): Four most significant bits of mantissa lower threshold
 // Exponent (LE[3:0]): Exponent bits lower threshold
 // Lower lux threshold = 2(exponent) x mantissa x 0.045
 // Exponent = 8xLE3 + 4xLE2 + 2xLE1 + LE0
 // Mantissa = 128xLM7 + 64xLM6 + 32xLM5 + 16xLM4
 static const uint8_t lower_threshold_lux = 0x1;
-    
+
+// Time delay = (128xT7 + 64xT6 + 32xT5 + 16xT4 + 8xT3 + 4xT2 + 2xT1 + T0) x 100ms
+static const uint8_t thresh_timer = 30;
+
+static bool _descending = false;
+
+// +--[FUNCTIONS]-------------------------------------------------------------+
+
 void configure_max44009() {
-    // Time delay = (128xT7 + 64xT6 + 32xT5 + 16xT4 + 8xT3 + 4xT2 + 2xT1 + T0) x 100ms
-    static const uint8_t thresh_timer = 30;
     
     PIN_OUT_HIGH(EYE0);
     while(!max_44009_write_to_register(MAX44009_ADDRESS, MAX44009_REG_CONFIG, 0x40)) {
@@ -96,7 +103,6 @@ static void do_sleep() {
 }
 
 static void wdt_sleep(enum WDTSleepTimeSeconds wdtsleeptime_secs) {
-    
     cli();
     WDTCR |= (1<<WDCE) | (1<<WDTIE);
     switch(wdtsleeptime_secs) {
@@ -123,6 +129,8 @@ static void wdt_sleep(enum WDTSleepTimeSeconds wdtsleeptime_secs) {
     sei();
 }
 
+// +--[MAIN]------------------------------------------------------------------+
+
 int main() {
     cli();
     wdt_disable();
@@ -136,21 +144,18 @@ int main() {
     TCCR0B |= (1 << CS01);
     MCUCR |= (1 << SM1);
     ACSR |= (1<<ACD);
+    GIMSK &= ~(1 << INT0);
     
     set_sleep_mode(SLEEP_MODE_PWR_DOWN);
     reset_glowy_eyes();
     configure_max44009();
-    sei();
-    
+
     uint8_t event_count = 0;
     
     while (1)
     {
-        cli();
-        if (OCR0B == 0xFF) {
-            OCR0B = 0xFE;
-            _descending = true;
-        } else if (OCR0B == 0) {
+        if (OCR0B == 0) {
+            // Done a veeery spoooky glowy fade.
             reset_glowy_eyes();
             sei();
             wdt_sleep(event_count);
@@ -160,24 +165,43 @@ int main() {
             } else {
                 event_count += 1;
             }
-            while (is_daylight()) {
-                reset_interrupt();
+            if (is_daylight()) {
                 // too bright. go to sleep.
                 GIMSK |= (1 << INT0);
-                sei();
-                do_sleep();
-                cli();
+                while (is_daylight()) {
+                    reset_interrupt();
+                    sei();
+                    do_sleep();
+                    cli();
+                }
                 GIMSK &= ~(1 << INT0);
             }
-            TIMSK0 |= (1 << OCIE0B) | (1 << OCIE0A);
             OCR0B = 1;
+            TIMSK0 |= (1 << OCIE0B) | (1 << OCIE0A);
+        } else if (OCR0B == 0xFF) {
+            // At the top of the duty cycle. Now start dimming.
+            OCR0B = 0xFE;
+            _descending = true;
         } else if (_descending) {
             OCR0B -= 1;
         } else {
             OCR0B += 1;
         }
+        // We're running a really slow clock compared to our
+        // PWM timing so we've missed enough interrupts just
+        // in the few branches we did above to be noticeable
+        // to the human eye. Manually reset the LEDs before
+        // again turning on the timers to run PWM.
+        if (TCNT0 > OCR0B) {
+            PIN_OUT_LOW(EYE0);
+            PIN_OUT_LOW(EYE1);
+        } else {
+            PIN_OUT_HIGH(EYE0);
+            PIN_OUT_HIGH(EYE1);
+        }
         sei();
-        _delay_ms(6);
+        _delay_ms(7);
+        cli();
     }        
 }
 

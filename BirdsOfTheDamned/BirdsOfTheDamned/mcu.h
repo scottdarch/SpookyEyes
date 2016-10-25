@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#define F_CPU 600000UL
+#define F_CPU 128000UL
 #define F_CPU_KHZ (F_CPU / 1000)
 
 #include <stdbool.h>
