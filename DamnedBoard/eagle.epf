@@ -1,0 +1,20 @@
+[Eagle]
+Version="08 03 01"
+Platform="Mac OS X"
+Globals="Globals"
+Desktop="Desktop"
+
+[Globals]
+AutoSaveProject=1
+UsedLibrary="/Users/scottd/workspace/github/scottdarch/BlindRobot/v3/lbr/Kemet_By_element14_Batch_1.lbr"
+UsedLibrary="/Users/scottd/workspace/github/scottdarch/BlindRobot/v3/lbr/Yageo_By_element14_Batch_1.lbr"
+
+[Win_1]
+Type="Control Panel"
+Loc="689 481 1888 1120"
+State=2
+Number=0
+
+[Desktop]
+Screen="1920 1200"
+Window="Win_1"
