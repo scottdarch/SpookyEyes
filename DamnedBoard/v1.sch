@@ -267,13 +267,6 @@ http://www.tag-connect.com</description>
 </library>
 <library name="boneyard">
 <packages>
-<package name="BATT-RETAINER-20MM" urn="urn:adsk.eagle:footprint:291619/1">
-<pad name="P$1" x="0" y="0" drill="1.016" diameter="2.286"/>
-<pad name="P$2" x="0" y="-3.048" drill="1.016" diameter="2.286"/>
-<pad name="P$3" x="20.828" y="0" drill="1.016" diameter="2.286"/>
-<pad name="P$4" x="20.828" y="-3.048" drill="1.016" diameter="2.286"/>
-<smd name="P$0" x="10.414" y="-1.524" dx="17.78" dy="17.78" layer="1" roundness="100"/>
-</package>
 <package name="21-0490D" urn="urn:adsk.eagle:footprint:291616/1">
 <smd name="1" x="-1.016" y="0.65" dx="0.6604" dy="0.3048" layer="1"/>
 <smd name="2" x="-1.016" y="0" dx="0.6604" dy="0.3048" layer="1"/>
@@ -503,29 +496,25 @@ http://www.tag-connect.com</description>
 <vertex x="1.8" y="-2.975"/>
 </polygon>
 </package>
+<package name="BATT-RETAINER-20MM" urn="urn:adsk.eagle:footprint:291619/1" locally_modified="yes">
+<pad name="P$1" x="0" y="0" drill="1.016" diameter="2.286" thermals="no"/>
+<pad name="P$2" x="0" y="-3.048" drill="1.016" diameter="2.286" thermals="no"/>
+<pad name="P$3" x="20.828" y="0" drill="1.016" diameter="2.286" thermals="no"/>
+<pad name="P$4" x="20.828" y="-3.048" drill="1.016" diameter="2.286" thermals="no"/>
+<smd name="P$0" x="10.414" y="-1.524" dx="17.78" dy="17.78" layer="1" roundness="100"/>
+</package>
 </packages>
 <packages3d>
-<package3d name="BATT-RETAINER-20MM" urn="urn:adsk.eagle:package:291704/2" type="box">
-</package3d>
 <package3d name="21-0490D" urn="urn:adsk.eagle:package:291620/2" type="box">
 </package3d>
 <package3d name="21-0490D-M" urn="urn:adsk.eagle:package:291621/2" type="box">
 </package3d>
 <package3d name="21-0490D-L" urn="urn:adsk.eagle:package:291622/2" type="box">
 </package3d>
+<package3d name="BATT-RETAINER-20MM" urn="urn:adsk.eagle:package:291704/2" type="box">
+</package3d>
 </packages3d>
 <symbols>
-<symbol name="BATT" urn="urn:adsk.eagle:symbol:291703/1" locally_modified="yes">
-<wire x1="3.81" y1="3.81" x2="3.81" y2="-3.81" width="0.4064" layer="94"/>
-<wire x1="5.08" y1="1.27" x2="5.08" y2="-1.27" width="0.4064" layer="94"/>
-<wire x1="6.35" y1="3.81" x2="6.35" y2="-3.81" width="0.4064" layer="94"/>
-<wire x1="7.62" y1="1.27" x2="7.62" y2="-1.27" width="0.4064" layer="94"/>
-<wire x1="2.54" y1="0" x2="3.556" y2="0" width="0.1524" layer="94"/>
-<pin name="+" x="0" y="0" visible="off" length="short" direction="pwr"/>
-<pin name="-" x="10.16" y="0" visible="off" length="short" direction="pwr" rot="R180"/>
-<text x="5.08" y="4.318" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
-<text x="5.08" y="-4.318" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
-</symbol>
 <symbol name="MAX44009EDT+T" urn="urn:adsk.eagle:symbol:291615/1">
 <pin name="VCC" x="2.54" y="0" length="middle" direction="pwr"/>
 <pin name="GND" x="2.54" y="-2.54" length="middle" direction="pwr"/>
@@ -579,27 +568,23 @@ http://www.tag-connect.com</description>
 <text x="0" y="-2.54" size="1.27" layer="94" font="vector">Licenced under Creative Commons 2.0 Attribution-ShareAlike</text>
 <text x="0" y="-5.08" size="1.27" layer="94" font="vector">32bits.io</text>
 </symbol>
+<symbol name="BATT" urn="urn:adsk.eagle:symbol:291703/1" locally_modified="yes">
+<wire x1="3.81" y1="3.81" x2="3.81" y2="-3.81" width="0.4064" layer="94"/>
+<wire x1="5.08" y1="1.27" x2="5.08" y2="-1.27" width="0.4064" layer="94"/>
+<wire x1="6.35" y1="3.81" x2="6.35" y2="-3.81" width="0.4064" layer="94"/>
+<wire x1="7.62" y1="1.27" x2="7.62" y2="-1.27" width="0.4064" layer="94"/>
+<wire x1="2.54" y1="0" x2="3.556" y2="0" width="0.1524" layer="94"/>
+<pin name="+$1" x="-2.54" y="2.54" visible="off" length="short" direction="pwr"/>
+<pin name="-" x="10.16" y="0" visible="off" length="short" direction="pwr" rot="R180"/>
+<text x="5.08" y="4.318" size="1.778" layer="95" font="vector" align="bottom-center">&gt;NAME</text>
+<text x="5.08" y="-4.318" size="1.778" layer="96" font="vector" align="top-center">&gt;VALUE</text>
+<pin name="+$2" x="-2.54" y="-2.54" visible="off" length="short" direction="pwr"/>
+<wire x1="0" y1="-2.54" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="2.54" y1="0" x2="0" y2="0" width="0.254" layer="94"/>
+<wire x1="0" y1="2.54" x2="0" y2="0" width="0.254" layer="94"/>
+</symbol>
 </symbols>
 <devicesets>
-<deviceset name="LINX_BAT_HLD_001" urn="urn:adsk.eagle:component:291705/2" locally_modified="yes" prefix="G">
-<gates>
-<gate name="G$1" symbol="BATT" x="50.8" y="-7.62"/>
-</gates>
-<devices>
-<device name="" package="BATT-RETAINER-20MM">
-<connects>
-<connect gate="G$1" pin="+" pad="P$1 P$2 P$3 P$4"/>
-<connect gate="G$1" pin="-" pad="P$0"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:291704/2"/>
-</package3dinstances>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
 <deviceset name="MAX44009EDT+T" urn="urn:adsk.eagle:component:291623/5" prefix="U">
 <gates>
 <gate name="A" symbol="MAX44009EDT+T" x="0" y="0"/>
@@ -719,6 +704,26 @@ http://www.tag-connect.com</description>
 </gates>
 <devices>
 <device name="" package="DAMNED_SILK">
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="LINX_BAT_HLD_001" urn="urn:adsk.eagle:component:291705/2" locally_modified="yes" prefix="G">
+<gates>
+<gate name="G$1" symbol="BATT" x="50.8" y="-7.62"/>
+</gates>
+<devices>
+<device name="" package="BATT-RETAINER-20MM">
+<connects>
+<connect gate="G$1" pin="+$1" pad="P$1 P$2"/>
+<connect gate="G$1" pin="+$2" pad="P$3 P$4"/>
+<connect gate="G$1" pin="-" pad="P$0"/>
+</connects>
+<package3dinstances>
+<package3dinstance package3d_urn="urn:adsk.eagle:package:291704/2"/>
+</package3dinstances>
 <technologies>
 <technology name=""/>
 </technologies>
@@ -980,30 +985,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </package3dinstances>
 <technologies>
 <technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-<deviceset name="0OHM" urn="urn:adsk.eagle:component:39680/1" prefix="R" library_version="1">
-<description>&lt;h3&gt;0Ω resistor&lt;/h3&gt;
-&lt;p&gt;A resistor is a passive two-terminal electrical component that implements electrical resistance as a circuit element. Resistors act to reduce current flow, and, at the same time, act to lower voltage levels within circuits. - Wikipedia&lt;/p&gt;</description>
-<gates>
-<gate name="G$1" symbol="RESISTOR" x="0" y="0"/>
-</gates>
-<devices>
-<device name="-0603-1/10W-5%" package="0603">
-<connects>
-<connect gate="G$1" pin="1" pad="1"/>
-<connect gate="G$1" pin="2" pad="2"/>
-</connects>
-<package3dinstances>
-<package3dinstance package3d_urn="urn:adsk.eagle:package:39650/1"/>
-</package3dinstances>
-<technologies>
-<technology name="">
-<attribute name="PROD_ID" value="RES-08609"/>
-<attribute name="VALUE" value="0"/>
-</technology>
 </technologies>
 </device>
 </devices>
@@ -1545,7 +1526,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </classes>
 <parts>
 <part name="TC1" library="TagConnect" deviceset="TC2050-IDC" device=""/>
-<part name="G1" library="boneyard" deviceset="LINX_BAT_HLD_001" device="" package3d_urn="urn:adsk.eagle:package:291704/2"/>
 <part name="U2" library="boneyard" deviceset="MAX44009EDT+T" device="21-0490D-M" package3d_urn="urn:adsk.eagle:package:291621/2"/>
 <part name="U1" library="boneyard" deviceset="EFM32ZG108" device=""/>
 <part name="D1" library="SparkFun-LED" library_urn="urn:adsk.eagle:library:529" deviceset="LED-RED" device="1206" package3d_urn="urn:adsk.eagle:package:39352/1" value="RED"/>
@@ -1553,7 +1533,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="R1" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="68OHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1"/>
 <part name="R2" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="68OHM" device="-0603-1/10W-1%" package3d_urn="urn:adsk.eagle:package:39650/1"/>
 <part name="U$1" library="boneyard" deviceset="DAMNED" device=""/>
-<part name="R3" library="SparkFun-Resistors" library_urn="urn:adsk.eagle:library:532" deviceset="0OHM" device="-0603-1/10W-5%" package3d_urn="urn:adsk.eagle:package:39650/1" value="0"/>
 <part name="C1" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="1.0UF" device="-0603-16V-10%" package3d_urn="urn:adsk.eagle:package:37414/1" value="1.0uF"/>
 <part name="JP1" library="SparkFun-Jumpers" library_urn="urn:adsk.eagle:library:528" deviceset="JUMPER-SMT_2_NC_TRACE" device="_NO-SILK" package3d_urn="urn:adsk.eagle:package:39286/1"/>
 <part name="C2" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="10UF" device="-0603-6.3V-20%" package3d_urn="urn:adsk.eagle:package:37414/1" value="10uF"/>
@@ -1561,6 +1540,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="C4" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0402-16V-10%" package3d_urn="urn:adsk.eagle:package:37413/1" value="0.1uF"/>
 <part name="C5" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="0.1UF" device="-0402-16V-10%" package3d_urn="urn:adsk.eagle:package:37413/1" value="0.1uF"/>
 <part name="C6" library="SparkFun-Capacitors" library_urn="urn:adsk.eagle:library:510" deviceset="10UF" device="-0603-6.3V-20%" package3d_urn="urn:adsk.eagle:package:37414/1" value="10uF"/>
+<part name="G1" library="boneyard" deviceset="LINX_BAT_HLD_001" device="" package3d_urn="urn:adsk.eagle:package:291704/2"/>
+<part name="JP2" library="SparkFun-Jumpers" library_urn="urn:adsk.eagle:library:528" deviceset="JUMPER-SMT_2_NC_TRACE" device="_NO-SILK" package3d_urn="urn:adsk.eagle:package:39286/1"/>
+<part name="JP3" library="SparkFun-Jumpers" library_urn="urn:adsk.eagle:library:528" deviceset="JUMPER-SMT_2_NC_TRACE" device="_NO-SILK" package3d_urn="urn:adsk.eagle:package:39286/1"/>
 </parts>
 <sheets>
 <sheet>
@@ -1568,7 +1550,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </plain>
 <instances>
 <instance part="TC1" gate="A" x="-27.94" y="50.8" rot="R180"/>
-<instance part="G1" gate="G$1" x="43.18" y="27.94"/>
 <instance part="U2" gate="A" x="86.36" y="22.86"/>
 <instance part="U1" gate="G$1" x="55.88" y="55.88"/>
 <instance part="D1" gate="G$1" x="-27.94" y="104.14"/>
@@ -1580,7 +1561,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="NAME" x="-19.304" y="116.84" size="1.778" layer="95" font="vector" rot="R90" align="bottom-center"/>
 </instance>
 <instance part="U$1" gate="G$1" x="48.26" y="104.14"/>
-<instance part="R3" gate="G$1" x="27.94" y="27.94"/>
 <instance part="C1" gate="G$1" x="142.24" y="63.5"/>
 <instance part="JP1" gate="G$1" x="33.02" y="58.42" smashed="yes">
 <attribute name="NAME" x="30.48" y="60.96" size="1.778" layer="95" font="vector"/>
@@ -1590,25 +1570,32 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="C4" gate="G$1" x="137.16" y="50.8"/>
 <instance part="C5" gate="G$1" x="17.78" y="71.12"/>
 <instance part="C6" gate="G$1" x="5.08" y="71.12"/>
+<instance part="G1" gate="G$1" x="50.8" y="12.7"/>
+<instance part="JP2" gate="G$1" x="35.56" y="15.24" smashed="yes">
+<attribute name="NAME" x="33.02" y="17.78" size="1.778" layer="95" font="vector"/>
+</instance>
+<instance part="JP3" gate="G$1" x="35.56" y="10.16" smashed="yes">
+<attribute name="NAME" x="33.02" y="5.08" size="1.778" layer="95" font="vector"/>
+</instance>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="VSS" class="0">
 <segment>
-<pinref part="G1" gate="G$1" pin="-"/>
 <pinref part="U1" gate="G$1" pin="VSS"/>
-<wire x1="53.34" y1="27.94" x2="76.2" y2="27.94" width="0.1524" layer="91"/>
-<wire x1="76.2" y1="27.94" x2="76.2" y2="43.18" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="20.32" x2="76.2" y2="43.18" width="0.1524" layer="91"/>
 <pinref part="U2" gate="A" pin="GND"/>
 <wire x1="88.9" y1="20.32" x2="76.2" y2="20.32" width="0.1524" layer="91"/>
-<wire x1="76.2" y1="20.32" x2="76.2" y2="27.94" width="0.1524" layer="91"/>
-<junction x="76.2" y="27.94"/>
 <pinref part="U2" gate="A" pin="A0"/>
 <wire x1="88.9" y1="17.78" x2="76.2" y2="17.78" width="0.1524" layer="91"/>
 <wire x1="76.2" y1="17.78" x2="76.2" y2="20.32" width="0.1524" layer="91"/>
 <junction x="76.2" y="20.32"/>
 <label x="70.358" y="28.702" size="1.778" layer="95"/>
+<pinref part="G1" gate="G$1" pin="-"/>
+<wire x1="60.96" y1="12.7" x2="76.2" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="12.7" x2="76.2" y2="17.78" width="0.1524" layer="91"/>
+<junction x="76.2" y="17.78"/>
 </segment>
 <segment>
 <pinref part="U2" gate="A" pin="EPAD"/>
@@ -1676,11 +1663,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="78.994" y="23.368" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R3" gate="G$1" pin="1"/>
-<wire x1="22.86" y1="27.94" x2="12.7" y2="27.94" width="0.1524" layer="91"/>
-<label x="13.716" y="28.194" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="TC1" gate="A" pin="1"/>
 <wire x1="-35.56" y1="55.88" x2="-43.18" y2="55.88" width="0.1524" layer="91"/>
 <label x="-42.926" y="56.388" size="1.778" layer="95"/>
@@ -1716,6 +1698,17 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <junction x="129.54" y="73.66"/>
 <label x="119.888" y="74.168" size="1.778" layer="95"/>
 <pinref part="C3" gate="G$1" pin="2"/>
+</segment>
+<segment>
+<pinref part="JP2" gate="G$1" pin="1"/>
+<wire x1="30.48" y1="15.24" x2="22.86" y2="15.24" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="15.24" x2="22.86" y2="12.7" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="12.7" x2="15.24" y2="12.7" width="0.1524" layer="91"/>
+<pinref part="JP3" gate="G$1" pin="1"/>
+<wire x1="30.48" y1="10.16" x2="22.86" y2="10.16" width="0.1524" layer="91"/>
+<wire x1="22.86" y1="10.16" x2="22.86" y2="12.7" width="0.1524" layer="91"/>
+<junction x="22.86" y="12.7"/>
+<label x="15.748" y="13.462" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="PA0" class="0">
@@ -1788,13 +1781,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="-17.78" y1="99.06" x2="-17.78" y2="86.36" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$1" class="0">
-<segment>
-<pinref part="G1" gate="G$1" pin="+"/>
-<pinref part="R3" gate="G$1" pin="2"/>
-<wire x1="43.18" y1="27.94" x2="33.02" y2="27.94" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="NRESET" class="0">
 <segment>
 <pinref part="TC1" gate="A" pin="10"/>
@@ -1862,6 +1848,22 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <junction x="38.1" y="58.42"/>
 <pinref part="U1" gate="G$1" pin="AVDD_0"/>
 <wire x1="38.1" y1="50.8" x2="43.18" y2="50.8" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="+R" class="0">
+<segment>
+<pinref part="G1" gate="G$1" pin="+$2"/>
+<pinref part="JP3" gate="G$1" pin="2"/>
+<wire x1="48.26" y1="10.16" x2="40.64" y2="10.16" width="0.1524" layer="91"/>
+<label x="41.402" y="10.414" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="+L" class="0">
+<segment>
+<pinref part="G1" gate="G$1" pin="+$1"/>
+<pinref part="JP2" gate="G$1" pin="2"/>
+<wire x1="48.26" y1="15.24" x2="40.64" y2="15.24" width="0.1524" layer="91"/>
+<label x="41.656" y="16.002" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>
