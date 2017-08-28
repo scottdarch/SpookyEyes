@@ -2,3 +2,6 @@
 *.d
 BirdsOfTheDamned/BirdsOfTheDamned/Debug/
 BirdsOfTheDamned/BirdsOfTheDamned/Release/
+*.b#*
+*.s#*
+*.l#*
