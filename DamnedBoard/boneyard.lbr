@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="0.1" unitdist="inch" unit="inch" style="lines" multiple="1" display="no" altdistance="0.01" altunitdist="inch" altunit="inch"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="16" name="Bottom" color="1" fill="1" visible="yes" active="yes"/>
@@ -171,7 +171,7 @@
 <pad name="P$2" x="0" y="-3.048" drill="1.016" diameter="2.286" thermals="no"/>
 <pad name="P$3" x="20.828" y="0" drill="1.016" diameter="2.286" thermals="no"/>
 <pad name="P$4" x="20.828" y="-3.048" drill="1.016" diameter="2.286" thermals="no"/>
-<smd name="P$0" x="10.414" y="-1.524" dx="17.78" dy="17.78" layer="1" roundness="100"/>
+<smd name="P$0" x="10.414" y="-1.524" dx="17.78" dy="17.78" layer="1" roundness="100" thermals="no" cream="no"/>
 </package>
 <package name="21-0490D-L" urn="urn:adsk.eagle:footprint:291618/1">
 <smd name="1" x="-0.9652" y="0.65" dx="0.5588" dy="0.3048" layer="1"/>
@@ -317,70 +317,71 @@
 <text x="0.04" y="0.614" size="1.27" layer="25">&gt;NAME</text>
 <text x="0.04" y="-5.694" size="1.27" layer="27" align="top-left">&gt;VALUE</text>
 </package>
-<package name="DAMNED_SILK">
-<text x="11.25" y="0" size="1.5" layer="22" font="vector" ratio="15" rot="MR0">32bits.io</text>
-<wire x1="-3" y1="7" x2="-0.5" y2="9" width="0.254" layer="22"/>
-<wire x1="-0.5" y1="9" x2="2" y2="9.75" width="0.254" layer="22"/>
-<wire x1="2" y1="9.75" x2="4.5" y2="8" width="0.254" layer="22"/>
-<wire x1="4.5" y1="8" x2="5" y2="5" width="0.254" layer="22"/>
-<wire x1="5" y1="5" x2="4.25" y2="3.5" width="0.254" layer="22"/>
-<wire x1="4.25" y1="3.5" x2="1.5" y2="1.75" width="0.254" layer="22"/>
-<wire x1="1.5" y1="1.75" x2="0" y2="1.5" width="0.254" layer="22"/>
-<wire x1="0" y1="1.5" x2="-2.75" y2="3" width="0.254" layer="22"/>
-<wire x1="-2.75" y1="3" x2="-3" y2="7" width="0.254" layer="22"/>
-<wire x1="-0.5" y1="9" x2="4.5" y2="8" width="0.025" layer="22"/>
-<wire x1="4.5" y1="8" x2="0" y2="5.5" width="0.025" layer="22"/>
-<wire x1="0" y1="5.5" x2="-0.5" y2="9" width="0.025" layer="22"/>
-<wire x1="-0.5" y1="9" x2="-1" y2="5.5" width="0.025" layer="22"/>
-<wire x1="-1" y1="5.5" x2="0" y2="5.5" width="0.025" layer="22"/>
-<wire x1="-1" y1="5.5" x2="-3" y2="7" width="0.025" layer="22"/>
-<wire x1="-1" y1="5.5" x2="0" y2="1.5" width="0.025" layer="22"/>
-<wire x1="0" y1="1.5" x2="0" y2="5.5" width="0.025" layer="22"/>
-<wire x1="0" y1="5.5" x2="1.5" y2="1.75" width="0.025" layer="22"/>
-<wire x1="4.5" y1="8" x2="4.25" y2="3.5" width="0.025" layer="22"/>
-<circle x="-5" y="-2.5" radius="1.5" width="0.254" layer="22"/>
-<text x="-4.2" y="-3.125" size="1.2" layer="22" font="vector" ratio="20" rot="MR0">CC</text>
-<circle x="-1.25" y="-2.5" radius="1.5" width="0.254" layer="22"/>
-<circle x="2.475" y="-2.5" radius="1.5" width="0.254" layer="22"/>
-<polygon width="0.025" layer="22">
-<vertex x="-1.05" y="-3.575"/>
-<vertex x="-1.4" y="-3.575"/>
-<vertex x="-1.4" y="-2.9"/>
-<vertex x="-1.65" y="-2.9"/>
-<vertex x="-1.65" y="-2.15" curve="-45"/>
-<vertex x="-1.375" y="-1.925"/>
-<vertex x="-1.075" y="-1.925" curve="-45"/>
-<vertex x="-0.8" y="-2.175"/>
-<vertex x="-0.8" y="-2.925"/>
-<vertex x="-1.05" y="-2.925"/>
+<package name="COPYRIGHT">
+<circle x="3.73" y="0.04" radius="1.5" width="0.254" layer="21"/>
+<text x="2.93" y="-0.585" size="1.2" layer="21" font="vector" ratio="20">CC</text>
+<circle x="-0.02" y="0.04" radius="1.5" width="0.254" layer="21"/>
+<circle x="-3.745" y="0.04" radius="1.5" width="0.254" layer="21"/>
+<polygon width="0.025" layer="21">
+<vertex x="-0.22" y="-1.035"/>
+<vertex x="0.13" y="-1.035"/>
+<vertex x="0.13" y="-0.36"/>
+<vertex x="0.38" y="-0.36"/>
+<vertex x="0.38" y="0.39" curve="45"/>
+<vertex x="0.105" y="0.615"/>
+<vertex x="-0.195" y="0.615" curve="45"/>
+<vertex x="-0.47" y="0.365"/>
+<vertex x="-0.47" y="-0.385"/>
+<vertex x="-0.22" y="-0.385"/>
 </polygon>
-<polygon width="0.025" layer="22">
-<vertex x="-1.375" y="-1.375"/>
-<vertex x="-1.1" y="-1.375" curve="-90"/>
-<vertex x="-1.1" y="-1.75"/>
-<vertex x="-1.375" y="-1.75" curve="-90"/>
+<polygon width="0.025" layer="21">
+<vertex x="0.105" y="1.165"/>
+<vertex x="-0.17" y="1.165" curve="90"/>
+<vertex x="-0.17" y="0.79"/>
+<vertex x="0.105" y="0.79" curve="90"/>
 </polygon>
-<polygon width="0.025" layer="22">
-<vertex x="1.8" y="-2.75"/>
-<vertex x="2.025" y="-2.75"/>
-<vertex x="2.025" y="-2.95" curve="180"/>
-<vertex x="2.975" y="-3"/>
-<vertex x="2.975" y="-2" curve="180"/>
-<vertex x="2.025" y="-2.075"/>
-<vertex x="2.025" y="-2.1"/>
-<vertex x="2.325" y="-2.1"/>
-<vertex x="1.925" y="-2.575"/>
-<vertex x="1.5" y="-2.1"/>
-<vertex x="1.8" y="-2.1"/>
-<vertex x="1.8" y="-2" curve="-180"/>
-<vertex x="3.2" y="-2.175"/>
-<vertex x="3.2" y="-2.925" curve="-180"/>
-<vertex x="1.8" y="-2.975"/>
+<polygon width="0.025" layer="21">
+<vertex x="-3.07" y="-0.21"/>
+<vertex x="-3.295" y="-0.21"/>
+<vertex x="-3.295" y="-0.41" curve="-180"/>
+<vertex x="-4.245" y="-0.46"/>
+<vertex x="-4.245" y="0.54" curve="-180"/>
+<vertex x="-3.295" y="0.465"/>
+<vertex x="-3.295" y="0.44"/>
+<vertex x="-3.595" y="0.44"/>
+<vertex x="-3.195" y="-0.035"/>
+<vertex x="-2.77" y="0.44"/>
+<vertex x="-3.07" y="0.44"/>
+<vertex x="-3.07" y="0.54" curve="180"/>
+<vertex x="-4.47" y="0.365"/>
+<vertex x="-4.47" y="-0.385" curve="180"/>
+<vertex x="-3.07" y="-0.435"/>
 </polygon>
 </package>
 <package name="TEST_PAD">
 <smd name="TP$1" x="0" y="0" dx="1.524" dy="1.524" layer="1" roundness="100"/>
 <text x="1.27" y="0" size="0.762" layer="21">&gt;NAME</text>
+</package>
+<package name="32BITS_LOGO">
+<wire x1="6.81" y1="5.73" x2="4.31" y2="7.73" width="0.254" layer="21"/>
+<wire x1="4.31" y1="7.73" x2="1.81" y2="8.48" width="0.254" layer="21"/>
+<wire x1="1.81" y1="8.48" x2="-0.69" y2="6.73" width="0.254" layer="21"/>
+<wire x1="-0.69" y1="6.73" x2="-1.19" y2="3.73" width="0.254" layer="21"/>
+<wire x1="-1.19" y1="3.73" x2="-0.44" y2="2.23" width="0.254" layer="21"/>
+<wire x1="-0.44" y1="2.23" x2="2.31" y2="0.48" width="0.254" layer="21"/>
+<wire x1="2.31" y1="0.48" x2="3.81" y2="0.23" width="0.254" layer="21"/>
+<wire x1="3.81" y1="0.23" x2="6.56" y2="1.73" width="0.254" layer="21"/>
+<wire x1="6.56" y1="1.73" x2="6.81" y2="5.73" width="0.254" layer="21"/>
+<wire x1="4.31" y1="7.73" x2="-0.69" y2="6.73" width="0.025" layer="21"/>
+<wire x1="-0.69" y1="6.73" x2="3.81" y2="4.23" width="0.025" layer="21"/>
+<wire x1="3.81" y1="4.23" x2="4.31" y2="7.73" width="0.025" layer="21"/>
+<wire x1="4.31" y1="7.73" x2="4.81" y2="4.23" width="0.025" layer="21"/>
+<wire x1="4.81" y1="4.23" x2="3.81" y2="4.23" width="0.025" layer="21"/>
+<wire x1="4.81" y1="4.23" x2="6.81" y2="5.73" width="0.025" layer="21"/>
+<wire x1="4.81" y1="4.23" x2="3.81" y2="0.23" width="0.025" layer="21"/>
+<wire x1="3.81" y1="0.23" x2="3.81" y2="4.23" width="0.025" layer="21"/>
+<wire x1="3.81" y1="4.23" x2="2.31" y2="0.48" width="0.025" layer="21"/>
+<wire x1="-0.69" y1="6.73" x2="-0.44" y2="2.23" width="0.025" layer="21"/>
 </package>
 </packages>
 <packages3d>
@@ -599,13 +600,13 @@
 </device>
 </devices>
 </deviceset>
-<deviceset name="DAMNED">
+<deviceset name="COPYRIGHT">
 <description>Silkscreen and copyright for the damned board.</description>
 <gates>
 <gate name="G$1" symbol="COPYRIGHT" x="0" y="0"/>
 </gates>
 <devices>
-<device name="" package="DAMNED_SILK">
+<device name="" package="COPYRIGHT">
 <technologies>
 <technology name=""/>
 </technologies>
@@ -621,6 +622,17 @@
 <connects>
 <connect gate="G$1" pin="TP$1" pad="TP$1"/>
 </connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+<deviceset name="32BITS_LOGO">
+<gates>
+</gates>
+<devices>
+<device name="" package="32BITS_LOGO">
 <technologies>
 <technology name=""/>
 </technologies>
