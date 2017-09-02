@@ -37,7 +37,7 @@
 <layer number="41" name="tRestrict" color="4" fill="10" visible="yes" active="yes"/>
 <layer number="42" name="bRestrict" color="1" fill="10" visible="yes" active="yes"/>
 <layer number="43" name="vRestrict" color="2" fill="10" visible="no" active="yes"/>
-<layer number="44" name="Drills" color="7" fill="1" visible="yes" active="yes"/>
+<layer number="44" name="Drills" color="7" fill="1" visible="no" active="yes"/>
 <layer number="45" name="Holes" color="7" fill="1" visible="yes" active="yes"/>
 <layer number="46" name="Milling" color="3" fill="1" visible="no" active="yes"/>
 <layer number="47" name="Measures" color="7" fill="1" visible="no" active="yes"/>
@@ -946,6 +946,7 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <via x="27.686" y="12.065" extent="1-16" drill="0.254"/>
 <via x="27.686" y="8.128" extent="1-16" drill="0.254"/>
 <via x="27.686" y="10.16" extent="1-16" drill="0.254"/>
+<via x="29.718" y="5.715" extent="1-16" drill="0.254"/>
 </signal>
 <signal name="PA0">
 <contactref element="U1" pad="1"/>
@@ -1269,9 +1270,9 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <approved hash="19,16,740313e312a27542"/>
 <approved hash="19,16,76cb112b123675d6"/>
 <approved hash="19,16,9b313bd134939473"/>
-<approved hash="19,16,fa244e86a328961b"/>
-<approved hash="19,16,991939f93c3b9cdb"/>
 <approved hash="19,16,9f213fc13ca39c43"/>
+<approved hash="19,16,991939f93c3b9cdb"/>
+<approved hash="19,16,fa244e86a328961b"/>
 <approved hash="19,16,fa3f5fdf5e9ffb7f"/>
 <approved hash="19,16,ab352ad61b4f19f5"/>
 <approved hash="19,16,587cd81cc6124672"/>
