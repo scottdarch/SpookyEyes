@@ -46,6 +46,12 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 #define IL_WAKE_PIN         (0)
 #define IL_WAKE_PORT        (gpioPortA)
 
+#define LED0_PIN            (10)
+#define LED0_PORT           (gpioPortC)
+
+#define LED1_PIN            (11)
+#define LED1_PORT           (gpioPortC)
+
 // [User-defined pin name abstraction]$
 
 #endif
