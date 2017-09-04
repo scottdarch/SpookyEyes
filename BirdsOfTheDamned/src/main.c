@@ -2,15 +2,14 @@
 #include "em_chip.h"
 #include "em_cmu.h"
 #include "em_i2c.h"
+#include "em_timer.h"
 #include "InitDevice.h"
 
 // +--------------------------------------------------------------------------+
 // | I2C DEFINITIONS
 // +--------------------------------------------------------------------------+
-// A0@GND
-#define MAX44009_ADDRESS 0x4A
 // A0@VCC
-//#define MAX44009_ADDRESS 0x4B
+#define MAX44009_ADDRESS 0x96
 
 #define MAX44009_REG_INT_STAT 0x00
 #define MAX44009_REG_INT_EN 0x1
@@ -57,6 +56,8 @@ int main(void) {
 
     enter_DefaultMode_from_RESET();
 
+    TIMER_CompareBufSet(TIMER0, 1, 0xFF);
+
     /* Setup SysTick Timer for 1 msec interrupts  */
     if (SysTick_Config(CMU_ClockFreqGet(cmuClock_CORE) / 1000)) {
         while (1)
@@ -64,12 +65,17 @@ int main(void) {
     }
 
     buffer0[0] = MAX44009_REG_INT_STAT;
-    I2C_TransferSeq_TypeDef transfer = { .addr = MAX44009_ADDRESS, .flags =
-            I2C_FLAG_WRITE_READ, .buf = { { buffer0, 1 }, { buffer1, 1 }, } };
+
+    I2C_TransferSeq_TypeDef transfer = {
+            .addr  = MAX44009_ADDRESS,
+            .flags = I2C_FLAG_READ,
+            .buf   = { { buffer0, 1 },
+                       { buffer1, 1 },
+                     }
+    };
 
     while (1) {
         GPIO_PinOutSet(LED0_PORT, LED0_PIN);
-        Delay(200);
         I2C_TransferReturn_TypeDef result = I2C_TransferInit(I2C0, &transfer);
 
         while (result == i2cTransferInProgress) {

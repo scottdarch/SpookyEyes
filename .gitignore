@@ -11,3 +11,5 @@ eclipse.sh
 .project
 .cproject
 GNU ARM*
+*.lck
+

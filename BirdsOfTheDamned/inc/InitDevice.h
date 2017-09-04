@@ -37,20 +37,29 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 
 // $[User-defined pin name abstraction]
 
-#define I2C0_SCL_PIN        (13)
-#define I2C0_SCL_PORT       (gpioPortE)
+#define GPIO_EM4WU0_PIN         (0)
+#define GPIO_EM4WU0_PORT        (gpioPortA)
 
-#define I2C0_SDA_PIN        (12)
-#define I2C0_SDA_PORT       (gpioPortE)
+#define I2C0_SCL_PIN            (13)
+#define I2C0_SCL_PORT           (gpioPortE)
 
-#define IL_WAKE_PIN         (0)
-#define IL_WAKE_PORT        (gpioPortA)
+#define I2C0_SDA_PIN            (12)
+#define I2C0_SDA_PORT           (gpioPortE)
 
-#define LED0_PIN            (10)
-#define LED0_PORT           (gpioPortC)
+#define IL_WAKE_PIN             (0)
+#define IL_WAKE_PORT            (gpioPortA)
 
-#define LED1_PIN            (11)
-#define LED1_PORT           (gpioPortC)
+#define LED0_PIN                (10)
+#define LED0_PORT               (gpioPortC)
+
+#define LED1_PIN                (11)
+#define LED1_PORT               (gpioPortC)
+
+#define TIMER0_CC1_PIN          (0)
+#define TIMER0_CC1_PORT         (gpioPortC)
+
+#define TIMER0_CC2_PIN          (1)
+#define TIMER0_CC2_PORT         (gpioPortC)
 
 // [User-defined pin name abstraction]$
 

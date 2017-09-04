@@ -274,14 +274,14 @@ extern void TIMER0_enter_DefaultMode_from_RESET(void) {
     initCC1.prsInput = false;
     initCC1.prsSel = timerPRSSELCh0;
     initCC1.edge = timerEdgeRising;
-    initCC1.mode = timerCCModeOff;
+    initCC1.mode = timerCCModePWM;
     initCC1.eventCtrl = timerEventEveryEdge;
     initCC1.filter = 0;
-    initCC1.cofoa = timerOutputActionNone;
+    initCC1.cofoa = timerOutputActionSet;
     initCC1.cufoa = timerOutputActionNone;
-    initCC1.cmoa = timerOutputActionNone;
+    initCC1.cmoa = timerOutputActionClear;
     initCC1.coist = 0;
-    initCC1.outInvert = 0;
+    initCC1.outInvert = 1;
     TIMER_InitCC(TIMER0, 1, &initCC1);
     // [TIMER0 CC1 init]$
 
@@ -361,6 +361,11 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port C Configuration]
 
+    /* Pin PC0 is configured to Push-pull */
+    GPIO->P[2].DOUT |= (1 << 0);
+    GPIO->P[2].MODEL = (GPIO->P[2].MODEL & ~_GPIO_P_MODEL_MODE0_MASK)
+            | GPIO_P_MODEL_MODE0_PUSHPULL;
+
     /* Pin PC10 is configured to Push-pull */
     GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE10_MASK)
             | GPIO_P_MODEH_MODE10_PUSHPULL;
@@ -368,6 +373,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     /* Pin PC11 is configured to Push-pull */
     GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
             | GPIO_P_MODEH_MODE11_PUSHPULL;
+
+    /* Pin PC14 is configured to Push-pull */
+    GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE14_MASK)
+            | GPIO_P_MODEH_MODE14_PUSHPULL;
     // [Port C Configuration]$
 
     // $[Port D Configuration]
@@ -395,6 +404,13 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     /* Enable signals SCL, SDA */
     I2C0->ROUTE |= I2C_ROUTE_SCLPEN | I2C_ROUTE_SDAPEN;
+
+    /* Module TIMER0 is configured to location 4 */
+    TIMER0->ROUTE = (TIMER0->ROUTE & ~_TIMER_ROUTE_LOCATION_MASK)
+            | TIMER_ROUTE_LOCATION_LOC4;
+
+    /* Enable signals CC1, CC2 */
+    TIMER0->ROUTE |= TIMER_ROUTE_CC1PEN | TIMER_ROUTE_CC2PEN;
     // [Route Configuration]$
 
 }
