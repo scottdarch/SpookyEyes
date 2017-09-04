@@ -1,89 +1,75 @@
+/*
+ * Copyright 2017 Scott A Dixon
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software distributed
+ * under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+ * CONDITIONS OF ANY KIND, either express or implied. See the License for the
+ * specific language governing permissions and limitations under the License.
+ */
 #include "em_device.h"
 #include "em_chip.h"
-#include "em_cmu.h"
-#include "em_i2c.h"
-#include "em_timer.h"
 #include "InitDevice.h"
 
-// +--------------------------------------------------------------------------+
-// | I2C DEFINITIONS
-// +--------------------------------------------------------------------------+
-// A0@VCC
-#define MAX44009_ADDRESS 0x96
+#include "BirdHead.h"
+#include "DaylightSensor.h"
 
-#define MAX44009_REG_INT_STAT 0x00
-#define MAX44009_REG_INT_EN 0x1
-#define MAX44009_REG_CONFIG 0x2
-#define MAX44009_REG_LUX_HIGH 0x3
-#define MAX44009_REG_LUX_LOW 0x4
-#define MAX44009_REG_THRESH_HIGH 0x5
-#define MAX44009_REG_THRESH_LOW 0x6
-#define MAX44009_REG_THRESH_TIMER 0x7
+// +---------------------------------------------------------------------------+
+// | TASKS AND OBJECTS
+// +---------------------------------------------------------------------------+
+static BirdHead s_birdhead;
+static DaylightSensor s_daylightsensor;
 
-#define BUFFERLEN_0 16
-#define BUFFERLEN_1 16
+#define TASK_COUNT 1
+static Task* s_tasks[TASK_COUNT];
 
-uint8_t buffer0[BUFFERLEN_0] = { 0 };
-uint8_t buffer1[BUFFERLEN_1] = { 0 };
-
-static volatile uint32_t msTicks; /* counts 1ms timeTicks */
-
-static void Delay(uint32_t dlyTicks);
-
-/***************************************************************************//**
- * @brief SysTick_Handler
- * Interrupt Service Routine for system tick counter
- ******************************************************************************/
-void SysTick_Handler(void) {
-    msTicks++; /* increment counter necessary in Delay()*/
-}
-
-/***************************************************************************//**
- * @brief Delays number of msTick Systicks (typically 1 ms)
- * @param dlyTicks Number of ticks to delay
- ******************************************************************************/
-static void Delay(uint32_t dlyTicks) {
-    uint32_t curTicks;
-
-    curTicks = msTicks;
-    while ((msTicks - curTicks) < dlyTicks)
-        ;
-}
-
+// +---------------------------------------------------------------------------+
+// | MAIN!
+// +---------------------------------------------------------------------------+
 int main(void) {
     /* Chip errata */
     CHIP_Init();
 
     enter_DefaultMode_from_RESET();
 
-    TIMER_CompareBufSet(TIMER0, 1, 0xFF);
+    BirdHead* bh = init_bird_head(&s_birdhead, TIMER0, 1, 2);
+    (void)bh;
+    DaylightSensor* ds = init_daylight_sensor_max44009(&s_daylightsensor, I2C0);
+    s_tasks[0] = (Task*)ds;
 
-    /* Setup SysTick Timer for 1 msec interrupts  */
-    if (SysTick_Config(CMU_ClockFreqGet(cmuClock_CORE) / 1000)) {
-        while (1)
-            ;
-    }
+    bh->set_all_brightness(bh, 0xFF);
 
-    buffer0[0] = MAX44009_REG_INT_STAT;
-
-    I2C_TransferSeq_TypeDef transfer = {
-            .addr  = MAX44009_ADDRESS,
-            .flags = I2C_FLAG_READ,
-            .buf   = { { buffer0, 1 },
-                       { buffer1, 1 },
-                     }
-    };
-
-    while (1) {
+#ifdef LED0_PORT
         GPIO_PinOutSet(LED0_PORT, LED0_PIN);
-        I2C_TransferReturn_TypeDef result = I2C_TransferInit(I2C0, &transfer);
-
-        while (result == i2cTransferInProgress) {
+#endif
+    while (1) {
+        bool all_tasks_idle = true;
+        for (size_t i = 0; i < TASK_COUNT; ++i) {
+#ifdef LED1_PORT
             GPIO_PinOutSet(LED1_PORT, LED1_PIN);
-            result = I2C_Transfer(I2C0);
+#endif
+            Task *const task = s_tasks[i];
+            if (!task->run_cycle(task)) {
+                all_tasks_idle = false;
+            }
+#ifdef LED1_PORT
             GPIO_PinOutClear(LED1_PORT, LED1_PIN);
+#endif
         }
+        // TODO: sleep on idle.
+        if (all_tasks_idle) {
+#ifdef LED0_PORT
         GPIO_PinOutClear(LED0_PORT, LED0_PIN);
-        Delay(250);
+#endif
+        } else {
+#ifdef LED0_PORT
+        GPIO_PinOutSet(LED0_PORT, LED0_PIN);
+#endif
+        }
     }
 }
