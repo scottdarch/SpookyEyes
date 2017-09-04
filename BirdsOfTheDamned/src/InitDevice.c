@@ -409,8 +409,9 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     TIMER0->ROUTE = (TIMER0->ROUTE & ~_TIMER_ROUTE_LOCATION_MASK)
             | TIMER_ROUTE_LOCATION_LOC4;
 
-    /* Enable signals CC1, CC2 */
-    TIMER0->ROUTE |= TIMER_ROUTE_CC1PEN | TIMER_ROUTE_CC2PEN;
+    /* Enable signals CC0, CC1, CC2 */
+    TIMER0->ROUTE |= TIMER_ROUTE_CC0PEN | TIMER_ROUTE_CC1PEN
+            | TIMER_ROUTE_CC2PEN;
     // [Route Configuration]$
 
 }
