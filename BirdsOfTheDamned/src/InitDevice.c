@@ -350,13 +350,15 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port A Configuration]
 
-    /* Pin PA0 is configured to Input enabled with pull-up and filter */
+    /* Pin PA0 is configured to Input disabled with pull-up */
     GPIO->P[0].DOUT |= (1 << 0);
-    GPIO->P[0].MODEL = (GPIO->P[0].MODEL & ~_GPIO_P_MODEL_MODE0_MASK)
-            | GPIO_P_MODEL_MODE0_INPUTPULLFILTER;
     // [Port A Configuration]$
 
     // $[Port B Configuration]
+
+    /* Pin PB7 is configured to Push-pull with alt. drive strength */
+    GPIO->P[1].MODEL = (GPIO->P[1].MODEL & ~_GPIO_P_MODEL_MODE7_MASK)
+            | GPIO_P_MODEL_MODE7_PUSHPULLDRIVE;
     // [Port B Configuration]$
 
     // $[Port C Configuration]
@@ -373,10 +375,6 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     /* Pin PC11 is configured to Push-pull */
     GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
             | GPIO_P_MODEH_MODE11_PUSHPULL;
-
-    /* Pin PC14 is configured to Push-pull */
-    GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE14_MASK)
-            | GPIO_P_MODEH_MODE14_PUSHPULL;
     // [Port C Configuration]$
 
     // $[Port D Configuration]
@@ -394,6 +392,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     // [Port E Configuration]$
 
     // $[Port F Configuration]
+
+    /* Pin PF2 is configured to Input enabled */
+    GPIO->P[5].MODEL = (GPIO->P[5].MODEL & ~_GPIO_P_MODEL_MODE2_MASK)
+            | GPIO_P_MODEL_MODE2_INPUT;
     // [Port F Configuration]$
 
     // $[Route Configuration]
@@ -409,9 +411,8 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     TIMER0->ROUTE = (TIMER0->ROUTE & ~_TIMER_ROUTE_LOCATION_MASK)
             | TIMER_ROUTE_LOCATION_LOC4;
 
-    /* Enable signals CC0, CC1, CC2 */
-    TIMER0->ROUTE |= TIMER_ROUTE_CC0PEN | TIMER_ROUTE_CC1PEN
-            | TIMER_ROUTE_CC2PEN;
+    /* Enable signals CC0, CC1 */
+    TIMER0->ROUTE |= TIMER_ROUTE_CC0PEN | TIMER_ROUTE_CC1PEN;
     // [Route Configuration]$
 
 }
