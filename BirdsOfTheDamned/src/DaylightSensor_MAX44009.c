@@ -31,7 +31,7 @@
 #define MAX44009_REG_THRESH_TIMER 0x7
 
 
-static uint8_t _reg_config[] = { MAX44009_REG_CONFIG, 0x40 };
+static uint8_t _reg_config[] = { MAX44009_REG_CONFIG, 0x00 };
 
 // Time delay = (128xT7 + 64xT6 + 32xT5 + 16xT4 + 8xT3 + 4xT2 + 2xT1 + T0) x 100ms
 static uint8_t _reg_threshold_timer[] = { MAX44009_REG_THRESH_TIMER, 30 };
@@ -41,7 +41,7 @@ static uint8_t _reg_threshold_timer[] = { MAX44009_REG_THRESH_TIMER, 30 };
 // Lower lux threshold = 2(exponent) x mantissa x 0.045
 // Exponent = 8xLE3 + 4xLE2 + 2xLE1 + LE0
 // Mantissa = 128xLM7 + 64xLM6 + 32xLM5 + 16xLM4
-static uint8_t _reg_threshold_low[] = { MAX44009_REG_THRESH_LOW, 0x04 };
+static uint8_t _reg_threshold_low[] = { MAX44009_REG_THRESH_LOW, 0x05 };
 
 static uint8_t _reg_int_enable[] = { MAX44009_REG_INT_EN, 0x01 };
 

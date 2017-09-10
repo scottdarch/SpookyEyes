@@ -1041,11 +1041,11 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <attribute name="NAME" x="34.3662" y="8.4328" size="0.6096" layer="25" font="vector" ratio="20" rot="R180"/>
 </element>
 <element name="U$2" library="boneyard" package="32BITS_LOGO" value="" x="45.847" y="3.556" rot="MR0"/>
-<element name="R3" library="Seeed-Resistor" library_urn="urn:adsk.eagle:library:474" package="R0402" package3d_urn="urn:adsk.eagle:package:32792/1" value="1K" x="25.4" y="1.3155" smashed="yes">
+<element name="R3" library="Seeed-Resistor" library_urn="urn:adsk.eagle:library:474" package="R0402" package3d_urn="urn:adsk.eagle:package:32792/1" value="1.8K" x="25.4" y="1.3155" smashed="yes">
 <attribute name="MPN" value="RC0402JR-071KL" x="25.4" y="1.3155" size="1.778" layer="27" display="off"/>
 <attribute name="NAME" x="26.4975" y="0.381" size="0.6096" layer="25" ratio="20"/>
 </element>
-<element name="R4" library="Seeed-Resistor" library_urn="urn:adsk.eagle:library:474" package="R0402" package3d_urn="urn:adsk.eagle:package:32792/1" value="1K" x="26.543" y="2.0225" smashed="yes" rot="R180">
+<element name="R4" library="Seeed-Resistor" library_urn="urn:adsk.eagle:library:474" package="R0402" package3d_urn="urn:adsk.eagle:package:32792/1" value="1.8K" x="26.543" y="2.0225" smashed="yes" rot="R180">
 <attribute name="MPN" value="RC0402JR-071KL" x="26.543" y="2.0225" size="1.778" layer="27" rot="R180" display="off"/>
 <attribute name="NAME" x="24.9015" y="1.143" size="0.6096" layer="25" ratio="20" rot="R180"/>
 </element>
@@ -1326,8 +1326,8 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <vertex x="3.302" y="7.874"/>
 <vertex x="4.064" y="7.112"/>
 <vertex x="5.08" y="7.112"/>
-<vertex x="6.731" y="8.763"/>
-<vertex x="6.731" y="11.049"/>
+<vertex x="5.842" y="7.874"/>
+<vertex x="5.842" y="11.938"/>
 <vertex x="5.08" y="12.7"/>
 <vertex x="4.064" y="12.7"/>
 </polygon>
@@ -1600,21 +1600,21 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <approved hash="19,16,076b087b08660776"/>
 <approved hash="19,16,a3c350d353f2a0e2"/>
 <approved hash="19,1,e7231bc318a2e442"/>
-<approved hash="19,1,76cb112b123675d6"/>
 <approved hash="19,1,740313e312a27542"/>
+<approved hash="19,1,76cb112b123675d6"/>
+<approved hash="19,1,9f213fc13ca39c43"/>
 <approved hash="19,1,9bf93b193a7b9a9b"/>
 <approved hash="19,1,991939f93c3b9cdb"/>
-<approved hash="19,1,9f213fc13ca39c43"/>
-<approved hash="19,1,f8f75d175e0bfbeb"/>
 <approved hash="19,1,fa3f5fdf5e9ffb7f"/>
+<approved hash="19,1,f8f75d175e0bfbeb"/>
 <approved hash="19,1,07207bc078a00440"/>
 <approved hash="19,1,6d6f5a377d44b52b"/>
 <approved hash="5,1,9a6db1e1a2f04d91"/>
 <approved hash="19,1,68fc7185d917dc25"/>
 <approved hash="19,1,b3711b751a44b240"/>
 <approved hash="19,1,186e219899a75f66"/>
-<approved hash="19,1,c010c4c7d130246a"/>
 <approved hash="19,1,13323d8b05a52ed6"/>
+<approved hash="19,1,c010c4c7d130246a"/>
 <approved hash="4,16,d37e9cb803278ce2"/>
 <approved hash="19,16,787b181b1a1e7a7e"/>
 <approved hash="19,16,7fbf1fdf1cbe7cde"/>

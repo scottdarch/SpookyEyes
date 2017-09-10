@@ -415,9 +415,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port F Configuration]
 
-    /* Pin PF2 is configured to Input enabled */
+    /* Pin PF2 is configured to Input enabled with pull-up */
+    GPIO->P[5].DOUT |= (1 << 2);
     GPIO->P[5].MODEL = (GPIO->P[5].MODEL & ~_GPIO_P_MODEL_MODE2_MASK)
-            | GPIO_P_MODEL_MODE2_INPUT;
+            | GPIO_P_MODEL_MODE2_INPUTPULL;
     // [Port F Configuration]$
 
     // $[Route Configuration]

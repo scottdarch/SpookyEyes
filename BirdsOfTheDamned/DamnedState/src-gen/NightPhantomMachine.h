@@ -19,7 +19,7 @@ typedef enum
 	NightPhantomMachine_main_region_running,
 	NightPhantomMachine_main_region_running_r0_reading_sensitivity,
 	NightPhantomMachine_main_region_running_r0_glowing,
-	NightPhantomMachine_main_region_idling
+	NightPhantomMachine_main_region__final_
 } NightPhantomMachineStates;
 
 /*! Type definition of the data structure for the NightPhantomMachineIfaceTrimpot interface scope. */
@@ -30,12 +30,6 @@ typedef struct
 	sc_real adc_conversion_complete_value;
 } NightPhantomMachineIfaceTrimpot;
 
-/*! Type definition of the data structure for the NightPhantomMachineIfacePm interface scope. */
-typedef struct
-{
-	sc_boolean do_sleep_raised;
-} NightPhantomMachineIfacePm;
-
 
 /*! Define dimension of the state configuration vector for orthogonal states. */
 #define NIGHTPHANTOMMACHINE_MAX_ORTHOGONAL_STATES 1
@@ -44,7 +38,7 @@ typedef struct
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_READING_SENSITIVITY 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_GLOWING 0
-#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_IDLING 0
+#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION__FINAL_ 0
 
 /*! 
  * Type definition of the data structure for the NightPhantomMachine state machine.
@@ -56,7 +50,6 @@ typedef struct
 	sc_ushort stateConfVectorPosition; 
 	
 	NightPhantomMachineIfaceTrimpot ifaceTrimpot;
-	NightPhantomMachineIfacePm ifacePm;
 } NightPhantomMachine;
 
 
@@ -78,9 +71,6 @@ extern sc_boolean nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(
 
 /*! Raises the in event 'adc_conversion_complete' that is defined in the interface scope 'trimpot'. */ 
 extern void nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(NightPhantomMachine* handle, sc_real value);
-
-/*! Checks if the out event 'do_sleep' that is defined in the interface scope 'pm' has been raised. */ 
-extern sc_boolean nightPhantomMachineIfacePm_israised_do_sleep(const NightPhantomMachine* handle);
 
 
 /*!

@@ -44,7 +44,6 @@ extern void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle)
 
 
 
-
 #ifdef __cplusplus
 }
 #endif 

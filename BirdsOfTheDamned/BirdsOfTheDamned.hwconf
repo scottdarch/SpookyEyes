@@ -28,7 +28,11 @@
     <property object="PC14" propertyId="ports.settings.custompinname" value=""/>
     <property object="PE12" propertyId="ports.settings.pinmode" value="Wired-and pullup filter"/>
     <property object="PE13" propertyId="ports.settings.pinmode" value="Wired-and pullup filter"/>
-    <property object="PF2" propertyId="ports.settings.pinmode" value="Input"/>
+    <property object="PF2" propertyId="ports.settings.dout" value="1"/>
+    <property object="PF2" propertyId="ports.settings.filter" value="Enabled"/>
+    <property object="PF2" propertyId="ports.settings.pinmode" value="Input pull"/>
+    <property object="PF2" propertyId="ports.settings.pulldirection" value="Pullup"/>
+    <property object="PF2" propertyId="ports.settings.pullup" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.acmp0.enable.ch1" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.gpio.enable.em4wu4" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.enable.scl" value="Enabled"/>

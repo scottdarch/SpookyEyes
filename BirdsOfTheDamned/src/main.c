@@ -16,6 +16,7 @@
 
 #include "em_device.h"
 #include "em_chip.h"
+#include "em_emu.h"
 #include "InitDevice.h"
 
 #include "BirdHead.h"
@@ -56,7 +57,7 @@ int main(void) {
     nightPhantomMachine_enter(&s_machine);
 
 #ifdef LED0_PORT
-        GPIO_PinOutSet(LED0_PORT, LED0_PIN);
+    GPIO_PinOutSet(LED0_PORT, LED0_PIN);
 #endif
     while (1) {
 
@@ -65,14 +66,20 @@ int main(void) {
             nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, 0.0f);
         }
 
-        if (nightPhantomMachineIfacePm_israised_do_sleep(&s_machine)) {
+        if (!GPIO_PinInGet(GPIO_EM4WU4_PORT, GPIO_EM4WU4_PIN)) {
+            s_daylightsensor->reset_interrupt(s_daylightsensor);
+        }
+
+        if (nightPhantomMachine_isFinal(&s_machine)) {
 #ifdef LED0_PORT
             GPIO_PinOutClear(LED0_PORT, LED0_PIN);
 #endif
-        } else {
-#ifdef LED0_PORT
-            GPIO_PinOutSet(LED0_PORT, LED0_PIN);
-#endif
+            // We're about to shut off the MCU completely. The light sensor's
+            // interrupt will wake it back up when it's dark out.
+            GPIO_EM4EnablePinWakeup(GPIO_EM4WUEN_EM4WUEN_F2, 0);
+            EMU_EnterEM4();
+            // Reset after wake since all our state is lost in EM4
+            SCB->AIRCR = (0x05FA << SCB_AIRCR_VECTKEY_Pos) | (1 << SCB_AIRCR_SYSRESETREQ_Pos);
         }
 
         // +--[RUN MACHINE]----------------------------------------------------+
@@ -98,7 +105,6 @@ void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomM
 sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle) {
     DaylightSensor* const sh = s_daylightsensor;
     if (sh) {
-        sh->reset_interrupt(sh);
         return sh->get_is_nighttime(sh);
     } else {
         return false;
