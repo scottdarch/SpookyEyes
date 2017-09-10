@@ -3632,7 +3632,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="VSS1" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND2" device="" value="VSS"/>
 <part name="VSS2" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND2" device="" value="VSS"/>
 <part name="VSS3" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND2" device="" value="VSS"/>
-<part name="R6" library="Seeed-Resistor" library_urn="urn:adsk.eagle:library:474" deviceset="SMD-RES-1K-5%-1/16W(0402)" device="" package3d_urn="urn:adsk.eagle:package:32792/1" value="1K"/>
 <part name="VSS4" library="SparkFun-PowerSymbols" library_urn="urn:adsk.eagle:library:530" deviceset="GND2" device="" value="VSS"/>
 </parts>
 <sheets>
@@ -3678,7 +3677,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="VSS1" gate="G$1" x="5.08" y="64.262"/>
 <instance part="VSS2" gate="G$1" x="76.2" y="5.842"/>
 <instance part="VSS3" gate="G$1" x="142.24" y="56.642"/>
-<instance part="R6" gate="G$1" x="-25.4" y="63.5" rot="R180"/>
 <instance part="VSS4" gate="G$1" x="129.54" y="95.758" rot="R180"/>
 </instances>
 <busses>
@@ -4005,16 +4003,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="30.988" y="68.834" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="R6" gate="G$1" pin="1"/>
-<wire x1="-21.59" y1="63.5" x2="-12.7" y2="63.5" width="0.1524" layer="91"/>
-<label x="-17.78" y="64.262" size="1.778" layer="95"/>
-</segment>
-</net>
-<net name="ADJ_PWR_SAFE" class="0">
-<segment>
 <pinref part="R5" gate="A" pin="3"/>
-<pinref part="R6" gate="G$1" pin="2"/>
-<wire x1="-33.02" y1="63.5" x2="-29.21" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="-20.32" y1="63.5" x2="-33.02" y2="63.5" width="0.1524" layer="91"/>
+<label x="-29.718" y="64.262" size="1.778" layer="95"/>
 </segment>
 </net>
 </nets>

@@ -12,21 +12,29 @@
  * CONDITIONS OF ANY KIND, either express or implied. See the License for the
  * specific language governing permissions and limitations under the License.
  */
+#include <stdbool.h>
+
 #include "em_device.h"
 #include "em_chip.h"
 #include "InitDevice.h"
 
 #include "BirdHead.h"
 #include "DaylightSensor.h"
+#include "Trimmer.h"
+#include "NightPhantomMachine.h"
 
 // +---------------------------------------------------------------------------+
 // | TASKS AND OBJECTS
 // +---------------------------------------------------------------------------+
-static BirdHead s_birdhead;
-static DaylightSensor s_daylightsensor;
+static NightPhantomMachine s_machine;
 
-#define TASK_COUNT 1
-static Task* s_tasks[TASK_COUNT];
+static BirdHead s_birdhead_data;
+static DaylightSensor s_daylightsensor_data;
+static Trimmer s_trimmer_data;
+
+static BirdHead* s_birdhead = NULL;
+static DaylightSensor* s_daylightsensor = NULL;
+static Trimmer* s_trimmer = NULL;
 
 // +---------------------------------------------------------------------------+
 // | MAIN!
@@ -37,39 +45,95 @@ int main(void) {
 
     enter_DefaultMode_from_RESET();
 
-    BirdHead* bh = init_bird_head(&s_birdhead, TIMER0, 1, 2);
-    (void)bh;
-    DaylightSensor* ds = init_daylight_sensor_max44009(&s_daylightsensor, I2C0);
-    s_tasks[0] = (Task*)ds;
+    s_birdhead = init_bird_head(&s_birdhead_data, TIMER0, 1, 2);
+    s_daylightsensor = init_daylight_sensor_max44009(&s_daylightsensor_data, I2C0);
+    s_trimmer = init_trimmer(&s_trimmer_data, ACMP0_CH1_PORT,
+                                              ACMP0_CH1_PIN,
+                                              ADJ_PWR_PORT,
+                                              ADJ_PWR_PIN);
 
-    bh->set_all_brightness(bh, 0xFF);
+    nightPhantomMachine_init(&s_machine);
+
+    nightPhantomMachine_enter(&s_machine);
 
 #ifdef LED0_PORT
         GPIO_PinOutSet(LED0_PORT, LED0_PIN);
 #endif
     while (1) {
-        bool all_tasks_idle = true;
-        for (size_t i = 0; i < TASK_COUNT; ++i) {
-#ifdef LED1_PORT
-            GPIO_PinOutSet(LED1_PORT, LED1_PIN);
-#endif
-            Task *const task = s_tasks[i];
-            if (!task->run_cycle(task)) {
-                all_tasks_idle = false;
-            }
-#ifdef LED1_PORT
-            GPIO_PinOutClear(LED1_PORT, LED1_PIN);
-#endif
+
+        // +--[EVENTS]---------------------------------------------------------+
+        if (nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(&s_machine)) {
+            nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, 0.0f);
         }
-        // TODO: sleep on idle.
-        if (all_tasks_idle) {
+
+        if (nightPhantomMachineIfacePm_israised_do_sleep(&s_machine)) {
 #ifdef LED0_PORT
-        GPIO_PinOutClear(LED0_PORT, LED0_PIN);
+            GPIO_PinOutClear(LED0_PORT, LED0_PIN);
 #endif
         } else {
 #ifdef LED0_PORT
-        GPIO_PinOutSet(LED0_PORT, LED0_PIN);
+            GPIO_PinOutSet(LED0_PORT, LED0_PIN);
 #endif
         }
+
+        // +--[RUN MACHINE]----------------------------------------------------+
+#ifdef LED1_PORT
+        GPIO_PinOutSet(LED1_PORT, LED1_PIN);
+#endif
+        nightPhantomMachine_runCycle(&s_machine);
+
+#ifdef LED1_PORT
+        GPIO_PinOutClear(LED1_PORT, LED1_PIN);
+#endif
+
     }
 }
+
+// +---------------------------------------------------------------------------+
+// | YAKINDU MACHINE
+// +---------------------------------------------------------------------------+
+void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomMachine* handle, const sc_real sensitivity) {
+
+}
+
+sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle) {
+    return true;
+}
+
+
+void nightPhantomMachineIfaceEyes_start_glowing(const NightPhantomMachine* handle) {
+    BirdHead* const bh = s_birdhead;
+    if (bh) {
+        bh->set_mode(bh, BIRDEYEMODE_ON);
+    }
+}
+
+void nightPhantomMachineIfaceEyes_stop_glowing(const NightPhantomMachine* handle) {
+    BirdHead* const bh = s_birdhead;
+    if (bh) {
+        bh->set_mode(bh, BIRDEYEMODE_OFF);
+    }
+}
+
+sc_boolean nightPhantomMachineIfaceEyes_is_glowing(const NightPhantomMachine* handle) {
+    BirdHead* const bh = s_birdhead;
+    if (bh) {
+        return bh->run_cycle(bh);
+    } else {
+        return false;
+    }
+}
+
+void nightPhantomMachineIfaceWdt_enable(const NightPhantomMachine* handle) {
+
+}
+
+void nightPhantomMachineIfaceWdt_disable(const NightPhantomMachine* handle) {
+
+}
+
+void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle) {
+
+}
+
+

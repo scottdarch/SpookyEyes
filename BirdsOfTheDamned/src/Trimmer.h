@@ -16,13 +16,17 @@
 #pragma once
 
 #include <stdbool.h>
+#include "em_gpio.h"
 
-typedef struct TaskType {
+typedef struct TrimmerType {
+    GPIO_Port_TypeDef cmp_port;
+    unsigned int cmp_pin;
+    GPIO_Port_TypeDef pwr_port;
+    unsigned int pwr_pin;
+} Trimmer;
 
-    /**
-     *
-     * @param[in] self The object to apply the function to.
-     * @return {@code true} if idle else {@code false}.
-     */
-    bool (*run_cycle)(struct TaskType* self);
-} Task;
+Trimmer* init_trimmer(Trimmer* init,
+                      GPIO_Port_TypeDef cmp_port,
+                      unsigned int cmp_pin,
+                      GPIO_Port_TypeDef pwr_port,
+                      unsigned int pwr_pin);

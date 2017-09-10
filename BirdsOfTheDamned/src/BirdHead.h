@@ -18,9 +18,15 @@
 #include <stdint.h>
 #include "em_timer.h"
 
-typedef struct BirdHeadType {
+typedef enum {
+    BIRDEYEMODE_OFF,
+    BIRDEYEMODE_ON
+} BirdEyeMode;
 
-    void (*set_all_brightness)(struct BirdHeadType* self, uint32_t brightness);
+
+typedef struct BirdHeadType {
+    unsigned int (*run_cycle)(struct BirdHeadType*);
+    void (*set_mode)(struct BirdHeadType*, BirdEyeMode);
 
     // +-----------------------------------------------------------------------+
     // | PRIVATE
@@ -28,6 +34,9 @@ typedef struct BirdHeadType {
     TIMER_TypeDef* _timer;
     unsigned int _channel_left_eye;
     unsigned int _channel_right_eye;
+    BirdEyeMode _mode;
+    bool _forward;
+    uint16_t _intensity;
 } BirdHead;
 
 BirdHead* init_bird_head(BirdHead* init, TIMER_TypeDef* timer, unsigned int channel_left_eye, unsigned int channel_right_eye);

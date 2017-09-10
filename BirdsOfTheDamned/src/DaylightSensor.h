@@ -15,11 +15,9 @@
 
 #pragma once
 
-#include "Task.h"
 #include "em_i2c.h"
 
 typedef struct DaylightSensorType {
-    Task super;
 
     // +-----------------------------------------------------------------------+
     // | PRIVATE

@@ -5,7 +5,7 @@ BirdsOfTheDamned/BirdsOfTheDamned/Release/
 *.b#*
 *.s#*
 *.l#*
-/.metadata/
+.metadata/
 eclipse.sh
 .settings
 .project

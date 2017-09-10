@@ -79,16 +79,15 @@ static I2C_TransferSeq_TypeDef _config_messages[] = {
 // +--------------------------------------------------------------------------+
 // | Task
 // +--------------------------------------------------------------------------+
-static bool daylight_sensor_task_run_cycle(Task* self) {
-    DaylightSensor* dl_self = (DaylightSensor*)self;
-    if (dl_self->_config_state_ptr < dl_self->_config_states) {
-        if (i2cTransferInProgress == dl_self->_last_state) {
-            dl_self->_last_state = I2C_Transfer(dl_self->_i2c_peripheral);
-            if (i2cTransferDone == dl_self->_last_state) {
-                dl_self->_config_state_ptr++;
+static bool daylight_sensor_task_run_cycle(DaylightSensor* self) {
+    if (self->_config_state_ptr < self->_config_states) {
+        if (i2cTransferInProgress == self->_last_state) {
+            self->_last_state = I2C_Transfer(self->_i2c_peripheral);
+            if (i2cTransferDone == self->_last_state) {
+                self->_config_state_ptr++;
             }
         } else {
-            dl_self->_last_state = I2C_TransferInit(dl_self->_i2c_peripheral, &(_config_messages[dl_self->_config_state_ptr]) );
+            self->_last_state = I2C_TransferInit(self->_i2c_peripheral, &(_config_messages[self->_config_state_ptr]) );
         }
         return false;
     } else {
@@ -101,7 +100,6 @@ static bool daylight_sensor_task_run_cycle(Task* self) {
 // +--------------------------------------------------------------------------+
 DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral) {
     if (init) {
-        init->super.run_cycle = daylight_sensor_task_run_cycle;
         init->_i2c_peripheral = i2c_peripheral;
         init->_last_state = i2cTransferDone;
         init->_config_states = sizeof(_config_messages) / sizeof(I2C_TransferSeq_TypeDef);
