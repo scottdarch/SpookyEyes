@@ -19,15 +19,15 @@
 
 typedef struct DaylightSensorType {
 
+    unsigned int (*get_is_nighttime)(struct DaylightSensorType* self);
+    void (*reset_interrupt)(struct DaylightSensorType* self);
+
     // +-----------------------------------------------------------------------+
     // | PRIVATE
     // +-----------------------------------------------------------------------+
     I2C_TransferSeq_TypeDef _transfer;
     I2C_TypeDef* _i2c_peripheral;
-    I2C_TransferReturn_TypeDef _last_state;
 
-    size_t _config_states;
-    size_t _config_state_ptr;
 } DaylightSensor;
 
 DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral);

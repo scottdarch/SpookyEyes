@@ -53,7 +53,6 @@ int main(void) {
                                               ADJ_PWR_PIN);
 
     nightPhantomMachine_init(&s_machine);
-
     nightPhantomMachine_enter(&s_machine);
 
 #ifdef LED0_PORT
@@ -97,7 +96,13 @@ void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomM
 }
 
 sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle) {
-    return true;
+    DaylightSensor* const sh = s_daylightsensor;
+    if (sh) {
+        sh->reset_interrupt(sh);
+        return sh->get_is_nighttime(sh);
+    } else {
+        return false;
+    }
 }
 
 

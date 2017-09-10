@@ -41,7 +41,7 @@ static uint8_t _reg_threshold_timer[] = { MAX44009_REG_THRESH_TIMER, 30 };
 // Lower lux threshold = 2(exponent) x mantissa x 0.045
 // Exponent = 8xLE3 + 4xLE2 + 2xLE1 + LE0
 // Mantissa = 128xLM7 + 64xLM6 + 32xLM5 + 16xLM4
-static uint8_t _reg_threshold_low[] = { MAX44009_REG_THRESH_LOW, 0x01 };
+static uint8_t _reg_threshold_low[] = { MAX44009_REG_THRESH_LOW, 0x04 };
 
 static uint8_t _reg_int_enable[] = { MAX44009_REG_INT_EN, 0x01 };
 
@@ -76,23 +76,70 @@ static I2C_TransferSeq_TypeDef _config_messages[] = {
     }
 };
 
+
 // +--------------------------------------------------------------------------+
-// | Task
+// | I2C
 // +--------------------------------------------------------------------------+
-static bool daylight_sensor_task_run_cycle(DaylightSensor* self) {
-    if (self->_config_state_ptr < self->_config_states) {
-        if (i2cTransferInProgress == self->_last_state) {
-            self->_last_state = I2C_Transfer(self->_i2c_peripheral);
-            if (i2cTransferDone == self->_last_state) {
-                self->_config_state_ptr++;
+static void daylight_sensor_setup_peripheral(DaylightSensor* self) {
+    I2C_TransferReturn_TypeDef last_state = i2cTransferDone;
+    static const size_t config_states = sizeof(_config_messages) / sizeof(I2C_TransferSeq_TypeDef);
+    size_t config_state_ptr = 0;
+    while (config_state_ptr < config_states) {
+        if (i2cTransferInProgress == last_state) {
+            last_state = I2C_Transfer(self->_i2c_peripheral);
+            if (i2cTransferDone == last_state) {
+               config_state_ptr++;
             }
         } else {
-            self->_last_state = I2C_TransferInit(self->_i2c_peripheral, &(_config_messages[self->_config_state_ptr]) );
+            last_state = I2C_TransferInit(self->_i2c_peripheral, &(_config_messages[config_state_ptr]) );
         }
-        return false;
-    } else {
-        return true;
     }
+}
+
+static void daylight_sensor_reset_interrupt(DaylightSensor* self) {
+    I2C_TransferReturn_TypeDef last_state = i2cTransferDone;
+    uint8_t register_address = MAX44009_REG_INT_STAT;
+    uint8_t reset_status = 0;
+
+    I2C_TransferSeq_TypeDef reset_interrupt = {
+            .addr  = MAX44009_ADDRESS,
+            .flags = I2C_FLAG_WRITE_READ,
+            .buf   = { { &register_address, 1 },
+                       { &reset_status, 1 },
+            }
+        };
+
+    do {
+        if (i2cTransferInProgress == last_state) {
+            last_state = I2C_Transfer(self->_i2c_peripheral);
+        } else {
+            last_state = I2C_TransferInit(self->_i2c_peripheral, &reset_interrupt );
+        }
+    } while(i2cTransferInProgress == last_state);
+}
+
+static unsigned int daylight_sensor_get_is_nighttime(DaylightSensor* self) {
+    uint8_t lux_low = 0;
+    I2C_TransferReturn_TypeDef last_state = i2cTransferDone;
+    uint8_t register_address = MAX44009_REG_LUX_HIGH;
+
+    I2C_TransferSeq_TypeDef lux_high = {
+            .addr  = MAX44009_ADDRESS,
+            .flags = I2C_FLAG_WRITE_READ,
+            .buf   = { { &register_address, 1 },
+                       { &lux_low, 1 },
+            }
+        };
+
+    do {
+        if (i2cTransferInProgress == last_state) {
+            last_state = I2C_Transfer(self->_i2c_peripheral);
+        } else {
+            last_state = I2C_TransferInit(self->_i2c_peripheral, &lux_high );
+        }
+    } while(i2cTransferInProgress == last_state);
+
+    return (lux_low <= _reg_threshold_low[1]);
 }
 
 // +--------------------------------------------------------------------------+
@@ -101,9 +148,9 @@ static bool daylight_sensor_task_run_cycle(DaylightSensor* self) {
 DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral) {
     if (init) {
         init->_i2c_peripheral = i2c_peripheral;
-        init->_last_state = i2cTransferDone;
-        init->_config_states = sizeof(_config_messages) / sizeof(I2C_TransferSeq_TypeDef);
-        init->_config_state_ptr = 0;
+        init->get_is_nighttime = daylight_sensor_get_is_nighttime;
+        init->reset_interrupt = daylight_sensor_reset_interrupt;
+        daylight_sensor_setup_peripheral(init);
     }
     return init;
 }
