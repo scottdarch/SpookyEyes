@@ -26,7 +26,14 @@ static void trimmer_private_enable_power(Trimmer* self) {
 
 static void trimmer_start_sample(Trimmer* self) {
     trimmer_private_enable_power(self);
+    self->_completion_event = true;
     // TODO: start ADC conversion
+}
+
+static unsigned int trimmer_is_conversion_complete(Trimmer* self) {
+    const unsigned int event = self->_completion_event;
+    self->_completion_event = false;
+    return event;
 }
 
 Trimmer* init_trimmer(Trimmer* init,
@@ -35,10 +42,13 @@ Trimmer* init_trimmer(Trimmer* init,
         GPIO_Port_TypeDef pwr_port,
         unsigned int pwr_pin) {
     if (init) {
+        init->start_conversion = trimmer_start_sample;
+        init->is_conversion_complete = trimmer_is_conversion_complete;
         init->cmp_port = cmp_port;
         init->cmp_pin = cmp_pin;
         init->pwr_port = pwr_port;
         init->pwr_pin = pwr_pin;
+        init->_completion_event = false;
     }
     return init;
 }

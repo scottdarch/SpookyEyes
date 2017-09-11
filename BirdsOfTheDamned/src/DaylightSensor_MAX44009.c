@@ -145,11 +145,18 @@ static unsigned int daylight_sensor_get_is_nighttime(DaylightSensor* self) {
 // +--------------------------------------------------------------------------+
 // | DaylightSensor
 // +--------------------------------------------------------------------------+
-DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral) {
+DaylightSensor* connect_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral) {
     if (init) {
         init->_i2c_peripheral = i2c_peripheral;
         init->get_is_nighttime = daylight_sensor_get_is_nighttime;
         init->reset_interrupt = daylight_sensor_reset_interrupt;
+    }
+    return init;
+}
+
+DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral) {
+    init = connect_daylight_sensor_max44009(init, i2c_peripheral);
+    if (init) {
         daylight_sensor_setup_peripheral(init);
     }
     return init;

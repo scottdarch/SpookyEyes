@@ -23,6 +23,7 @@
 #include "em_gpio.h"
 #include "em_i2c.h"
 #include "em_timer.h"
+#include "em_wdog.h"
 // [Library includes]$
 
 //==============================================================================
@@ -32,6 +33,7 @@ extern void enter_DefaultMode_from_RESET(void) {
     // $[Config Calls]
     CMU_enter_DefaultMode_from_RESET();
     ACMP0_enter_DefaultMode_from_RESET();
+    WDOG_enter_DefaultMode_from_RESET();
     I2C0_enter_DefaultMode_from_RESET();
     TIMER0_enter_DefaultMode_from_RESET();
     PORTIO_enter_DefaultMode_from_RESET();
@@ -222,12 +224,26 @@ extern void VCMP_enter_DefaultMode_from_RESET(void) {
 extern void WDOG_enter_DefaultMode_from_RESET(void) {
 
     // $[CMU_ClockEnable]
+    /* Enable LE clock for CPU access to BURTC registers */
+    CMU_ClockEnable(cmuClock_CORELE, true);
     // [CMU_ClockEnable]$
 
     // $[CMU_OscillatorEnable]
+    CMU_OscillatorEnable(cmuOsc_LFRCO, true, true);
     // [CMU_OscillatorEnable]$
 
     // $[WDOG_Init]
+    WDOG_Init_TypeDef watchdogInit = WDOG_INIT_DEFAULT;
+
+    watchdogInit.debugRun = 0;
+    watchdogInit.clkSel = wdogClkSelULFRCO;
+    watchdogInit.perSel = wdogPeriod_8k;
+    watchdogInit.swoscBlock = 0;
+    watchdogInit.em4Block = 0;
+    watchdogInit.lock = 0;
+    watchdogInit.em3Run = 0;
+    watchdogInit.em2Run = 0;
+    WDOG_Init(&watchdogInit);
     // [WDOG_Init]$
 
 }
@@ -279,14 +295,14 @@ extern void TIMER0_enter_DefaultMode_from_RESET(void) {
     initCC0.prsInput = false;
     initCC0.prsSel = timerPRSSELCh0;
     initCC0.edge = timerEdgeRising;
-    initCC0.mode = timerCCModeOff;
+    initCC0.mode = timerCCModePWM;
     initCC0.eventCtrl = timerEventEveryEdge;
     initCC0.filter = 0;
-    initCC0.cofoa = timerOutputActionNone;
+    initCC0.cofoa = timerOutputActionSet;
     initCC0.cufoa = timerOutputActionNone;
-    initCC0.cmoa = timerOutputActionNone;
+    initCC0.cmoa = timerOutputActionClear;
     initCC0.coist = 0;
-    initCC0.outInvert = 0;
+    initCC0.outInvert = 1;
     TIMER_InitCC(TIMER0, 0, &initCC0);
     // [TIMER0 CC0 init]$
 
@@ -372,8 +388,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port A Configuration]
 
-    /* Pin PA0 is configured to Input disabled with pull-up */
+    /* Pin PA0 is configured to Push-pull */
     GPIO->P[0].DOUT |= (1 << 0);
+    GPIO->P[0].MODEL = (GPIO->P[0].MODEL & ~_GPIO_P_MODEL_MODE0_MASK)
+            | GPIO_P_MODEL_MODE0_PUSHPULL;
     // [Port A Configuration]$
 
     // $[Port B Configuration]
@@ -381,6 +399,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     /* Pin PB7 is configured to Push-pull with alt. drive strength */
     GPIO->P[1].MODEL = (GPIO->P[1].MODEL & ~_GPIO_P_MODEL_MODE7_MASK)
             | GPIO_P_MODEL_MODE7_PUSHPULLDRIVE;
+
+    /* Pin PB11 is configured to Push-pull with alt. drive strength */
+    GPIO->P[1].MODEH = (GPIO->P[1].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
+            | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE;
     // [Port B Configuration]$
 
     // $[Port C Configuration]

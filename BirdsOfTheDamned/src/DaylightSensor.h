@@ -30,4 +30,5 @@ typedef struct DaylightSensorType {
 
 } DaylightSensor;
 
+DaylightSensor* connect_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral);
 DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral);

@@ -19,10 +19,13 @@
 #include "em_gpio.h"
 
 typedef struct TrimmerType {
+    void (*start_conversion)(struct TrimmerType* self);
+    unsigned int (*is_conversion_complete)(struct TrimmerType* self);
     GPIO_Port_TypeDef cmp_port;
     unsigned int cmp_pin;
     GPIO_Port_TypeDef pwr_port;
     unsigned int pwr_pin;
+    unsigned int _completion_event;
 } Trimmer;
 
 Trimmer* init_trimmer(Trimmer* init,

@@ -40,6 +40,9 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 #define ACMP0_CH1_PIN           (1)
 #define ACMP0_CH1_PORT          (gpioPortC)
 
+#define ADJ_PWR_DEVKIT_PIN      (11)
+#define ADJ_PWR_DEVKIT_PORT     (gpioPortB)
+
 #define ADJ_PWR_PIN             (7)
 #define ADJ_PWR_PORT            (gpioPortB)
 

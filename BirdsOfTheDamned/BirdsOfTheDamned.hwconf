@@ -8,12 +8,16 @@
     <property object="ACMP0" propertyId="acmp.iosettings.ch1" value="Enabled"/>
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="100, 100"/>
     <property object="GPIO" propertyId="ABPeripheral.included" value="true"/>
+    <property object="GPIO" propertyId="gpio.settings.em4wu4" value="Wake-up from EM4 when pin is low"/>
     <property object="I2C0" propertyId="ABPeripheral.included" value="true"/>
     <property object="PA0" propertyId="ports.settings.custompinname" value=""/>
     <property object="PA0" propertyId="ports.settings.dout" value="1"/>
     <property object="PA0" propertyId="ports.settings.filter" value="Enabled"/>
+    <property object="PA0" propertyId="ports.settings.pinmode" value="Push-pull"/>
     <property object="PA0" propertyId="ports.settings.pulldirection" value="Pullup"/>
     <property object="PA0" propertyId="ports.settings.pullup" value="Enabled"/>
+    <property object="PB11" propertyId="ports.settings.custompinname" value="ADJ_PWR_DEVKIT"/>
+    <property object="PB11" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
     <property object="PB7" propertyId="ports.settings.custompinname" value="ADJ_PWR"/>
     <property object="PB7" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
     <property object="PC0" propertyId="ports.settings.dout" value="1"/>
@@ -42,11 +46,17 @@
     <property object="PORTIO" propertyId="portio.timer0.enable.cc1" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.location.timer0" value="4"/>
     <property object="TIMER0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="TIMER0" propertyId="timer.capturecomparech0.ccmode" value="PWM"/>
+    <property object="TIMER0" propertyId="timer.capturecomparech0.countermatchoutputaction" value="Clear on event"/>
+    <property object="TIMER0" propertyId="timer.capturecomparech0.outputinversion" value="Invert the CC channel output"/>
+    <property object="TIMER0" propertyId="timer.capturecomparech0.overflowoutputaction" value="Set on event"/>
     <property object="TIMER0" propertyId="timer.capturecomparech1.ccmode" value="PWM"/>
     <property object="TIMER0" propertyId="timer.capturecomparech1.countermatchoutputaction" value="Clear on event"/>
     <property object="TIMER0" propertyId="timer.capturecomparech1.outputinversion" value="Invert the CC channel output"/>
     <property object="TIMER0" propertyId="timer.capturecomparech1.overflowoutputaction" value="Set on event"/>
     <property object="TIMER1" propertyId="timer.capturecomparech1.ccmode" value="PWM"/>
+    <property object="WDOG" propertyId="ABPeripheral.included" value="true"/>
+    <property object="WDOG" propertyId="wdog.settings.timeoutperiod" value="8k clock cycles"/>
   </mode>
   <modeTransition>
     <property object="RESET &#x2192; DefaultMode" propertyId="modeTransition.source" value="RESET"/>

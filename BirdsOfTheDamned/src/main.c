@@ -17,6 +17,7 @@
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_emu.h"
+#include "em_wdog.h"
 #include "InitDevice.h"
 
 #include "BirdHead.h"
@@ -46,12 +47,21 @@ int main(void) {
 
     enter_DefaultMode_from_RESET();
 
-    s_birdhead = init_bird_head(&s_birdhead_data, TIMER0, 1, 2);
-    s_daylightsensor = init_daylight_sensor_max44009(&s_daylightsensor_data, I2C0);
+    if (RMU->RSTCAUSE & RMU_RSTCAUSE_EM4WURST) {
+        s_daylightsensor = connect_daylight_sensor_max44009(&s_daylightsensor_data, I2C0);
+    } else {
+        s_daylightsensor = init_daylight_sensor_max44009(&s_daylightsensor_data, I2C0);
+    }
+
+    RMU->CMD = RMU_CMD_RCCLR;
+    EMU->AUXCTRL = EMU_AUXCTRL_HRCCLR;
+
+    s_birdhead = init_bird_head(&s_birdhead_data, TIMER0, 0, 1);
+    // TODO: switch to real pin for v1x boards.
     s_trimmer = init_trimmer(&s_trimmer_data, ACMP0_CH1_PORT,
                                               ACMP0_CH1_PIN,
-                                              ADJ_PWR_PORT,
-                                              ADJ_PWR_PIN);
+                                              ADJ_PWR_DEVKIT_PORT,
+                                              ADJ_PWR_DEVKIT_PIN);
 
     nightPhantomMachine_init(&s_machine);
     nightPhantomMachine_enter(&s_machine);
@@ -63,7 +73,7 @@ int main(void) {
 
         // +--[EVENTS]---------------------------------------------------------+
         if (nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(&s_machine)) {
-            nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, 0.0f);
+            s_trimmer->start_conversion(s_trimmer);
         }
 
         if (!GPIO_PinInGet(GPIO_EM4WU4_PORT, GPIO_EM4WU4_PIN)) {
@@ -80,6 +90,10 @@ int main(void) {
             EMU_EnterEM4();
             // Reset after wake since all our state is lost in EM4
             SCB->AIRCR = (0x05FA << SCB_AIRCR_VECTKEY_Pos) | (1 << SCB_AIRCR_SYSRESETREQ_Pos);
+        }
+
+        if (s_trimmer->is_conversion_complete(s_trimmer)) {
+            nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, 0.0f);
         }
 
         // +--[RUN MACHINE]----------------------------------------------------+
@@ -136,15 +150,15 @@ sc_boolean nightPhantomMachineIfaceEyes_is_glowing(const NightPhantomMachine* ha
 }
 
 void nightPhantomMachineIfaceWdt_enable(const NightPhantomMachine* handle) {
-
+    WDOGn_Enable(DEFAULT_WDOG, true);
 }
 
 void nightPhantomMachineIfaceWdt_disable(const NightPhantomMachine* handle) {
-
+    WDOGn_Enable(DEFAULT_WDOG, false);
 }
 
 void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle) {
-
+    WDOGn_Feed(DEFAULT_WDOG);
 }
 
 
