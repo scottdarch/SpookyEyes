@@ -19,7 +19,7 @@
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_assert.h"
-#include "em_acmp.h"
+#include "em_adc.h"
 #include "em_gpio.h"
 #include "em_i2c.h"
 #include "em_timer.h"
@@ -32,7 +32,7 @@
 extern void enter_DefaultMode_from_RESET(void) {
     // $[Config Calls]
     CMU_enter_DefaultMode_from_RESET();
-    ACMP0_enter_DefaultMode_from_RESET();
+    ADC0_enter_DefaultMode_from_RESET();
     WDOG_enter_DefaultMode_from_RESET();
     I2C0_enter_DefaultMode_from_RESET();
     TIMER0_enter_DefaultMode_from_RESET();
@@ -94,8 +94,8 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
     /* No LF peripherals enabled */
     // [LF clock tree setup]$
     // $[Peripheral Clock enables]
-    /* Enable clock for ACMP0 */
-    CMU_ClockEnable(cmuClock_ACMP0, true);
+    /* Enable clock for ADC0 */
+    CMU_ClockEnable(cmuClock_ADC0, true);
 
     /* Enable clock for I2C0 */
     CMU_ClockEnable(cmuClock_I2C0, true);
@@ -116,6 +116,16 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
 extern void ADC0_enter_DefaultMode_from_RESET(void) {
 
     // $[ADC_Init]
+    ADC_Init_TypeDef init = ADC_INIT_DEFAULT;
+
+    init.ovsRateSel = adcOvsRateSel2;
+    init.lpfMode = adcLPFilterBypass;
+    init.warmUpMode = adcWarmupNormal;
+    init.timebase = ADC_TimebaseCalc(0);
+    init.prescale = ADC_PrescaleCalc(7000000, 0);
+    init.tailgate = 0;
+
+    ADC_Init(ADC0, &init);
     // [ADC_Init]$
 
     // $[ADC_InitSingle]
@@ -132,26 +142,9 @@ extern void ADC0_enter_DefaultMode_from_RESET(void) {
 extern void ACMP0_enter_DefaultMode_from_RESET(void) {
 
     // $[ACMP Initialization]
-    ACMP_Init_TypeDef init = ACMP_INIT_DEFAULT;
-
-    init.fullBias = 0;
-    init.halfBias = 0;
-    init.biasProg = 0;
-    init.warmTime = acmpWarmTime512;
-    init.hysteresisLevel = acmpHysteresisLevel5;
-    init.lowPowerReferenceEnabled = 0;
-    init.vddLevel = 61;
-    init.interruptOnFallingEdge = 0;
-    init.interruptOnRisingEdge = 0;
-    init.inactiveValue = 0;
-
-    /* Plain ACMP init. For capacitive sense applications, use ACMP_CapsenseInit() and
-     * ACMP_CapsenseChannelSet() instead. */
-    ACMP_Init(ACMP0, &init);
     // [ACMP Initialization]$
 
     // $[ACMP Channel config]
-    ACMP_ChannelSet(ACMP0, acmpChannelVDD, acmpChannel1);
     // [ACMP Channel config]$
 
 }

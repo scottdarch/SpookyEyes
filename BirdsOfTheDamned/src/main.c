@@ -61,7 +61,8 @@ int main(void) {
     s_trimmer = init_trimmer(&s_trimmer_data, ACMP0_CH1_PORT,
                                               ACMP0_CH1_PIN,
                                               ADJ_PWR_DEVKIT_PORT,
-                                              ADJ_PWR_DEVKIT_PIN);
+                                              ADJ_PWR_DEVKIT_PIN,
+                                              ACMP0);
 
     nightPhantomMachine_init(&s_machine);
     nightPhantomMachine_enter(&s_machine);

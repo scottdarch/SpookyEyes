@@ -17,6 +17,7 @@
 
 #include <stdbool.h>
 #include "em_gpio.h"
+#include "em_adc.h"
 
 typedef struct TrimmerType {
     void (*start_conversion)(struct TrimmerType* self);
@@ -25,11 +26,12 @@ typedef struct TrimmerType {
     unsigned int cmp_pin;
     GPIO_Port_TypeDef pwr_port;
     unsigned int pwr_pin;
-    unsigned int _completion_event;
+    ADC_TypeDef* _adc;
 } Trimmer;
 
 Trimmer* init_trimmer(Trimmer* init,
                       GPIO_Port_TypeDef cmp_port,
                       unsigned int cmp_pin,
                       GPIO_Port_TypeDef pwr_port,
-                      unsigned int pwr_pin);
+                      unsigned int pwr_pin,
+                      ADC_TypeDef* adc);

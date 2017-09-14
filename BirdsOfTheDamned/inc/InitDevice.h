@@ -37,8 +37,8 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 
 // $[User-defined pin name abstraction]
 
-#define ACMP0_CH1_PIN           (1)
-#define ACMP0_CH1_PORT          (gpioPortC)
+#define ADC0_CH6_PIN            (6)
+#define ADC0_CH6_PORT           (gpioPortD)
 
 #define ADJ_PWR_DEVKIT_PIN      (11)
 #define ADJ_PWR_DEVKIT_PORT     (gpioPortB)

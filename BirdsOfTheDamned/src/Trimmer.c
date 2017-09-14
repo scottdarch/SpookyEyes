@@ -14,33 +14,33 @@
  */
 
 #include "Trimmer.h"
-#include "em_acmp.h"
+#include "em_adc.h"
 
 static void trimmer_private_disable_power(Trimmer* self) {
+    ACMP_Disable(self->_acmp);
     GPIO_PinOutClear(self->pwr_port, self->pwr_pin);
 }
 
-static void trimmer_private_enable_power(Trimmer* self) {
-    GPIO_PinOutSet(self->pwr_port, self->pwr_pin);
-}
-
 static void trimmer_start_sample(Trimmer* self) {
-    trimmer_private_enable_power(self);
-    self->_completion_event = true;
-    // TODO: start ADC conversion
+    GPIO_PinOutSet(self->pwr_port, self->pwr_pin);
+    ACMP_Enable(self->_acmp);
 }
 
 static unsigned int trimmer_is_conversion_complete(Trimmer* self) {
-    const unsigned int event = self->_completion_event;
-    self->_completion_event = false;
-    return event;
+    if (self->_acmp->STATUS & ACMP_STATUS_ACMPACT) {
+        trimmer_private_disable_power(self);
+        return true;
+    } else {
+        return false;
+    }
 }
 
 Trimmer* init_trimmer(Trimmer* init,
         GPIO_Port_TypeDef cmp_port,
         unsigned int cmp_pin,
         GPIO_Port_TypeDef pwr_port,
-        unsigned int pwr_pin) {
+        unsigned int pwr_pin,
+        ADC_TypeDef* adc) {
     if (init) {
         init->start_conversion = trimmer_start_sample;
         init->is_conversion_complete = trimmer_is_conversion_complete;
@@ -48,7 +48,7 @@ Trimmer* init_trimmer(Trimmer* init,
         init->cmp_pin = cmp_pin;
         init->pwr_port = pwr_port;
         init->pwr_pin = pwr_pin;
-        init->_completion_event = false;
+        init->_adc = adc;
     }
     return init;
 }

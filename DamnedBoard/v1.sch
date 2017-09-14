@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.3.1">
+<eagle version="8.3.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -3986,14 +3986,14 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="ADJ" class="0">
 <segment>
-<pinref part="U1" gate="G$1" pin="PC1"/>
-<wire x1="43.18" y1="71.12" x2="30.48" y2="71.12" width="0.1524" layer="91"/>
-<label x="30.988" y="71.374" size="1.778" layer="95"/>
-</segment>
-<segment>
 <pinref part="R5" gate="A" pin="2"/>
 <wire x1="-66.04" y1="71.12" x2="-66.04" y2="78.74" width="0.1524" layer="91"/>
 <label x="-64.516" y="76.708" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="U1" gate="G$1" pin="PD6"/>
+<wire x1="111.76" y1="78.74" x2="124.46" y2="78.74" width="0.1524" layer="91"/>
+<label x="119.634" y="79.248" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ADJ_PWR" class="0">

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="8.3.1">
+<eagle version="8.3.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="yes"/>
@@ -1513,7 +1513,6 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <wire x1="28.1432" y1="3.5513" x2="28.1432" y2="3.19" width="0.2032" layer="1"/>
 </signal>
 <signal name="ADJ">
-<contactref element="U1" pad="4"/>
 <contactref element="R5" pad="2"/>
 <wire x1="26.125965625" y1="6.62939375" x2="26.334271875" y2="6.8377" width="0.2032" layer="1"/>
 <wire x1="26.334271875" y1="6.8377" x2="26.334271875" y2="6.837709375" width="0.2032" layer="1"/>
@@ -1526,7 +1525,8 @@ Note, that not all DRC settings must be set by the manufacturer. Several can be 
 <wire x1="27.856575" y1="7.62" x2="40.3606" y2="7.62" width="0.2032" layer="1"/>
 <wire x1="22.86" y1="6.62939375" x2="22.0472" y2="6.62939375" width="0.2032" layer="1"/>
 <wire x1="22.0472" y1="6.62939375" x2="21.73338125" y2="6.315575" width="0.2032" layer="1"/>
-<wire x1="21.73338125" y1="6.315575" x2="21.694853125" y2="6.315575" width="0.2032" layer="1"/>
+<contactref element="U1" pad="13"/>
+<wire x1="17.24008125" y1="3.69928125" x2="21.73338125" y2="6.315575" width="0" layer="19" extent="1-1"/>
 </signal>
 <signal name="ADJ_PWR">
 <contactref element="U1" pad="5"/>
