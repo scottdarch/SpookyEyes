@@ -15,37 +15,39 @@
 
 #include "Trimmer.h"
 #include "em_adc.h"
-
-static void trimmer_private_disable_power(Trimmer* self) {
-    ACMP_Disable(self->_acmp);
-    GPIO_PinOutClear(self->pwr_port, self->pwr_pin);
-}
+#include "em_cmu.h"
 
 static void trimmer_start_sample(Trimmer* self) {
-    GPIO_PinOutSet(self->pwr_port, self->pwr_pin);
-    ACMP_Enable(self->_acmp);
+    ADC_Start(self->_adc, adcStartSingle);
 }
 
 static unsigned int trimmer_is_conversion_complete(Trimmer* self) {
-    if (self->_acmp->STATUS & ACMP_STATUS_ACMPACT) {
-        trimmer_private_disable_power(self);
-        return true;
+    return !((self->_adc->STATUS & ADC_STATUS_SINGLEDV) == 0);
+}
+
+static double trimmer_get_last_value(Trimmer* self) {
+    return (double)ADC_DataSingleGet(self->_adc) / 4095.00;
+}
+
+static void trimmer_set_enable(Trimmer* self, unsigned int enable) {
+    if (enable) {
+        GPIO_PinOutSet(self->pwr_port, self->pwr_pin);
+        CMU_ClockEnable(cmuClock_ADC0, true);
     } else {
-        return false;
+        GPIO_PinOutClear(self->pwr_port, self->pwr_pin);
+        CMU_ClockEnable(cmuClock_ADC0, false);
     }
 }
 
 Trimmer* init_trimmer(Trimmer* init,
-        GPIO_Port_TypeDef cmp_port,
-        unsigned int cmp_pin,
         GPIO_Port_TypeDef pwr_port,
         unsigned int pwr_pin,
         ADC_TypeDef* adc) {
     if (init) {
         init->start_conversion = trimmer_start_sample;
         init->is_conversion_complete = trimmer_is_conversion_complete;
-        init->cmp_port = cmp_port;
-        init->cmp_pin = cmp_pin;
+        init->get_last_value = trimmer_get_last_value;
+        init->set_enable = trimmer_set_enable;
         init->pwr_port = pwr_port;
         init->pwr_pin = pwr_pin;
         init->_adc = adc;

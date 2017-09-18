@@ -142,6 +142,10 @@ static unsigned int daylight_sensor_get_is_nighttime(DaylightSensor* self) {
     return (lux_low <= _reg_threshold_low[1]);
 }
 
+static void daylight_sensor_set_sensitivity(DaylightSensor* self, double sensitivity) {
+    // TODO: write new threshold value to the 44009.
+}
+
 // +--------------------------------------------------------------------------+
 // | DaylightSensor
 // +--------------------------------------------------------------------------+
@@ -150,9 +154,11 @@ DaylightSensor* connect_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeD
         init->_i2c_peripheral = i2c_peripheral;
         init->get_is_nighttime = daylight_sensor_get_is_nighttime;
         init->reset_interrupt = daylight_sensor_reset_interrupt;
+        init->set_sensitivity = daylight_sensor_set_sensitivity;
     }
     return init;
 }
+
 
 DaylightSensor* init_daylight_sensor_max44009(DaylightSensor* init, I2C_TypeDef* i2c_peripheral) {
     init = connect_daylight_sensor_max44009(init, i2c_peripheral);

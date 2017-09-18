@@ -6,11 +6,21 @@
     <property object="ACMP0" propertyId="acmp.channelconfiguration.positiveinput" value="Channel 1 (PC1)"/>
     <property object="ACMP0" propertyId="acmp.iosettings.ch1" value="Enabled"/>
     <property object="ADC0" propertyId="ABPeripheral.included" value="true"/>
+    <property object="ADC0" propertyId="adc.adcsettings.adcfrequencyhz" value="400000"/>
+    <property object="ADC0" propertyId="adc.adcsettings.lowpassfiltermode" value="On-chip RC filter"/>
     <property object="ADC0" propertyId="adc.inputsettings.ch6" value="Enabled"/>
+    <property object="ADC0" propertyId="scanmode.scanmodesettings.acquisitiontimeadcclockcycles" value="128"/>
+    <property object="ADC0" propertyId="scanmode.scanmodesettings.continuousconversion" value="Enabled"/>
     <property object="ADC0" propertyId="scanmode.scanmodesettings.scaninput" value="ADC_SCANCTRL_INPUTMASK_CH6"/>
+    <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.acquisitiontimeadcclockcycles" value="64"/>
+    <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.input" value="Channel 6 (PD6)"/>
+    <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.reference" value="Buffered VDD"/>
+    <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.singlesamplemode" value="Enabled"/>
     <property object="DefaultMode" propertyId="mode.diagramLocation" value="100, 100"/>
     <property object="GPIO" propertyId="ABPeripheral.included" value="true"/>
     <property object="GPIO" propertyId="gpio.settings.em4wu4" value="Wake-up from EM4 when pin is low"/>
+    <property object="HFXO" propertyId="hfxo.circuitcharacteristics.calculatedclpf" value="12.50"/>
+    <property object="HFXO" propertyId="hfxo.result.rnegesrmaxratio" value="28.819"/>
     <property object="I2C0" propertyId="ABPeripheral.included" value="true"/>
     <property object="PA0" propertyId="ports.settings.custompinname" value=""/>
     <property object="PA0" propertyId="ports.settings.dout" value="1"/>
@@ -44,6 +54,7 @@
     <property object="PORTIO" propertyId="portio.i2c0.enable.scl" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.enable.sda" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.i2c0.location.i2c0" value="6"/>
+    <property object="PORTIO" propertyId="portio.prs.location.prs" value="1"/>
     <property object="PORTIO" propertyId="portio.timer0.enable.cc0" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.enable.cc1" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.location.timer0" value="4"/>

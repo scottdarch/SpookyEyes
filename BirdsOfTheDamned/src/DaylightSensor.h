@@ -21,6 +21,7 @@ typedef struct DaylightSensorType {
 
     unsigned int (*get_is_nighttime)(struct DaylightSensorType* self);
     void (*reset_interrupt)(struct DaylightSensorType* self);
+    void (*set_sensitivity)(struct DaylightSensorType* self, double sensitivity);
 
     // +-----------------------------------------------------------------------+
     // | PRIVATE

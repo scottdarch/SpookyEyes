@@ -119,16 +119,32 @@ extern void ADC0_enter_DefaultMode_from_RESET(void) {
     ADC_Init_TypeDef init = ADC_INIT_DEFAULT;
 
     init.ovsRateSel = adcOvsRateSel2;
-    init.lpfMode = adcLPFilterBypass;
+    init.lpfMode = adcLPFilterRC;
     init.warmUpMode = adcWarmupNormal;
     init.timebase = ADC_TimebaseCalc(0);
-    init.prescale = ADC_PrescaleCalc(7000000, 0);
+    init.prescale = ADC_PrescaleCalc(400000, 0);
     init.tailgate = 0;
 
     ADC_Init(ADC0, &init);
     // [ADC_Init]$
 
     // $[ADC_InitSingle]
+    ADC_InitSingle_TypeDef initsingle = ADC_INITSINGLE_DEFAULT;
+
+    initsingle.prsSel = adcPRSSELCh0;
+    initsingle.acqTime = adcAcqTime64;
+    initsingle.reference = adcRefVDD;
+    initsingle.resolution = adcRes12Bit;
+    initsingle.input = adcSingleInpCh6;
+    initsingle.diff = 0;
+    initsingle.prsEnable = 0;
+    initsingle.leftAdjust = 0;
+    initsingle.rep = 0;
+
+    /* Initialize a single sample conversion.
+     * To start a conversion, use ADC_Start().
+     * Conversion result can be read with ADC_DataSingleGet(). */
+    ADC_InitSingle(ADC0, &initsingle);
     // [ADC_InitSingle]$
 
     // $[ADC_InitScan]

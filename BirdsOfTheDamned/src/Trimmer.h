@@ -22,16 +22,14 @@
 typedef struct TrimmerType {
     void (*start_conversion)(struct TrimmerType* self);
     unsigned int (*is_conversion_complete)(struct TrimmerType* self);
-    GPIO_Port_TypeDef cmp_port;
-    unsigned int cmp_pin;
+    double (*get_last_value)(struct TrimmerType* self);
+    void (*set_enable)(struct TrimmerType* self, unsigned int enable);
     GPIO_Port_TypeDef pwr_port;
     unsigned int pwr_pin;
     ADC_TypeDef* _adc;
 } Trimmer;
 
 Trimmer* init_trimmer(Trimmer* init,
-                      GPIO_Port_TypeDef cmp_port,
-                      unsigned int cmp_pin,
                       GPIO_Port_TypeDef pwr_port,
                       unsigned int pwr_pin,
                       ADC_TypeDef* adc);

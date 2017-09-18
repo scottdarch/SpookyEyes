@@ -37,6 +37,7 @@ typedef struct BirdHeadType {
     BirdEyeMode _mode;
     bool _forward;
     uint16_t _intensity;
+    uint16_t _reserved;
 } BirdHead;
 
 BirdHead* init_bird_head(BirdHead* init, TIMER_TypeDef* timer, unsigned int channel_left_eye, unsigned int channel_right_eye);

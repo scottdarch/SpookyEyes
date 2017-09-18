@@ -58,11 +58,9 @@ int main(void) {
 
     s_birdhead = init_bird_head(&s_birdhead_data, TIMER0, 0, 1);
     // TODO: switch to real pin for v1x boards.
-    s_trimmer = init_trimmer(&s_trimmer_data, ACMP0_CH1_PORT,
-                                              ACMP0_CH1_PIN,
-                                              ADJ_PWR_DEVKIT_PORT,
+    s_trimmer = init_trimmer(&s_trimmer_data, ADJ_PWR_DEVKIT_PORT,
                                               ADJ_PWR_DEVKIT_PIN,
-                                              ACMP0);
+                                              ADC0);
 
     nightPhantomMachine_init(&s_machine);
     nightPhantomMachine_enter(&s_machine);
@@ -74,6 +72,7 @@ int main(void) {
 
         // +--[EVENTS]---------------------------------------------------------+
         if (nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(&s_machine)) {
+            s_trimmer->set_enable(s_trimmer, true);
             s_trimmer->start_conversion(s_trimmer);
         }
 
@@ -94,7 +93,9 @@ int main(void) {
         }
 
         if (s_trimmer->is_conversion_complete(s_trimmer)) {
-            nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, 0.0f);
+            const double result = s_trimmer->get_last_value(s_trimmer);
+            nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, result);
+            s_trimmer->set_enable(s_trimmer, false);
         }
 
         // +--[RUN MACHINE]----------------------------------------------------+
@@ -114,7 +115,10 @@ int main(void) {
 // | YAKINDU MACHINE
 // +---------------------------------------------------------------------------+
 void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomMachine* handle, const sc_real sensitivity) {
-
+    DaylightSensor* const sh = s_daylightsensor;
+        if (sh) {
+        sh->set_sensitivity(sh, sensitivity);
+    }
 }
 
 sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle) {
