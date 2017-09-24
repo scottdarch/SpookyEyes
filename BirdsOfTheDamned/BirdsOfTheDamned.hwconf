@@ -22,7 +22,7 @@
     <property object="HFXO" propertyId="hfxo.circuitcharacteristics.calculatedclpf" value="12.50"/>
     <property object="HFXO" propertyId="hfxo.result.rnegesrmaxratio" value="28.819"/>
     <property object="I2C0" propertyId="ABPeripheral.included" value="true"/>
-    <property object="PA0" propertyId="ports.settings.custompinname" value=""/>
+    <property object="PA0" propertyId="ports.settings.custompinname" value="EYE_L"/>
     <property object="PA0" propertyId="ports.settings.dout" value="1"/>
     <property object="PA0" propertyId="ports.settings.filter" value="Enabled"/>
     <property object="PA0" propertyId="ports.settings.pinmode" value="Push-pull"/>
@@ -32,6 +32,7 @@
     <property object="PB11" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
     <property object="PB7" propertyId="ports.settings.custompinname" value="ADJ_PWR"/>
     <property object="PB7" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
+    <property object="PC0" propertyId="ports.settings.custompinname" value="EYE_R"/>
     <property object="PC0" propertyId="ports.settings.dout" value="1"/>
     <property object="PC0" propertyId="ports.settings.filter" value="Enabled"/>
     <property object="PC0" propertyId="ports.settings.pinmode" value="Push-pull"/>
@@ -43,8 +44,10 @@
     <property object="PC11" propertyId="ports.settings.pinmode" value="Push-pull"/>
     <property object="PC14" propertyId="ports.settings.custompinname" value=""/>
     <property object="PCNT0" propertyId="pcnt.settings.operatingmode" value="Single input, LFACLK oversampling"/>
+    <property object="PD6" propertyId="ports.settings.custompinname" value="ADJ"/>
     <property object="PE12" propertyId="ports.settings.pinmode" value="Wired-and pullup filter"/>
     <property object="PE13" propertyId="ports.settings.pinmode" value="Wired-and pullup filter"/>
+    <property object="PF2" propertyId="ports.settings.custompinname" value="WAKE"/>
     <property object="PF2" propertyId="ports.settings.dout" value="1"/>
     <property object="PF2" propertyId="ports.settings.filter" value="Enabled"/>
     <property object="PF2" propertyId="ports.settings.pinmode" value="Input pull"/>
@@ -59,7 +62,6 @@
     <property object="PORTIO" propertyId="portio.timer0.enable.cc0" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.enable.cc1" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.location.timer0" value="4"/>
-    <property object="PORTIO" propertyId="portio.timer1.enable.cc1" value="Enabled"/>
     <property object="RTC" propertyId="ABPeripheral.included" value="true"/>
     <property object="RTC" propertyId="rtc.settings.rtcrunswhilecoreishalted" value="Enabled"/>
     <property object="TIMER0" propertyId="ABPeripheral.included" value="true"/>

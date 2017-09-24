@@ -486,9 +486,6 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     /* Enable signals CC0, CC1 */
     TIMER0->ROUTE |= TIMER_ROUTE_CC0PEN | TIMER_ROUTE_CC1PEN;
-
-    /* Enable signals CC1 */
-    TIMER1->ROUTE |= TIMER_ROUTE_CC1PEN;
     // [Route Configuration]$
 
 }

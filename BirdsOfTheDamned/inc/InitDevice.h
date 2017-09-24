@@ -40,11 +40,20 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 #define ADC0_CH6_PIN            (6)
 #define ADC0_CH6_PORT           (gpioPortD)
 
+#define ADJ_PIN                 (6)
+#define ADJ_PORT                (gpioPortD)
+
 #define ADJ_PWR_DEVKIT_PIN      (11)
 #define ADJ_PWR_DEVKIT_PORT     (gpioPortB)
 
 #define ADJ_PWR_PIN             (7)
 #define ADJ_PWR_PORT            (gpioPortB)
+
+#define EYE_L_PIN               (0)
+#define EYE_L_PORT              (gpioPortA)
+
+#define EYE_R_PIN               (0)
+#define EYE_R_PORT              (gpioPortC)
 
 #define GPIO_EM4WU4_PIN         (2)
 #define GPIO_EM4WU4_PORT        (gpioPortF)
@@ -67,8 +76,8 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 #define TIMER0_CC1_PIN          (0)
 #define TIMER0_CC1_PORT         (gpioPortC)
 
-#define TIMER1_CC1_PIN          (14)
-#define TIMER1_CC1_PORT         (gpioPortC)
+#define WAKE_PIN                (2)
+#define WAKE_PORT               (gpioPortF)
 
 // [User-defined pin name abstraction]$
 
