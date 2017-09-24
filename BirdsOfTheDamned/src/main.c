@@ -13,11 +13,14 @@
  * specific language governing permissions and limitations under the License.
  */
 #include <stdbool.h>
+#include <stdlib.h>
 
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_emu.h"
 #include "em_wdog.h"
+#include "em_cmu.h"
+#include "em_rtc.h"
 #include "InitDevice.h"
 
 #include "BirdHead.h"
@@ -39,13 +42,35 @@ static DaylightSensor* s_daylightsensor = NULL;
 static Trimmer* s_trimmer = NULL;
 
 // +---------------------------------------------------------------------------+
+// | RTC
+// +---------------------------------------------------------------------------+
+
+void RTC_IRQHandler(void) {
+    RTC_IntClear(RTC_IEN_COMP0);
+}
+
+// +---------------------------------------------------------------------------+
 // | MAIN!
 // +---------------------------------------------------------------------------+
 int main(void) {
     /* Chip errata */
     CHIP_Init();
 
+    SysTick->CTRL = 0;
+
     enter_DefaultMode_from_RESET();
+
+    RTC_Enable(false);
+
+    CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFRCO);
+    CMU_HFRCOBandSet(cmuHFRCOBand_7MHz);
+    CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
+    CMU_ClockDivSet(cmuClock_RTC, cmuClkDiv_32768);
+    CMU_ClockEnable(cmuClock_RTC, true);
+    RTC_CompareSet(0, 2);
+    NVIC_EnableIRQ(RTC_IRQn);
+    RTC_IntEnable(RTC_IEN_COMP0);
+
 
     if (RMU->RSTCAUSE & RMU_RSTCAUSE_EM4WURST) {
         s_daylightsensor = connect_daylight_sensor_max44009(&s_daylightsensor_data, I2C0);
@@ -68,9 +93,11 @@ int main(void) {
 #ifdef LED0_PORT
     GPIO_PinOutSet(LED0_PORT, LED0_PIN);
 #endif
+
     while (1) {
 
         // +--[EVENTS]---------------------------------------------------------+
+
         if (nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(&s_machine)) {
             s_trimmer->set_enable(s_trimmer, true);
             s_trimmer->start_conversion(s_trimmer);
@@ -99,14 +126,7 @@ int main(void) {
         }
 
         // +--[RUN MACHINE]----------------------------------------------------+
-#ifdef LED1_PORT
-        GPIO_PinOutSet(LED1_PORT, LED1_PIN);
-#endif
         nightPhantomMachine_runCycle(&s_machine);
-
-#ifdef LED1_PORT
-        GPIO_PinOutClear(LED1_PORT, LED1_PIN);
-#endif
 
     }
 }
@@ -114,6 +134,18 @@ int main(void) {
 // +---------------------------------------------------------------------------+
 // | YAKINDU MACHINE
 // +---------------------------------------------------------------------------+
+void nightPhantomMachineIface_random_lurk(const NightPhantomMachine* handle) {
+#ifdef LED0_PORT
+    GPIO_PinOutClear(LED0_PORT, LED0_PIN);
+#endif
+    RTC_Enable(true);
+    EMU_EnterEM2(true);
+    RTC_Enable(false);
+#ifdef LED0_PORT
+    GPIO_PinOutSet(LED0_PORT, LED0_PIN);
+#endif
+}
+
 void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomMachine* handle, const sc_real sensitivity) {
     DaylightSensor* const sh = s_daylightsensor;
         if (sh) {
@@ -166,4 +198,6 @@ void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle) {
     WDOGn_Feed(DEFAULT_WDOG);
 }
 
-
+sc_real nightPhantomMachineIface_random(const NightPhantomMachine* handle) {
+    return (sc_real)rand()/(sc_real)RAND_MAX;
+}

@@ -13,6 +13,7 @@ extern "C"
 /*! \file This header defines prototypes for all functions that are required by the state machine implementation.
 
 This state machine makes use of operations declared in the state machines interface or internal scopes. Thus the function prototypes:
+	- nightPhantomMachineIface_random_lurk
 	- nightPhantomMachineIfaceDaylight_sensor_set_sensitivity
 	- nightPhantomMachineIfaceDaylight_sensor_is_nighttime
 	- nightPhantomMachineIfaceEyes_start_glowing
@@ -29,6 +30,8 @@ There are some constraints that have to be considered for the implementation of 
 	- make sure that the execution time is as short as possible.
  
 */
+extern void nightPhantomMachineIface_random_lurk(const NightPhantomMachine* handle);
+
 extern void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomMachine* handle, const sc_real sensitivity);
 extern sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle);
 

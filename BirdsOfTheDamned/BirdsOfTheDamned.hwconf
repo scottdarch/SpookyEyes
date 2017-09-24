@@ -42,6 +42,7 @@
     <property object="PC11" propertyId="ports.settings.custompinname" value="LED1"/>
     <property object="PC11" propertyId="ports.settings.pinmode" value="Push-pull"/>
     <property object="PC14" propertyId="ports.settings.custompinname" value=""/>
+    <property object="PCNT0" propertyId="pcnt.settings.operatingmode" value="Single input, LFACLK oversampling"/>
     <property object="PE12" propertyId="ports.settings.pinmode" value="Wired-and pullup filter"/>
     <property object="PE13" propertyId="ports.settings.pinmode" value="Wired-and pullup filter"/>
     <property object="PF2" propertyId="ports.settings.dout" value="1"/>
@@ -58,6 +59,9 @@
     <property object="PORTIO" propertyId="portio.timer0.enable.cc0" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.enable.cc1" value="Enabled"/>
     <property object="PORTIO" propertyId="portio.timer0.location.timer0" value="4"/>
+    <property object="PORTIO" propertyId="portio.timer1.enable.cc1" value="Enabled"/>
+    <property object="RTC" propertyId="ABPeripheral.included" value="true"/>
+    <property object="RTC" propertyId="rtc.settings.rtcrunswhilecoreishalted" value="Enabled"/>
     <property object="TIMER0" propertyId="ABPeripheral.included" value="true"/>
     <property object="TIMER0" propertyId="timer.capturecomparech0.ccmode" value="PWM"/>
     <property object="TIMER0" propertyId="timer.capturecomparech0.countermatchoutputaction" value="Clear on event"/>
@@ -67,7 +71,6 @@
     <property object="TIMER0" propertyId="timer.capturecomparech1.countermatchoutputaction" value="Clear on event"/>
     <property object="TIMER0" propertyId="timer.capturecomparech1.outputinversion" value="Invert the CC channel output"/>
     <property object="TIMER0" propertyId="timer.capturecomparech1.overflowoutputaction" value="Set on event"/>
-    <property object="TIMER1" propertyId="timer.capturecomparech1.ccmode" value="PWM"/>
     <property object="WDOG" propertyId="ABPeripheral.included" value="true"/>
     <property object="WDOG" propertyId="wdog.settings.timeoutperiod" value="8k clock cycles"/>
   </mode>

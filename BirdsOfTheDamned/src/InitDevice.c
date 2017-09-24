@@ -22,6 +22,7 @@
 #include "em_adc.h"
 #include "em_gpio.h"
 #include "em_i2c.h"
+#include "em_rtc.h"
 #include "em_timer.h"
 #include "em_wdog.h"
 // [Library includes]$
@@ -33,6 +34,7 @@ extern void enter_DefaultMode_from_RESET(void) {
     // $[Config Calls]
     CMU_enter_DefaultMode_from_RESET();
     ADC0_enter_DefaultMode_from_RESET();
+    RTC_enter_DefaultMode_from_RESET();
     WDOG_enter_DefaultMode_from_RESET();
     I2C0_enter_DefaultMode_from_RESET();
     TIMER0_enter_DefaultMode_from_RESET();
@@ -79,6 +81,12 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
     // [HFXO enable]$
 
     // $[LFACLK Setup]
+    /* Enable LFRCO oscillator */
+    CMU_OscillatorEnable(cmuOsc_LFRCO, true, true);
+
+    /* Select LFRCO as clock source for LFACLK */
+    CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
+
     // [LFACLK Setup]$
 
     // $[High Frequency Clock select]
@@ -91,7 +99,9 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
     // [High Frequency Clock select]$
 
     // $[LF clock tree setup]
-    /* No LF peripherals enabled */
+    /* Enable LF clocks */
+    CMU_ClockEnable(cmuClock_CORELE, true);
+    CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
     // [LF clock tree setup]$
     // $[Peripheral Clock enables]
     /* Enable clock for ADC0 */
@@ -99,6 +109,9 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
 
     /* Enable clock for I2C0 */
     CMU_ClockEnable(cmuClock_I2C0, true);
+
+    /* Enable clock for RTC */
+    CMU_ClockEnable(cmuClock_RTC, true);
 
     /* Enable clock for TIMER0 */
     CMU_ClockEnable(cmuClock_TIMER0, true);
@@ -187,6 +200,12 @@ extern void IDAC0_enter_DefaultMode_from_RESET(void) {
 extern void RTC_enter_DefaultMode_from_RESET(void) {
 
     // $[RTC_Init]
+    RTC_Init_TypeDef init = RTC_INIT_DEFAULT;
+
+    init.debugRun = 1;
+    init.comp0Top = 1;
+
+    RTC_Init(&init);
     // [RTC_Init]$
 
 }
@@ -467,6 +486,9 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     /* Enable signals CC0, CC1 */
     TIMER0->ROUTE |= TIMER_ROUTE_CC0PEN | TIMER_ROUTE_CC1PEN;
+
+    /* Enable signals CC1 */
+    TIMER1->ROUTE |= TIMER_ROUTE_CC1PEN;
     // [Route Configuration]$
 
 }

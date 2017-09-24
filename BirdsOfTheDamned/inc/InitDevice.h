@@ -67,6 +67,9 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 #define TIMER0_CC1_PIN          (0)
 #define TIMER0_CC1_PORT         (gpioPortC)
 
+#define TIMER1_CC1_PIN          (14)
+#define TIMER1_CC1_PORT         (gpioPortC)
+
 // [User-defined pin name abstraction]$
 
 #endif

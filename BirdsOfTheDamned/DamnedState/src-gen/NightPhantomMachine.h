@@ -19,6 +19,7 @@ typedef enum
 	NightPhantomMachine_main_region_running,
 	NightPhantomMachine_main_region_running_r0_reading_sensitivity,
 	NightPhantomMachine_main_region_running_r0_glowing,
+	NightPhantomMachine_main_region_running_r0_lurking,
 	NightPhantomMachine_main_region__final_
 } NightPhantomMachineStates;
 
@@ -38,6 +39,7 @@ typedef struct
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_READING_SENSITIVITY 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_GLOWING 0
+#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_LURKING 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION__FINAL_ 0
 
 /*! 

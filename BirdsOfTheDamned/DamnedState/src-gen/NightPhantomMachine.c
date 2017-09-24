@@ -11,33 +11,39 @@
 static sc_boolean nightPhantomMachine_check_main_region_running_lr2_lr2(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_reading_sensitivity_tr0_tr0(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_glowing_tr0_tr0(const NightPhantomMachine* handle);
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_lurking_tr0_tr0(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0__choice_0_tr0_tr0(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0__choice_0_tr1(const NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_lr2_lr2(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0_reading_sensitivity_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0_glowing_tr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_lurking_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0__choice_0_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0__choice_0_tr1(NightPhantomMachine* handle);
 static void nightPhantomMachine_enact_main_region_running(NightPhantomMachine* handle);
 static void nightPhantomMachine_enact_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle);
 static void nightPhantomMachine_enact_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_enact_main_region_running_r0_lurking(NightPhantomMachine* handle);
 static void nightPhantomMachine_exact_main_region_running(NightPhantomMachine* handle);
 static void nightPhantomMachine_exact_main_region_running_r0_glowing(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_r0_reading_sensitivity_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_r0_glowing_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_lurking_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region__final__default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_r0_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_lurking(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region__final_(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running_r0(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_lurking(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region__final_(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0__choice_0(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region__entry_Default(NightPhantomMachine* handle);
@@ -126,6 +132,11 @@ void nightPhantomMachine_runCycle(NightPhantomMachine* handle)
 			nightPhantomMachine_react_main_region_running_r0_glowing(handle);
 			break;
 		}
+		case NightPhantomMachine_main_region_running_r0_lurking:
+		{
+			nightPhantomMachine_react_main_region_running_r0_lurking(handle);
+			break;
+		}
 		case NightPhantomMachine_main_region__final_:
 		{
 			nightPhantomMachine_react_main_region__final_(handle);
@@ -147,7 +158,7 @@ sc_boolean nightPhantomMachine_isStateActive(const NightPhantomMachine* handle, 
 	{
 		case NightPhantomMachine_main_region_running :
 			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING] >= NightPhantomMachine_main_region_running
-				&& handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING] <= NightPhantomMachine_main_region_running_r0_glowing);
+				&& handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING] <= NightPhantomMachine_main_region_running_r0_lurking);
 			break;
 		case NightPhantomMachine_main_region_running_r0_reading_sensitivity :
 			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_READING_SENSITIVITY] == NightPhantomMachine_main_region_running_r0_reading_sensitivity
@@ -155,6 +166,10 @@ sc_boolean nightPhantomMachine_isStateActive(const NightPhantomMachine* handle, 
 			break;
 		case NightPhantomMachine_main_region_running_r0_glowing :
 			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_GLOWING] == NightPhantomMachine_main_region_running_r0_glowing
+			);
+			break;
+		case NightPhantomMachine_main_region_running_r0_lurking :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_LURKING] == NightPhantomMachine_main_region_running_r0_lurking
 			);
 			break;
 		case NightPhantomMachine_main_region__final_ :
@@ -167,6 +182,8 @@ sc_boolean nightPhantomMachine_isStateActive(const NightPhantomMachine* handle, 
 	}
 	return result;
 }
+
+
 
 
 
@@ -203,6 +220,11 @@ static sc_boolean nightPhantomMachine_check_main_region_running_r0_glowing_tr0_t
 	return (!nightPhantomMachineIfaceEyes_is_glowing(handle)) ? bool_true : bool_false;
 }
 
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_lurking_tr0_tr0(const NightPhantomMachine* handle)
+{
+	return bool_true;
+}
+
 static sc_boolean nightPhantomMachine_check_main_region_running_r0__choice_0_tr0_tr0(const NightPhantomMachine* handle)
 {
 	return (!nightPhantomMachineIfaceDaylight_sensor_is_nighttime(handle)) ? bool_true : bool_false;
@@ -234,6 +256,12 @@ static void nightPhantomMachine_effect_main_region_running_r0_reading_sensitivit
 static void nightPhantomMachine_effect_main_region_running_r0_glowing_tr0(NightPhantomMachine* handle)
 {
 	nightPhantomMachine_exseq_main_region_running_r0_glowing(handle);
+	nightPhantomMachine_enseq_main_region_running_r0_lurking_default(handle);
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_lurking_tr0(NightPhantomMachine* handle)
+{
+	nightPhantomMachine_exseq_main_region_running_r0_lurking(handle);
 	nightPhantomMachine_react_main_region_running_r0__choice_0(handle);
 }
 
@@ -266,6 +294,13 @@ static void nightPhantomMachine_enact_main_region_running_r0_glowing(NightPhanto
 {
 	/* Entry action for state 'glowing'. */
 	nightPhantomMachineIfaceEyes_start_glowing(handle);
+}
+
+/* Entry action for state 'lurking'. */
+static void nightPhantomMachine_enact_main_region_running_r0_lurking(NightPhantomMachine* handle)
+{
+	/* Entry action for state 'lurking'. */
+	nightPhantomMachineIface_random_lurk(handle);
 }
 
 /* Exit action for state 'running'. */
@@ -305,6 +340,15 @@ static void nightPhantomMachine_enseq_main_region_running_r0_glowing_default(Nig
 	/* 'default' enter sequence for state glowing */
 	nightPhantomMachine_enact_main_region_running_r0_glowing(handle);
 	handle->stateConfVector[0] = NightPhantomMachine_main_region_running_r0_glowing;
+	handle->stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for state lurking */
+static void nightPhantomMachine_enseq_main_region_running_r0_lurking_default(NightPhantomMachine* handle)
+{
+	/* 'default' enter sequence for state lurking */
+	nightPhantomMachine_enact_main_region_running_r0_lurking(handle);
+	handle->stateConfVector[0] = NightPhantomMachine_main_region_running_r0_lurking;
 	handle->stateConfVectorPosition = 0;
 }
 
@@ -355,6 +399,14 @@ static void nightPhantomMachine_exseq_main_region_running_r0_glowing(NightPhanto
 	nightPhantomMachine_exact_main_region_running_r0_glowing(handle);
 }
 
+/* Default exit sequence for state lurking */
+static void nightPhantomMachine_exseq_main_region_running_r0_lurking(NightPhantomMachine* handle)
+{
+	/* Default exit sequence for state lurking */
+	handle->stateConfVector[0] = NightPhantomMachine_last_state;
+	handle->stateConfVectorPosition = 0;
+}
+
 /* Default exit sequence for final state. */
 static void nightPhantomMachine_exseq_main_region__final_(NightPhantomMachine* handle)
 {
@@ -379,6 +431,12 @@ static void nightPhantomMachine_exseq_main_region(NightPhantomMachine* handle)
 		case NightPhantomMachine_main_region_running_r0_glowing :
 		{
 			nightPhantomMachine_exseq_main_region_running_r0_glowing(handle);
+			nightPhantomMachine_exact_main_region_running(handle);
+			break;
+		}
+		case NightPhantomMachine_main_region_running_r0_lurking :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_lurking(handle);
 			nightPhantomMachine_exact_main_region_running(handle);
 			break;
 		}
@@ -408,6 +466,11 @@ static void nightPhantomMachine_exseq_main_region_running_r0(NightPhantomMachine
 			nightPhantomMachine_exseq_main_region_running_r0_glowing(handle);
 			break;
 		}
+		case NightPhantomMachine_main_region_running_r0_lurking :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_lurking(handle);
+			break;
+		}
 		default: break;
 	}
 }
@@ -432,6 +495,14 @@ static void nightPhantomMachine_react_main_region_running_r0_glowing(NightPhanto
 	{ 
 		nightPhantomMachine_effect_main_region_running_r0_glowing_tr0(handle);
 	} 
+}
+
+/* The reactions of state lurking. */
+static void nightPhantomMachine_react_main_region_running_r0_lurking(NightPhantomMachine* handle)
+{
+	/* The reactions of state lurking. */
+	nightPhantomMachine_effect_main_region_running_lr2_lr2(handle);
+	nightPhantomMachine_effect_main_region_running_r0_lurking_tr0(handle);
 }
 
 /* The reactions of state null. */
