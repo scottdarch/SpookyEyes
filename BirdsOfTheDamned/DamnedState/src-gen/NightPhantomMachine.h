@@ -23,13 +23,20 @@ typedef enum
 	NightPhantomMachine_main_region__final_
 } NightPhantomMachineStates;
 
-/*! Type definition of the data structure for the NightPhantomMachineIfaceTrimpot interface scope. */
+/*! Type definition of the data structure for the NightPhantomMachineIfaceAdc interface scope. */
 typedef struct
 {
-	sc_boolean start_adc_conversion_raised;
-	sc_boolean adc_conversion_complete_raised;
-	sc_real adc_conversion_complete_value;
-} NightPhantomMachineIfaceTrimpot;
+	sc_boolean start_acquire_trimpot_raised;
+	sc_boolean acquisition_complete_raised;
+	sc_real acquisition_complete_value;
+} NightPhantomMachineIfaceAdc;
+
+/*! Type definition of the data structure for the NightPhantomMachineIfaceRand interface scope. */
+typedef struct
+{
+	sc_boolean set_seed_raised;
+	sc_real set_seed_value;
+} NightPhantomMachineIfaceRand;
 
 
 /*! Define dimension of the state configuration vector for orthogonal states. */
@@ -51,7 +58,8 @@ typedef struct
 	NightPhantomMachineStates stateConfVector[NIGHTPHANTOMMACHINE_MAX_ORTHOGONAL_STATES];
 	sc_ushort stateConfVectorPosition; 
 	
-	NightPhantomMachineIfaceTrimpot ifaceTrimpot;
+	NightPhantomMachineIfaceAdc ifaceAdc;
+	NightPhantomMachineIfaceRand ifaceRand;
 } NightPhantomMachine;
 
 
@@ -68,11 +76,17 @@ extern void nightPhantomMachine_exit(NightPhantomMachine* handle);
 extern void nightPhantomMachine_runCycle(NightPhantomMachine* handle);
 
 
-/*! Checks if the out event 'start_adc_conversion' that is defined in the interface scope 'trimpot' has been raised. */ 
-extern sc_boolean nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(const NightPhantomMachine* handle);
+/*! Checks if the out event 'start_acquire_trimpot' that is defined in the interface scope 'adc' has been raised. */ 
+extern sc_boolean nightPhantomMachineIfaceAdc_israised_start_acquire_trimpot(const NightPhantomMachine* handle);
 
-/*! Raises the in event 'adc_conversion_complete' that is defined in the interface scope 'trimpot'. */ 
-extern void nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(NightPhantomMachine* handle, sc_real value);
+/*! Raises the in event 'acquisition_complete' that is defined in the interface scope 'adc'. */ 
+extern void nightPhantomMachineIfaceAdc_raise_acquisition_complete(NightPhantomMachine* handle, sc_real value);
+
+/*! Checks if the out event 'set_seed' that is defined in the interface scope 'rand' has been raised. */ 
+extern sc_boolean nightPhantomMachineIfaceRand_israised_set_seed(const NightPhantomMachine* handle);
+
+/*! Gets the value of the out event 'set_seed' that is defined in the interface scope 'rand'. */ 
+extern sc_real nightPhantomMachineIfaceRand_get_set_seed_value(const NightPhantomMachine* handle);
 
 
 /*!

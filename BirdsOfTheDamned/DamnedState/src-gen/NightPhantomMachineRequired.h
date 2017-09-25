@@ -13,7 +13,6 @@ extern "C"
 /*! \file This header defines prototypes for all functions that are required by the state machine implementation.
 
 This state machine makes use of operations declared in the state machines interface or internal scopes. Thus the function prototypes:
-	- nightPhantomMachineIface_random_lurk
 	- nightPhantomMachineIfaceDaylight_sensor_set_sensitivity
 	- nightPhantomMachineIfaceDaylight_sensor_is_nighttime
 	- nightPhantomMachineIfaceEyes_start_glowing
@@ -22,6 +21,7 @@ This state machine makes use of operations declared in the state machines interf
 	- nightPhantomMachineIfaceWdt_enable
 	- nightPhantomMachineIfaceWdt_disable
 	- nightPhantomMachineIfaceWdt_reset
+	- nightPhantomMachineIfaceRand_lurk
 are defined.
 
 These functions will be called during a 'run to completion step' (runCycle) of the statechart. 
@@ -30,8 +30,6 @@ There are some constraints that have to be considered for the implementation of 
 	- make sure that the execution time is as short as possible.
  
 */
-extern void nightPhantomMachineIface_random_lurk(const NightPhantomMachine* handle);
-
 extern void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomMachine* handle, const sc_real sensitivity);
 extern sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle);
 
@@ -43,6 +41,8 @@ extern void nightPhantomMachineIfaceEyes_stop_glowing(const NightPhantomMachine*
 extern void nightPhantomMachineIfaceWdt_enable(const NightPhantomMachine* handle);
 extern void nightPhantomMachineIfaceWdt_disable(const NightPhantomMachine* handle);
 extern void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle);
+
+extern void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle);
 
 
 

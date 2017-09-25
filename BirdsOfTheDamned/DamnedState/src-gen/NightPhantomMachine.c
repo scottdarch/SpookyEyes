@@ -103,12 +103,13 @@ sc_boolean nightPhantomMachine_isFinal(const NightPhantomMachine* handle)
 
 static void nightPhantomMachine_clearInEvents(NightPhantomMachine* handle)
 {
-	handle->ifaceTrimpot.adc_conversion_complete_raised = bool_false;
+	handle->ifaceAdc.acquisition_complete_raised = bool_false;
 }
 
 static void nightPhantomMachine_clearOutEvents(NightPhantomMachine* handle)
 {
-	handle->ifaceTrimpot.start_adc_conversion_raised = bool_false;
+	handle->ifaceAdc.start_acquire_trimpot_raised = bool_false;
+	handle->ifaceRand.set_seed_raised = bool_false;
 }
 
 void nightPhantomMachine_runCycle(NightPhantomMachine* handle)
@@ -185,22 +186,30 @@ sc_boolean nightPhantomMachine_isStateActive(const NightPhantomMachine* handle, 
 
 
 
-
-
-void nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(NightPhantomMachine* handle, sc_real value)
+void nightPhantomMachineIfaceAdc_raise_acquisition_complete(NightPhantomMachine* handle, sc_real value)
 {
-	handle->ifaceTrimpot.adc_conversion_complete_value = value;
-	handle->ifaceTrimpot.adc_conversion_complete_raised = bool_true;
+	handle->ifaceAdc.acquisition_complete_value = value;
+	handle->ifaceAdc.acquisition_complete_raised = bool_true;
 }
 
-sc_boolean nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(const NightPhantomMachine* handle)
+sc_boolean nightPhantomMachineIfaceAdc_israised_start_acquire_trimpot(const NightPhantomMachine* handle)
 {
-	return handle->ifaceTrimpot.start_adc_conversion_raised;
+	return handle->ifaceAdc.start_acquire_trimpot_raised;
 }
 
 
 
 
+
+
+sc_boolean nightPhantomMachineIfaceRand_israised_set_seed(const NightPhantomMachine* handle)
+{
+	return handle->ifaceRand.set_seed_raised;
+}
+sc_real nightPhantomMachineIfaceRand_get_set_seed_value(const NightPhantomMachine* handle)
+{
+	return handle->ifaceRand.set_seed_value;
+}
 
 
 /* implementations of all internal functions */
@@ -212,7 +221,7 @@ static sc_boolean nightPhantomMachine_check_main_region_running_lr2_lr2(const Ni
 
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_reading_sensitivity_tr0_tr0(const NightPhantomMachine* handle)
 {
-	return handle->ifaceTrimpot.adc_conversion_complete_raised;
+	return handle->ifaceAdc.acquisition_complete_raised;
 }
 
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_glowing_tr0_tr0(const NightPhantomMachine* handle)
@@ -249,7 +258,9 @@ static void nightPhantomMachine_effect_main_region_running_tr0(NightPhantomMachi
 static void nightPhantomMachine_effect_main_region_running_r0_reading_sensitivity_tr0(NightPhantomMachine* handle)
 {
 	nightPhantomMachine_exseq_main_region_running_r0_reading_sensitivity(handle);
-	nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(handle, handle->ifaceTrimpot.adc_conversion_complete_value);
+	nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(handle, handle->ifaceAdc.acquisition_complete_value);
+	handle->ifaceRand.set_seed_value = handle->ifaceAdc.acquisition_complete_value;
+	handle->ifaceRand.set_seed_raised = bool_true;
 	nightPhantomMachine_react_main_region_running_r0__choice_0(handle);
 }
 
@@ -286,7 +297,7 @@ static void nightPhantomMachine_enact_main_region_running(NightPhantomMachine* h
 static void nightPhantomMachine_enact_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle)
 {
 	/* Entry action for state 'reading sensitivity'. */
-	handle->ifaceTrimpot.start_adc_conversion_raised = bool_true;
+	handle->ifaceAdc.start_acquire_trimpot_raised = bool_true;
 }
 
 /* Entry action for state 'glowing'. */
@@ -300,7 +311,7 @@ static void nightPhantomMachine_enact_main_region_running_r0_glowing(NightPhanto
 static void nightPhantomMachine_enact_main_region_running_r0_lurking(NightPhantomMachine* handle)
 {
 	/* Entry action for state 'lurking'. */
-	nightPhantomMachineIface_random_lurk(handle);
+	nightPhantomMachineIfaceRand_lurk(handle);
 }
 
 /* Exit action for state 'running'. */

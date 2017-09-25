@@ -14,6 +14,7 @@
  */
 #include <stdbool.h>
 #include <stdlib.h>
+#include <math.h>
 
 #include "em_device.h"
 #include "em_chip.h"
@@ -25,8 +26,9 @@
 
 #include "BirdHead.h"
 #include "DaylightSensor.h"
-#include "Trimmer.h"
 #include "NightPhantomMachine.h"
+
+#include "AnalogInput.h"
 
 // +---------------------------------------------------------------------------+
 // | TASKS AND OBJECTS
@@ -35,11 +37,22 @@ static NightPhantomMachine s_machine;
 
 static BirdHead s_birdhead_data;
 static DaylightSensor s_daylightsensor_data;
-static Trimmer s_trimmer_data;
+static AnalogInput s_ain_data;
 
 static BirdHead* s_birdhead = NULL;
 static DaylightSensor* s_daylightsensor = NULL;
-static Trimmer* s_trimmer = NULL;
+static AnalogInput* s_ain = NULL;
+
+/**
+ * Linear interpolation from a rand() value to a value within a given range.
+ */
+static uint32_t rand_linterp(uint32_t max, uint32_t min) {
+    EFM_ASSERT(max > min);
+    const double m = (double)(max - min) / (double)RAND_MAX;
+    const double x = (double)rand();
+    const double y = m * x + (double)min;
+    return (uint32_t)y;
+}
 
 // +---------------------------------------------------------------------------+
 // | RTC
@@ -83,9 +96,11 @@ int main(void) {
 
     s_birdhead = init_bird_head(&s_birdhead_data, TIMER0, 0, 1);
     // TODO: switch to real pin for v1x boards.
-    s_trimmer = init_trimmer(&s_trimmer_data, ADJ_PWR_DEVKIT_PORT,
-                                              ADJ_PWR_DEVKIT_PIN,
-                                              ADC0);
+    s_ain = init_analog_input(&s_ain_data,
+            cmuClock_ADC0,
+            ADJ_PWR_DEVKIT_PORT,
+            ADJ_PWR_DEVKIT_PIN,
+            ADC0);
 
     nightPhantomMachine_init(&s_machine);
     nightPhantomMachine_enter(&s_machine);
@@ -98,9 +113,17 @@ int main(void) {
 
         // +--[EVENTS]---------------------------------------------------------+
 
-        if (nightPhantomMachineIfaceTrimpot_israised_start_adc_conversion(&s_machine)) {
-            s_trimmer->set_enable(s_trimmer, true);
-            s_trimmer->start_conversion(s_trimmer);
+        if (nightPhantomMachineIfaceAdc_israised_start_acquire_trimpot(&s_machine)) {
+            s_ain->set_input(s_ain, analogInputSourceTrimmer);
+            s_ain->set_enable(s_ain, true);
+            s_ain->start_conversion(s_ain);
+        }
+
+        if (nightPhantomMachineIfaceRand_israised_set_seed(&s_machine)) {
+            const sc_real randomness = nightPhantomMachineIfaceRand_get_set_seed_value(&s_machine);
+            const double seed = (randomness * (sc_real)RAND_MAX);
+            const unsigned int iseed = (unsigned int)seed;
+            srand(iseed);
         }
 
         if (!GPIO_PinInGet(GPIO_EM4WU4_PORT, GPIO_EM4WU4_PIN)) {
@@ -119,10 +142,10 @@ int main(void) {
             SCB->AIRCR = (0x05FA << SCB_AIRCR_VECTKEY_Pos) | (1 << SCB_AIRCR_SYSRESETREQ_Pos);
         }
 
-        if (s_trimmer->is_conversion_complete(s_trimmer)) {
-            const double result = s_trimmer->get_last_value(s_trimmer);
-            nightPhantomMachineIfaceTrimpot_raise_adc_conversion_complete(&s_machine, result);
-            s_trimmer->set_enable(s_trimmer, false);
+        if (s_ain->is_conversion_complete(s_ain)) {
+            const double result = s_ain->get_last_value(s_ain);
+            nightPhantomMachineIfaceAdc_raise_acquisition_complete(&s_machine, result);
+            s_ain->set_enable(s_ain, false);
         }
 
         // +--[RUN MACHINE]----------------------------------------------------+
@@ -134,10 +157,12 @@ int main(void) {
 // +---------------------------------------------------------------------------+
 // | YAKINDU MACHINE
 // +---------------------------------------------------------------------------+
-void nightPhantomMachineIface_random_lurk(const NightPhantomMachine* handle) {
+void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle) {
 #ifdef LED0_PORT
     GPIO_PinOutClear(LED0_PORT, LED0_PIN);
 #endif
+    const uint32_t random_compare_value = rand_linterp(15, 2);
+    RTC_CompareSet(0, random_compare_value);
     RTC_Enable(true);
     EMU_EnterEM2(true);
     RTC_Enable(false);
@@ -198,6 +223,3 @@ void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle) {
     WDOGn_Feed(DEFAULT_WDOG);
 }
 
-sc_real nightPhantomMachineIface_random(const NightPhantomMachine* handle) {
-    return (sc_real)rand()/(sc_real)RAND_MAX;
-}

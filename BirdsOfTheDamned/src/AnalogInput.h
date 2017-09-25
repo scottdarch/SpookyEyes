@@ -19,17 +19,29 @@
 #include "em_gpio.h"
 #include "em_adc.h"
 
-typedef struct TrimmerType {
-    void (*start_conversion)(struct TrimmerType* self);
-    unsigned int (*is_conversion_complete)(struct TrimmerType* self);
-    double (*get_last_value)(struct TrimmerType* self);
-    void (*set_enable)(struct TrimmerType* self, unsigned int enable);
+typedef enum {
+    analogInputSourceNone,
+    analogInputSourceTrimmer,
+    analogInputSourceTemp
+} AnalogInput_source;
+
+typedef struct AnalogInputType {
+    void (*start_conversion)(struct AnalogInputType* self);
+    unsigned int (*is_conversion_complete)(struct AnalogInputType* self);
+    double (*get_last_value)(struct AnalogInputType* self);
+    uint32_t (*get_last_value_raw)(struct AnalogInputType* self);
+    void (*set_enable)(struct AnalogInputType* self, unsigned int enable);
+    void (*set_input)(struct AnalogInputType* self,
+                      AnalogInput_source input);
     GPIO_Port_TypeDef pwr_port;
     unsigned int pwr_pin;
     ADC_TypeDef* _adc;
-} Trimmer;
+    AnalogInput_source _source;
+    CMU_Clock_TypeDef _clock;
+} AnalogInput;
 
-Trimmer* init_trimmer(Trimmer* init,
+AnalogInput* init_analog_input(AnalogInput* init,
+                      CMU_Clock_TypeDef adc_clock,
                       GPIO_Port_TypeDef pwr_port,
                       unsigned int pwr_pin,
                       ADC_TypeDef* adc);

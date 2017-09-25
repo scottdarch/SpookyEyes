@@ -19,7 +19,6 @@
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_assert.h"
-#include "em_adc.h"
 #include "em_gpio.h"
 #include "em_i2c.h"
 #include "em_rtc.h"
@@ -33,7 +32,6 @@
 extern void enter_DefaultMode_from_RESET(void) {
     // $[Config Calls]
     CMU_enter_DefaultMode_from_RESET();
-    ADC0_enter_DefaultMode_from_RESET();
     RTC_enter_DefaultMode_from_RESET();
     WDOG_enter_DefaultMode_from_RESET();
     I2C0_enter_DefaultMode_from_RESET();
@@ -104,9 +102,6 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
     CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
     // [LF clock tree setup]$
     // $[Peripheral Clock enables]
-    /* Enable clock for ADC0 */
-    CMU_ClockEnable(cmuClock_ADC0, true);
-
     /* Enable clock for I2C0 */
     CMU_ClockEnable(cmuClock_I2C0, true);
 
@@ -129,35 +124,9 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
 extern void ADC0_enter_DefaultMode_from_RESET(void) {
 
     // $[ADC_Init]
-    ADC_Init_TypeDef init = ADC_INIT_DEFAULT;
-
-    init.ovsRateSel = adcOvsRateSel2;
-    init.lpfMode = adcLPFilterRC;
-    init.warmUpMode = adcWarmupNormal;
-    init.timebase = ADC_TimebaseCalc(0);
-    init.prescale = ADC_PrescaleCalc(400000, 0);
-    init.tailgate = 0;
-
-    ADC_Init(ADC0, &init);
     // [ADC_Init]$
 
     // $[ADC_InitSingle]
-    ADC_InitSingle_TypeDef initsingle = ADC_INITSINGLE_DEFAULT;
-
-    initsingle.prsSel = adcPRSSELCh0;
-    initsingle.acqTime = adcAcqTime64;
-    initsingle.reference = adcRefVDD;
-    initsingle.resolution = adcRes12Bit;
-    initsingle.input = adcSingleInpCh6;
-    initsingle.diff = 0;
-    initsingle.prsEnable = 0;
-    initsingle.leftAdjust = 0;
-    initsingle.rep = 0;
-
-    /* Initialize a single sample conversion.
-     * To start a conversion, use ADC_Start().
-     * Conversion result can be read with ADC_DataSingleGet(). */
-    ADC_InitSingle(ADC0, &initsingle);
     // [ADC_InitSingle]$
 
     // $[ADC_InitScan]

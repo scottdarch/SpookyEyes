@@ -5,7 +5,6 @@
     <property object="ACMP0" propertyId="acmp.channelconfiguration.negativeinput" value="Scaled VDD reference"/>
     <property object="ACMP0" propertyId="acmp.channelconfiguration.positiveinput" value="Channel 1 (PC1)"/>
     <property object="ACMP0" propertyId="acmp.iosettings.ch1" value="Enabled"/>
-    <property object="ADC0" propertyId="ABPeripheral.included" value="true"/>
     <property object="ADC0" propertyId="adc.adcsettings.adcfrequencyhz" value="400000"/>
     <property object="ADC0" propertyId="adc.adcsettings.lowpassfiltermode" value="On-chip RC filter"/>
     <property object="ADC0" propertyId="adc.inputsettings.ch6" value="Enabled"/>
