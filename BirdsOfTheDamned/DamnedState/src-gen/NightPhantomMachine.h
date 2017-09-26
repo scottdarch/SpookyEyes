@@ -18,7 +18,10 @@ typedef enum
 	NightPhantomMachine_last_state,
 	NightPhantomMachine_main_region_running,
 	NightPhantomMachine_main_region_running_r0_reading_sensitivity,
-	NightPhantomMachine_main_region_running_r0_glowing,
+	NightPhantomMachine_main_region_running_r0_menacing,
+	NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow,
+	NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow,
+	NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow,
 	NightPhantomMachine_main_region_running_r0_lurking,
 	NightPhantomMachine_main_region__final_
 } NightPhantomMachineStates;
@@ -38,6 +41,12 @@ typedef struct
 	sc_real set_seed_value;
 } NightPhantomMachineIfaceRand;
 
+/*! Type definition of the data structure for the NightPhantomMachineInternal interface scope. */
+typedef struct
+{
+	sc_real glow_intensity;
+} NightPhantomMachineInternal;
+
 
 /*! Define dimension of the state configuration vector for orthogonal states. */
 #define NIGHTPHANTOMMACHINE_MAX_ORTHOGONAL_STATES 1
@@ -45,7 +54,10 @@ typedef struct
 /*! Define indices of states in the StateConfVector */
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_READING_SENSITIVITY 0
-#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_GLOWING 0
+#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING 0
+#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW 0
+#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW__REGION0_WAXING_GLOW 0
+#define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW__REGION0_WAINGING_GLOW 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_LURKING 0
 #define SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION__FINAL_ 0
 
@@ -60,6 +72,7 @@ typedef struct
 	
 	NightPhantomMachineIfaceAdc ifaceAdc;
 	NightPhantomMachineIfaceRand ifaceRand;
+	NightPhantomMachineInternal internal;
 } NightPhantomMachine;
 
 

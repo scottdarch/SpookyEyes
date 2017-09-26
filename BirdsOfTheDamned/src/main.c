@@ -150,18 +150,17 @@ int main(void) {
 
         // +--[RUN MACHINE]----------------------------------------------------+
         nightPhantomMachine_runCycle(&s_machine);
-
     }
 }
 
 // +---------------------------------------------------------------------------+
 // | YAKINDU MACHINE
 // +---------------------------------------------------------------------------+
-void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle) {
+void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle, const sc_integer max_wait_sec, const sc_integer min_wait_sec) {
 #ifdef LED0_PORT
     GPIO_PinOutClear(LED0_PORT, LED0_PIN);
 #endif
-    const uint32_t random_compare_value = rand_linterp(15, 2);
+    const uint32_t random_compare_value = rand_linterp((uint32_t)max_wait_sec, (uint32_t)min_wait_sec);
     RTC_CompareSet(0, random_compare_value);
     RTC_Enable(true);
     EMU_EnterEM2(true);
@@ -173,7 +172,7 @@ void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle) {
 
 void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightPhantomMachine* handle, const sc_real sensitivity) {
     DaylightSensor* const sh = s_daylightsensor;
-        if (sh) {
+    if (sh) {
         sh->set_sensitivity(sh, sensitivity);
     }
 }
@@ -187,27 +186,17 @@ sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhant
     }
 }
 
-
-void nightPhantomMachineIfaceEyes_start_glowing(const NightPhantomMachine* handle) {
+void nightPhantomMachineIfaceEyes_enable(const NightPhantomMachine* handle, sc_boolean enable) {
     BirdHead* const bh = s_birdhead;
     if (bh) {
-        bh->set_mode(bh, BIRDEYEMODE_ON);
+        bh->set_mode(bh, (enable) ? BIRDEYEMODE_ON : BIRDEYEMODE_OFF);
     }
 }
 
-void nightPhantomMachineIfaceEyes_stop_glowing(const NightPhantomMachine* handle) {
+void nightPhantomMachineIfaceEyes_set_intensity(const NightPhantomMachine* handle, sc_real intensity) {
     BirdHead* const bh = s_birdhead;
     if (bh) {
-        bh->set_mode(bh, BIRDEYEMODE_OFF);
-    }
-}
-
-sc_boolean nightPhantomMachineIfaceEyes_is_glowing(const NightPhantomMachine* handle) {
-    BirdHead* const bh = s_birdhead;
-    if (bh) {
-        return bh->run_cycle(bh);
-    } else {
-        return false;
+        bh->set_intensity(bh, intensity);
     }
 }
 

@@ -15,43 +15,41 @@
 
 #include "BirdHead.h"
 
+#define MAX_INTENSITY 0xFFFF
+
 static void bird_head_set_mode(BirdHead* self, BirdEyeMode mode) {
-    self->_mode = mode;
+    if (BIRDEYEMODE_OFF == mode) {
+        TIMER_CompareBufSet(self->_timer, self->_channel_left_eye, 0);
+        TIMER_CompareBufSet(self->_timer, self->_channel_right_eye, 0);
+    }
 }
 
-static unsigned int bird_head_run_cycle(BirdHead* self) {
-    if (self->_forward) {
-        if (self->_intensity == 0xFFFF) {
-            self->_forward = false;
-        }
-    } else if (self->_intensity == 0) {
-        self->_forward = true;
-    }
-    if (self->_forward) {
-        self->_intensity += 1;
+void bird_head_set_intensity(BirdHead* self, double intensity) {
+    const double x = (double)MAX_INTENSITY * intensity;
+    uint32_t y;
+    if (x < 0) {
+        y = 0;
+    } else if (x > MAX_INTENSITY) {
+        y = MAX_INTENSITY;
     } else {
-        self->_intensity -= 1;
+        y = (uint32_t)x;
     }
-    TIMER_CompareBufSet(self->_timer, self->_channel_left_eye, self->_intensity);
-    TIMER_CompareBufSet(self->_timer, self->_channel_right_eye, self->_intensity);
-    return (self->_intensity != 0);
+
+    TIMER_CompareBufSet(self->_timer, self->_channel_left_eye, y);
+    TIMER_CompareBufSet(self->_timer, self->_channel_right_eye, y);
 }
 
 BirdHead* init_bird_head(BirdHead* init, TIMER_TypeDef* timer, unsigned int channel_left_eye, unsigned int channel_right_eye) {
     if (init) {
 
-        TIMER_CompareBufSet(timer, channel_left_eye, 0);
-        TIMER_CompareBufSet(timer, channel_right_eye, 0);
-
         init->_timer = timer;
         init->_channel_left_eye = channel_left_eye;
         init->_channel_right_eye = channel_right_eye;
-        init->_mode = BIRDEYEMODE_OFF;
-        init->_forward = true;
-        init->_intensity = 0;
 
-        init->run_cycle = bird_head_run_cycle;
         init->set_mode = bird_head_set_mode;
+        init->set_intensity = bird_head_set_intensity;
+
+        bird_head_set_mode(init, BIRDEYEMODE_OFF);
     }
     return init;
 }

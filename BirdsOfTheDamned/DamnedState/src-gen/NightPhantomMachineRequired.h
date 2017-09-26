@@ -15,9 +15,8 @@ extern "C"
 This state machine makes use of operations declared in the state machines interface or internal scopes. Thus the function prototypes:
 	- nightPhantomMachineIfaceDaylight_sensor_set_sensitivity
 	- nightPhantomMachineIfaceDaylight_sensor_is_nighttime
-	- nightPhantomMachineIfaceEyes_start_glowing
-	- nightPhantomMachineIfaceEyes_is_glowing
-	- nightPhantomMachineIfaceEyes_stop_glowing
+	- nightPhantomMachineIfaceEyes_enable
+	- nightPhantomMachineIfaceEyes_set_intensity
 	- nightPhantomMachineIfaceWdt_enable
 	- nightPhantomMachineIfaceWdt_disable
 	- nightPhantomMachineIfaceWdt_reset
@@ -34,15 +33,15 @@ extern void nightPhantomMachineIfaceDaylight_sensor_set_sensitivity(const NightP
 extern sc_boolean nightPhantomMachineIfaceDaylight_sensor_is_nighttime(const NightPhantomMachine* handle);
 
 
-extern void nightPhantomMachineIfaceEyes_start_glowing(const NightPhantomMachine* handle);
-extern sc_boolean nightPhantomMachineIfaceEyes_is_glowing(const NightPhantomMachine* handle);
-extern void nightPhantomMachineIfaceEyes_stop_glowing(const NightPhantomMachine* handle);
+extern void nightPhantomMachineIfaceEyes_enable(const NightPhantomMachine* handle, const sc_boolean enable);
+extern void nightPhantomMachineIfaceEyes_set_intensity(const NightPhantomMachine* handle, const sc_real intensity);
 
 extern void nightPhantomMachineIfaceWdt_enable(const NightPhantomMachine* handle);
 extern void nightPhantomMachineIfaceWdt_disable(const NightPhantomMachine* handle);
 extern void nightPhantomMachineIfaceWdt_reset(const NightPhantomMachine* handle);
 
-extern void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle);
+extern void nightPhantomMachineIfaceRand_lurk(const NightPhantomMachine* handle, const sc_integer max_wait_sec, const sc_integer min_wait_sec);
+
 
 
 

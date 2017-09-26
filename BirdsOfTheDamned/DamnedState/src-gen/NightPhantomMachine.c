@@ -10,45 +10,70 @@
 /* prototypes of all internal functions */
 static sc_boolean nightPhantomMachine_check_main_region_running_lr2_lr2(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_reading_sensitivity_tr0_tr0(const NightPhantomMachine* handle);
-static sc_boolean nightPhantomMachine_check_main_region_running_r0_glowing_tr0_tr0(const NightPhantomMachine* handle);
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow_lr1_lr1(const NightPhantomMachine* handle);
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_lr0_lr0(const NightPhantomMachine* handle);
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_tr0_tr0(const NightPhantomMachine* handle);
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_lr0_lr0(const NightPhantomMachine* handle);
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_tr0_tr0(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_lurking_tr0_tr0(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0__choice_0_tr0_tr0(const NightPhantomMachine* handle);
 static sc_boolean nightPhantomMachine_check_main_region_running_r0__choice_0_tr1(const NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_lr2_lr2(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0_reading_sensitivity_tr0(NightPhantomMachine* handle);
-static void nightPhantomMachine_effect_main_region_running_r0_glowing_tr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing_tr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_lr1_lr1(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_tr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_lr0_lr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_tr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_lr0_lr0(NightPhantomMachine* handle);
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0_lurking_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0__choice_0_tr0(NightPhantomMachine* handle);
 static void nightPhantomMachine_effect_main_region_running_r0__choice_0_tr1(NightPhantomMachine* handle);
 static void nightPhantomMachine_enact_main_region_running(NightPhantomMachine* handle);
 static void nightPhantomMachine_enact_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle);
-static void nightPhantomMachine_enact_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_enact_main_region_running_r0_menacing__region0_doing_menacing_glow(NightPhantomMachine* handle);
 static void nightPhantomMachine_enact_main_region_running_r0_lurking(NightPhantomMachine* handle);
 static void nightPhantomMachine_exact_main_region_running(NightPhantomMachine* handle);
-static void nightPhantomMachine_exact_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_r0_reading_sensitivity_default(NightPhantomMachine* handle);
-static void nightPhantomMachine_enseq_main_region_running_r0_glowing_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_r0_lurking_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region__final__default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_enseq_main_region_running_r0_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_default(NightPhantomMachine* handle);
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_default(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle);
-static void nightPhantomMachine_exseq_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running_r0_lurking(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region__final_(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region(NightPhantomMachine* handle);
 static void nightPhantomMachine_exseq_main_region_running_r0(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0(NightPhantomMachine* handle);
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0_reading_sensitivity(NightPhantomMachine* handle);
-static void nightPhantomMachine_react_main_region_running_r0_glowing(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0_lurking(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region__final_(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0__choice_0(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region__entry_Default(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0__entry_Default(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0__entry_Default(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0__entry_Default(NightPhantomMachine* handle);
 static void nightPhantomMachine_react_main_region_running_r0_vampire_sleep(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0__exit_Default(NightPhantomMachine* handle);
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0__exit_Default(NightPhantomMachine* handle);
 static void nightPhantomMachine_clearInEvents(NightPhantomMachine* handle);
 static void nightPhantomMachine_clearOutEvents(NightPhantomMachine* handle);
 
@@ -68,6 +93,8 @@ void nightPhantomMachine_init(NightPhantomMachine* handle)
 		nightPhantomMachine_clearInEvents(handle);
 		nightPhantomMachine_clearOutEvents(handle);
 	
+		/* Default init sequence for statechart NightPhantomMachine */
+		handle->internal.glow_intensity = 0.0;
 }
 
 void nightPhantomMachine_enter(NightPhantomMachine* handle)
@@ -128,9 +155,14 @@ void nightPhantomMachine_runCycle(NightPhantomMachine* handle)
 			nightPhantomMachine_react_main_region_running_r0_reading_sensitivity(handle);
 			break;
 		}
-		case NightPhantomMachine_main_region_running_r0_glowing:
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow:
 		{
-			nightPhantomMachine_react_main_region_running_r0_glowing(handle);
+			nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(handle);
+			break;
+		}
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow:
+		{
+			nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(handle);
 			break;
 		}
 		case NightPhantomMachine_main_region_running_r0_lurking:
@@ -165,8 +197,20 @@ sc_boolean nightPhantomMachine_isStateActive(const NightPhantomMachine* handle, 
 			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_READING_SENSITIVITY] == NightPhantomMachine_main_region_running_r0_reading_sensitivity
 			);
 			break;
-		case NightPhantomMachine_main_region_running_r0_glowing :
-			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_GLOWING] == NightPhantomMachine_main_region_running_r0_glowing
+		case NightPhantomMachine_main_region_running_r0_menacing :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING] >= NightPhantomMachine_main_region_running_r0_menacing
+				&& handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING] <= NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow);
+			break;
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW] >= NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow
+				&& handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW] <= NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow);
+			break;
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW__REGION0_WAXING_GLOW] == NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow
+			);
+			break;
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow :
+			result = (sc_boolean) (handle->stateConfVector[SCVI_NIGHTPHANTOMMACHINE_MAIN_REGION_RUNNING_R0_MENACING__REGION0_DOING_MENACING_GLOW__REGION0_WAINGING_GLOW] == NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow
 			);
 			break;
 		case NightPhantomMachine_main_region_running_r0_lurking :
@@ -224,9 +268,29 @@ static sc_boolean nightPhantomMachine_check_main_region_running_r0_reading_sensi
 	return handle->ifaceAdc.acquisition_complete_raised;
 }
 
-static sc_boolean nightPhantomMachine_check_main_region_running_r0_glowing_tr0_tr0(const NightPhantomMachine* handle)
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow_lr1_lr1(const NightPhantomMachine* handle)
 {
-	return (!nightPhantomMachineIfaceEyes_is_glowing(handle)) ? bool_true : bool_false;
+	return bool_true;
+}
+
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_lr0_lr0(const NightPhantomMachine* handle)
+{
+	return bool_true;
+}
+
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_tr0_tr0(const NightPhantomMachine* handle)
+{
+	return (handle->internal.glow_intensity >= 1.0) ? bool_true : bool_false;
+}
+
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_lr0_lr0(const NightPhantomMachine* handle)
+{
+	return bool_true;
+}
+
+static sc_boolean nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_tr0_tr0(const NightPhantomMachine* handle)
+{
+	return (handle->internal.glow_intensity <= 0.0) ? bool_true : bool_false;
 }
 
 static sc_boolean nightPhantomMachine_check_main_region_running_r0_lurking_tr0_tr0(const NightPhantomMachine* handle)
@@ -264,10 +328,43 @@ static void nightPhantomMachine_effect_main_region_running_r0_reading_sensitivit
 	nightPhantomMachine_react_main_region_running_r0__choice_0(handle);
 }
 
-static void nightPhantomMachine_effect_main_region_running_r0_glowing_tr0(NightPhantomMachine* handle)
+static void nightPhantomMachine_effect_main_region_running_r0_menacing_tr0(NightPhantomMachine* handle)
 {
-	nightPhantomMachine_exseq_main_region_running_r0_glowing(handle);
+	nightPhantomMachine_exseq_main_region_running_r0_menacing(handle);
 	nightPhantomMachine_enseq_main_region_running_r0_lurking_default(handle);
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_lr1_lr1(NightPhantomMachine* handle)
+{
+	nightPhantomMachineIfaceEyes_set_intensity(handle, handle->internal.glow_intensity);
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_tr0(NightPhantomMachine* handle)
+{
+	nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+	nightPhantomMachine_react_main_region_running_r0_menacing__region0__exit_Default(handle);
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_lr0_lr0(NightPhantomMachine* handle)
+{
+	handle->internal.glow_intensity += 1.0E-4;
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_tr0(NightPhantomMachine* handle)
+{
+	nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(handle);
+	nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_default(handle);
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_lr0_lr0(NightPhantomMachine* handle)
+{
+	handle->internal.glow_intensity -= 1.0E-4;
+}
+
+static void nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_tr0(NightPhantomMachine* handle)
+{
+	nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(handle);
+	nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0__exit_Default(handle);
 }
 
 static void nightPhantomMachine_effect_main_region_running_r0_lurking_tr0(NightPhantomMachine* handle)
@@ -283,7 +380,7 @@ static void nightPhantomMachine_effect_main_region_running_r0__choice_0_tr0(Nigh
 
 static void nightPhantomMachine_effect_main_region_running_r0__choice_0_tr1(NightPhantomMachine* handle)
 {
-	nightPhantomMachine_enseq_main_region_running_r0_glowing_default(handle);
+	nightPhantomMachine_enseq_main_region_running_r0_menacing_default(handle);
 }
 
 /* Entry action for state 'running'. */
@@ -300,18 +397,19 @@ static void nightPhantomMachine_enact_main_region_running_r0_reading_sensitivity
 	handle->ifaceAdc.start_acquire_trimpot_raised = bool_true;
 }
 
-/* Entry action for state 'glowing'. */
-static void nightPhantomMachine_enact_main_region_running_r0_glowing(NightPhantomMachine* handle)
+/* Entry action for state 'doing menacing glow'. */
+static void nightPhantomMachine_enact_main_region_running_r0_menacing__region0_doing_menacing_glow(NightPhantomMachine* handle)
 {
-	/* Entry action for state 'glowing'. */
-	nightPhantomMachineIfaceEyes_start_glowing(handle);
+	/* Entry action for state 'doing menacing glow'. */
+	nightPhantomMachineIfaceEyes_enable(handle, bool_true);
+	handle->internal.glow_intensity = 0.0;
 }
 
 /* Entry action for state 'lurking'. */
 static void nightPhantomMachine_enact_main_region_running_r0_lurking(NightPhantomMachine* handle)
 {
 	/* Entry action for state 'lurking'. */
-	nightPhantomMachineIfaceRand_lurk(handle);
+	nightPhantomMachineIfaceRand_lurk(handle, 25, 3);
 }
 
 /* Exit action for state 'running'. */
@@ -321,11 +419,11 @@ static void nightPhantomMachine_exact_main_region_running(NightPhantomMachine* h
 	nightPhantomMachineIfaceWdt_disable(handle);
 }
 
-/* Exit action for state 'glowing'. */
-static void nightPhantomMachine_exact_main_region_running_r0_glowing(NightPhantomMachine* handle)
+/* Exit action for state 'doing menacing glow'. */
+static void nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(NightPhantomMachine* handle)
 {
-	/* Exit action for state 'glowing'. */
-	nightPhantomMachineIfaceEyes_stop_glowing(handle);
+	/* Exit action for state 'doing menacing glow'. */
+	nightPhantomMachineIfaceEyes_enable(handle, bool_false);
 }
 
 /* 'default' enter sequence for state running */
@@ -345,12 +443,34 @@ static void nightPhantomMachine_enseq_main_region_running_r0_reading_sensitivity
 	handle->stateConfVectorPosition = 0;
 }
 
-/* 'default' enter sequence for state glowing */
-static void nightPhantomMachine_enseq_main_region_running_r0_glowing_default(NightPhantomMachine* handle)
+/* 'default' enter sequence for state menacing */
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing_default(NightPhantomMachine* handle)
 {
-	/* 'default' enter sequence for state glowing */
-	nightPhantomMachine_enact_main_region_running_r0_glowing(handle);
-	handle->stateConfVector[0] = NightPhantomMachine_main_region_running_r0_glowing;
+	/* 'default' enter sequence for state menacing */
+	nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_default(handle);
+}
+
+/* 'default' enter sequence for state doing menacing glow */
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow_default(NightPhantomMachine* handle)
+{
+	/* 'default' enter sequence for state doing menacing glow */
+	nightPhantomMachine_enact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+	nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_default(handle);
+}
+
+/* 'default' enter sequence for state waxing glow */
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_default(NightPhantomMachine* handle)
+{
+	/* 'default' enter sequence for state waxing glow */
+	handle->stateConfVector[0] = NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow;
+	handle->stateConfVectorPosition = 0;
+}
+
+/* 'default' enter sequence for state wainging glow */
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_default(NightPhantomMachine* handle)
+{
+	/* 'default' enter sequence for state wainging glow */
+	handle->stateConfVector[0] = NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow;
 	handle->stateConfVectorPosition = 0;
 }
 
@@ -385,6 +505,20 @@ static void nightPhantomMachine_enseq_main_region_running_r0_default(NightPhanto
 	nightPhantomMachine_react_main_region_running_r0__entry_Default(handle);
 }
 
+/* 'default' enter sequence for region null */
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_default(NightPhantomMachine* handle)
+{
+	/* 'default' enter sequence for region null */
+	nightPhantomMachine_react_main_region_running_r0_menacing__region0__entry_Default(handle);
+}
+
+/* 'default' enter sequence for region null */
+static void nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_default(NightPhantomMachine* handle)
+{
+	/* 'default' enter sequence for region null */
+	nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0__entry_Default(handle);
+}
+
 /* Default exit sequence for state running */
 static void nightPhantomMachine_exseq_main_region_running(NightPhantomMachine* handle)
 {
@@ -401,13 +535,35 @@ static void nightPhantomMachine_exseq_main_region_running_r0_reading_sensitivity
 	handle->stateConfVectorPosition = 0;
 }
 
-/* Default exit sequence for state glowing */
-static void nightPhantomMachine_exseq_main_region_running_r0_glowing(NightPhantomMachine* handle)
+/* Default exit sequence for state menacing */
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing(NightPhantomMachine* handle)
 {
-	/* Default exit sequence for state glowing */
+	/* Default exit sequence for state menacing */
+	nightPhantomMachine_exseq_main_region_running_r0_menacing__region0(handle);
+}
+
+/* Default exit sequence for state doing menacing glow */
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow(NightPhantomMachine* handle)
+{
+	/* Default exit sequence for state doing menacing glow */
+	nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0(handle);
+	nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+}
+
+/* Default exit sequence for state waxing glow */
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(NightPhantomMachine* handle)
+{
+	/* Default exit sequence for state waxing glow */
 	handle->stateConfVector[0] = NightPhantomMachine_last_state;
 	handle->stateConfVectorPosition = 0;
-	nightPhantomMachine_exact_main_region_running_r0_glowing(handle);
+}
+
+/* Default exit sequence for state wainging glow */
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(NightPhantomMachine* handle)
+{
+	/* Default exit sequence for state wainging glow */
+	handle->stateConfVector[0] = NightPhantomMachine_last_state;
+	handle->stateConfVectorPosition = 0;
 }
 
 /* Default exit sequence for state lurking */
@@ -439,9 +595,17 @@ static void nightPhantomMachine_exseq_main_region(NightPhantomMachine* handle)
 			nightPhantomMachine_exact_main_region_running(handle);
 			break;
 		}
-		case NightPhantomMachine_main_region_running_r0_glowing :
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow :
 		{
-			nightPhantomMachine_exseq_main_region_running_r0_glowing(handle);
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(handle);
+			nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+			nightPhantomMachine_exact_main_region_running(handle);
+			break;
+		}
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(handle);
+			nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
 			nightPhantomMachine_exact_main_region_running(handle);
 			break;
 		}
@@ -472,14 +636,65 @@ static void nightPhantomMachine_exseq_main_region_running_r0(NightPhantomMachine
 			nightPhantomMachine_exseq_main_region_running_r0_reading_sensitivity(handle);
 			break;
 		}
-		case NightPhantomMachine_main_region_running_r0_glowing :
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow :
 		{
-			nightPhantomMachine_exseq_main_region_running_r0_glowing(handle);
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(handle);
+			nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+			break;
+		}
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(handle);
+			nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
 			break;
 		}
 		case NightPhantomMachine_main_region_running_r0_lurking :
 		{
 			nightPhantomMachine_exseq_main_region_running_r0_lurking(handle);
+			break;
+		}
+		default: break;
+	}
+}
+
+/* Default exit sequence for region null */
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0(NightPhantomMachine* handle)
+{
+	/* Default exit sequence for region null */
+	/* Handle exit of all possible states (of NightPhantomMachine.main_region.running.r0.menacing._region0) at position 0... */
+	switch(handle->stateConfVector[ 0 ])
+	{
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(handle);
+			nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+			break;
+		}
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(handle);
+			nightPhantomMachine_exact_main_region_running_r0_menacing__region0_doing_menacing_glow(handle);
+			break;
+		}
+		default: break;
+	}
+}
+
+/* Default exit sequence for region null */
+static void nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0(NightPhantomMachine* handle)
+{
+	/* Default exit sequence for region null */
+	/* Handle exit of all possible states (of NightPhantomMachine.main_region.running.r0.menacing._region0.doing_menacing_glow._region0) at position 0... */
+	switch(handle->stateConfVector[ 0 ])
+	{
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(handle);
+			break;
+		}
+		case NightPhantomMachine_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow :
+		{
+			nightPhantomMachine_exseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(handle);
 			break;
 		}
 		default: break;
@@ -497,15 +712,34 @@ static void nightPhantomMachine_react_main_region_running_r0_reading_sensitivity
 	} 
 }
 
-/* The reactions of state glowing. */
-static void nightPhantomMachine_react_main_region_running_r0_glowing(NightPhantomMachine* handle)
+/* The reactions of state waxing glow. */
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow(NightPhantomMachine* handle)
 {
-	/* The reactions of state glowing. */
+	/* The reactions of state waxing glow. */
 	nightPhantomMachine_effect_main_region_running_lr2_lr2(handle);
-	if (nightPhantomMachine_check_main_region_running_r0_glowing_tr0_tr0(handle) == bool_true)
+	nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_lr1_lr1(handle);
+	if (nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_tr0_tr0(handle) == bool_true)
 	{ 
-		nightPhantomMachine_effect_main_region_running_r0_glowing_tr0(handle);
-	} 
+		nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_tr0(handle);
+	}  else
+	{
+		nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_lr0_lr0(handle);
+	}
+}
+
+/* The reactions of state wainging glow. */
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow(NightPhantomMachine* handle)
+{
+	/* The reactions of state wainging glow. */
+	nightPhantomMachine_effect_main_region_running_lr2_lr2(handle);
+	nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_lr1_lr1(handle);
+	if (nightPhantomMachine_check_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_tr0_tr0(handle) == bool_true)
+	{ 
+		nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_tr0(handle);
+	}  else
+	{
+		nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_wainging_glow_lr0_lr0(handle);
+	}
 }
 
 /* The reactions of state lurking. */
@@ -548,11 +782,39 @@ static void nightPhantomMachine_react_main_region_running_r0__entry_Default(Nigh
 	nightPhantomMachine_enseq_main_region_running_r0_reading_sensitivity_default(handle);
 }
 
+/* Default react sequence for initial entry  */
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0__entry_Default(NightPhantomMachine* handle)
+{
+	/* Default react sequence for initial entry  */
+	nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow__region0_waxing_glow_default(handle);
+}
+
+/* Default react sequence for initial entry  */
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0__entry_Default(NightPhantomMachine* handle)
+{
+	/* Default react sequence for initial entry  */
+	nightPhantomMachine_enseq_main_region_running_r0_menacing__region0_doing_menacing_glow_default(handle);
+}
+
 /* The reactions of exit vampire_sleep. */
 static void nightPhantomMachine_react_main_region_running_r0_vampire_sleep(NightPhantomMachine* handle)
 {
 	/* The reactions of exit vampire_sleep. */
 	nightPhantomMachine_effect_main_region_running_tr0(handle);
+}
+
+/* The reactions of exit default. */
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0__exit_Default(NightPhantomMachine* handle)
+{
+	/* The reactions of exit default. */
+	nightPhantomMachine_effect_main_region_running_r0_menacing_tr0(handle);
+}
+
+/* The reactions of exit default. */
+static void nightPhantomMachine_react_main_region_running_r0_menacing__region0_doing_menacing_glow__region0__exit_Default(NightPhantomMachine* handle)
+{
+	/* The reactions of exit default. */
+	nightPhantomMachine_effect_main_region_running_r0_menacing__region0_doing_menacing_glow_tr0(handle);
 }
 
 
