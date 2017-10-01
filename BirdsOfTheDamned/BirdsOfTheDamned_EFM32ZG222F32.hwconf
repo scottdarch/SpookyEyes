@@ -5,13 +5,14 @@
     <property object="ACMP0" propertyId="acmp.channelconfiguration.negativeinput" value="Scaled VDD reference"/>
     <property object="ACMP0" propertyId="acmp.channelconfiguration.positiveinput" value="Channel 1 (PC1)"/>
     <property object="ACMP0" propertyId="acmp.iosettings.ch1" value="Enabled"/>
+    <property object="ADC0" propertyId="ABPeripheral.included" value="true"/>
     <property object="ADC0" propertyId="adc.adcsettings.adcfrequencyhz" value="400000"/>
     <property object="ADC0" propertyId="adc.adcsettings.lowpassfiltermode" value="On-chip RC filter"/>
     <property object="ADC0" propertyId="adc.inputsettings.ch6" value="Enabled"/>
     <property object="ADC0" propertyId="scanmode.scanmodesettings.acquisitiontimeadcclockcycles" value="128"/>
     <property object="ADC0" propertyId="scanmode.scanmodesettings.continuousconversion" value="Enabled"/>
     <property object="ADC0" propertyId="scanmode.scanmodesettings.scaninput" value="ADC_SCANCTRL_INPUTMASK_CH6"/>
-    <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.acquisitiontimeadcclockcycles" value="64"/>
+    <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.acquisitiontimeadcclockcycles" value="256"/>
     <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.input" value="Channel 6 (PD6)"/>
     <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.reference" value="Buffered VDD"/>
     <property object="ADC0" propertyId="singlesamplemode.singlesamplemodesettings.singlesamplemode" value="Enabled"/>
@@ -28,7 +29,7 @@
     <property object="PA0" propertyId="ports.settings.pulldirection" value="Pullup"/>
     <property object="PA0" propertyId="ports.settings.pullup" value="Enabled"/>
     <property object="PB11" propertyId="ports.settings.custompinname" value="ADJ_PWR"/>
-    <property object="PB11" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
+    <property object="PB11" propertyId="ports.settings.pinmode" value="Push-pull"/>
     <property object="PB7" propertyId="ports.settings.custompinname" value=""/>
     <property object="PC0" propertyId="ports.settings.custompinname" value="EYE_R"/>
     <property object="PC0" propertyId="ports.settings.dout" value="1"/>

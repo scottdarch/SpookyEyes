@@ -114,14 +114,13 @@ int main(void) {
         // +--[EVENTS]---------------------------------------------------------+
 
         if (nightPhantomMachineIfaceAdc_israised_start_acquire_trimpot(&s_machine)) {
-            s_ain->set_input(s_ain, analogInputSourceTrimmer);
             s_ain->set_enable(s_ain, true);
             s_ain->start_conversion(s_ain);
         }
 
         if (nightPhantomMachineIfaceRand_israised_set_seed(&s_machine)) {
             const sc_real randomness = nightPhantomMachineIfaceRand_get_set_seed_value(&s_machine);
-            const double seed = (randomness * (sc_real)RAND_MAX);
+            const sc_real seed = (randomness * (sc_real)RAND_MAX);
             const unsigned int iseed = (unsigned int)seed;
             srand(iseed);
         }

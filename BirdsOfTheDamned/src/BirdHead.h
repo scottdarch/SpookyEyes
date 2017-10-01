@@ -26,7 +26,7 @@ typedef enum {
 
 typedef struct BirdHeadType {
     void (*set_mode)(struct BirdHeadType*, BirdEyeMode);
-    void (*set_intensity)(struct BirdHeadType*, double);
+    void (*set_intensity)(struct BirdHeadType*, float);
 
     // +-----------------------------------------------------------------------+
     // | PRIVATE

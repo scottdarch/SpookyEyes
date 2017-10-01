@@ -24,8 +24,8 @@ static void bird_head_set_mode(BirdHead* self, BirdEyeMode mode) {
     }
 }
 
-void bird_head_set_intensity(BirdHead* self, double intensity) {
-    const double x = (double)MAX_INTENSITY * intensity;
+void bird_head_set_intensity(BirdHead* self, float intensity) {
+    const float x = (float)MAX_INTENSITY * intensity;
     uint32_t y;
     if (x < 0) {
         y = 0;

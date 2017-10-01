@@ -132,16 +132,32 @@ extern void ADC0_enter_DefaultMode_from_RESET(void) {
     ADC_Init_TypeDef init = ADC_INIT_DEFAULT;
 
     init.ovsRateSel = adcOvsRateSel2;
-    init.lpfMode = adcLPFilterBypass;
+    init.lpfMode = adcLPFilterRC;
     init.warmUpMode = adcWarmupNormal;
     init.timebase = ADC_TimebaseCalc(0);
-    init.prescale = ADC_PrescaleCalc(7000000, 0);
+    init.prescale = ADC_PrescaleCalc(400000, 0);
     init.tailgate = 0;
 
     ADC_Init(ADC0, &init);
     // [ADC_Init]$
 
     // $[ADC_InitSingle]
+    ADC_InitSingle_TypeDef initsingle = ADC_INITSINGLE_DEFAULT;
+
+    initsingle.prsSel = adcPRSSELCh0;
+    initsingle.acqTime = adcAcqTime256;
+    initsingle.reference = adcRefVDD;
+    initsingle.resolution = adcRes12Bit;
+    initsingle.input = adcSingleInpCh6;
+    initsingle.diff = 0;
+    initsingle.prsEnable = 0;
+    initsingle.leftAdjust = 0;
+    initsingle.rep = 0;
+
+    /* Initialize a single sample conversion.
+     * To start a conversion, use ADC_Start().
+     * Conversion result can be read with ADC_DataSingleGet(). */
+    ADC_InitSingle(ADC0, &initsingle);
     // [ADC_InitSingle]$
 
     // $[ADC_InitScan]
@@ -408,9 +424,9 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port B Configuration]
 
-    /* Pin PB7 is configured to Push-pull with alt. drive strength */
-    GPIO->P[1].MODEL = (GPIO->P[1].MODEL & ~_GPIO_P_MODEL_MODE7_MASK)
-            | GPIO_P_MODEL_MODE7_PUSHPULLDRIVE;
+    /* Pin PB11 is configured to Push-pull */
+    GPIO->P[1].MODEH = (GPIO->P[1].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
+            | GPIO_P_MODEH_MODE11_PUSHPULL;
     // [Port B Configuration]$
 
     // $[Port C Configuration]
@@ -419,6 +435,14 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     GPIO->P[2].DOUT |= (1 << 0);
     GPIO->P[2].MODEL = (GPIO->P[2].MODEL & ~_GPIO_P_MODEL_MODE0_MASK)
             | GPIO_P_MODEL_MODE0_PUSHPULL;
+
+    /* Pin PC10 is configured to Push-pull */
+    GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE10_MASK)
+            | GPIO_P_MODEH_MODE10_PUSHPULL;
+
+    /* Pin PC11 is configured to Push-pull */
+    GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
+            | GPIO_P_MODEH_MODE11_PUSHPULL;
     // [Port C Configuration]$
 
     // $[Port D Configuration]
@@ -437,10 +461,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port F Configuration]
 
-    /* Pin PF2 is configured to Input enabled with pull-up and filter */
+    /* Pin PF2 is configured to Input enabled with pull-up */
     GPIO->P[5].DOUT |= (1 << 2);
     GPIO->P[5].MODEL = (GPIO->P[5].MODEL & ~_GPIO_P_MODEL_MODE2_MASK)
-            | GPIO_P_MODEL_MODE2_INPUTPULLFILTER;
+            | GPIO_P_MODEL_MODE2_INPUTPULL;
     // [Port F Configuration]$
 
     // $[Route Configuration]

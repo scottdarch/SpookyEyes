@@ -33,52 +33,12 @@ static double analog_input_get_last_value(AnalogInput* self) {
 
 static void analog_input_set_enable(AnalogInput* self, unsigned int enable) {
     if (enable) {
-        if (analogInputSourceTrimmer == self->_source) {
-            GPIO_PinOutSet(self->pwr_port, self->pwr_pin);
-        }
+        GPIO_PinOutSet(self->pwr_port, self->pwr_pin);
         CMU_ClockEnable(self->_clock, true);
     } else {
         GPIO_PinOutClear(self->pwr_port, self->pwr_pin);
         CMU_ClockEnable(self->_clock, false);
     }
-}
-
-static void analog_input_set_input(AnalogInput* self,
-                              AnalogInput_source input)
-{
-    ADC_Init_TypeDef init = ADC_INIT_DEFAULT;
-
-    init.timebase = ADC_TimebaseCalc(0);
-    init.prescale = ADC_PrescaleCalc(400000, 0);
-
-    ADC_InitSingle_TypeDef initsingle = ADC_INITSINGLE_DEFAULT;
-
-    initsingle.acqTime = adcAcqTime64;
-    initsingle.resolution = adcRes12Bit;
-
-    switch(input) {
-    case analogInputSourceTemp:
-        init.lpfMode = adcLPFilterBypass;
-        initsingle.input = adcSingleInpCh6;
-        initsingle.reference = adcRefVDD;
-        //initsingle.input = adcSingleInpTemp;
-        //initsingle.reference = adcRef1V25;
-        break;
-    default:
-        init.lpfMode = adcLPFilterRC;
-        initsingle.input = adcSingleInpCh6;
-        initsingle.reference = adcRefVDD;
-        break;
-    }
-    self->_source = input;
-
-    ADC_Reset(self->_adc);
-    ADC_Init(self->_adc, &init);
-
-    /* Initialize a single sample conversion.
-     * To start a conversion, use ADC_Start().
-     * Conversion result can be read with ADC_DataSingleGet(). */
-    ADC_InitSingle(self->_adc, &initsingle);
 }
 
 static uint32_t analog_input_get_last_value_raw(AnalogInput* self) {
@@ -96,11 +56,9 @@ AnalogInput* init_analog_input(AnalogInput* init,
         init->get_last_value = analog_input_get_last_value;
         init->get_last_value_raw = analog_input_get_last_value_raw;
         init->set_enable = analog_input_set_enable;
-        init->set_input = analog_input_set_input;
         init->pwr_port = pwr_port;
         init->pwr_pin = pwr_pin;
         init->_adc = adc;
-        init->_source = analogInputSourceNone;
         init->_clock = adc_clock;
     }
     return init;

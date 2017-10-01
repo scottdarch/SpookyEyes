@@ -19,24 +19,15 @@
 #include "em_gpio.h"
 #include "em_adc.h"
 
-typedef enum {
-    analogInputSourceNone,
-    analogInputSourceTrimmer,
-    analogInputSourceTemp
-} AnalogInput_source;
-
 typedef struct AnalogInputType {
     void (*start_conversion)(struct AnalogInputType* self);
     unsigned int (*is_conversion_complete)(struct AnalogInputType* self);
     double (*get_last_value)(struct AnalogInputType* self);
     uint32_t (*get_last_value_raw)(struct AnalogInputType* self);
     void (*set_enable)(struct AnalogInputType* self, unsigned int enable);
-    void (*set_input)(struct AnalogInputType* self,
-                      AnalogInput_source input);
     GPIO_Port_TypeDef pwr_port;
     unsigned int pwr_pin;
     ADC_TypeDef* _adc;
-    AnalogInput_source _source;
     CMU_Clock_TypeDef _clock;
 } AnalogInput;
 

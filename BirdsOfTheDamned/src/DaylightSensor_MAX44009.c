@@ -30,6 +30,7 @@
 #define MAX44009_REG_THRESH_LOW 0x6
 #define MAX44009_REG_THRESH_TIMER 0x7
 
+#define MAX44009_REGIDX_THRES_LOW 2
 
 static uint8_t _reg_config[] = { MAX44009_REG_CONFIG, 0x00 };
 
@@ -76,6 +77,9 @@ static I2C_TransferSeq_TypeDef _config_messages[] = {
     }
 };
 
+static uint8_t _to_low_threshold(float sensitivty) {
+    return 0xF & ((uint8_t)(15.0 * sensitivty));
+}
 
 // +--------------------------------------------------------------------------+
 // | I2C
@@ -142,8 +146,12 @@ static unsigned int daylight_sensor_get_is_nighttime(DaylightSensor* self) {
     return (lux_low <= _reg_threshold_low[1]);
 }
 
-static void daylight_sensor_set_sensitivity(DaylightSensor* self, double sensitivity) {
-    // TODO: write new threshold value to the 44009.
+static void daylight_sensor_set_sensitivity(DaylightSensor* self, float sensitivity) {
+    I2C_TransferReturn_TypeDef last_state = I2C_Transfer(self->_i2c_peripheral);
+    _reg_threshold_low[1] = _to_low_threshold(sensitivity);
+    while (i2cTransferInProgress == last_state) {
+        last_state = I2C_TransferInit(self->_i2c_peripheral, &(_config_messages[MAX44009_REGIDX_THRES_LOW]) );
+    }
 }
 
 // +--------------------------------------------------------------------------+
