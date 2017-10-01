@@ -19,6 +19,7 @@
 #include "em_device.h"
 #include "em_chip.h"
 #include "em_assert.h"
+#include "em_adc.h"
 #include "em_gpio.h"
 #include "em_i2c.h"
 #include "em_rtc.h"
@@ -32,6 +33,7 @@
 extern void enter_DefaultMode_from_RESET(void) {
     // $[Config Calls]
     CMU_enter_DefaultMode_from_RESET();
+    ADC0_enter_DefaultMode_from_RESET();
     RTC_enter_DefaultMode_from_RESET();
     WDOG_enter_DefaultMode_from_RESET();
     I2C0_enter_DefaultMode_from_RESET();
@@ -102,6 +104,9 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
     CMU_ClockSelectSet(cmuClock_LFA, cmuSelect_LFRCO);
     // [LF clock tree setup]$
     // $[Peripheral Clock enables]
+    /* Enable clock for ADC0 */
+    CMU_ClockEnable(cmuClock_ADC0, true);
+
     /* Enable clock for I2C0 */
     CMU_ClockEnable(cmuClock_I2C0, true);
 
@@ -124,6 +129,16 @@ extern void CMU_enter_DefaultMode_from_RESET(void) {
 extern void ADC0_enter_DefaultMode_from_RESET(void) {
 
     // $[ADC_Init]
+    ADC_Init_TypeDef init = ADC_INIT_DEFAULT;
+
+    init.ovsRateSel = adcOvsRateSel2;
+    init.lpfMode = adcLPFilterBypass;
+    init.warmUpMode = adcWarmupNormal;
+    init.timebase = ADC_TimebaseCalc(0);
+    init.prescale = ADC_PrescaleCalc(7000000, 0);
+    init.tailgate = 0;
+
+    ADC_Init(ADC0, &init);
     // [ADC_Init]$
 
     // $[ADC_InitSingle]
@@ -396,10 +411,6 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     /* Pin PB7 is configured to Push-pull with alt. drive strength */
     GPIO->P[1].MODEL = (GPIO->P[1].MODEL & ~_GPIO_P_MODEL_MODE7_MASK)
             | GPIO_P_MODEL_MODE7_PUSHPULLDRIVE;
-
-    /* Pin PB11 is configured to Push-pull with alt. drive strength */
-    GPIO->P[1].MODEH = (GPIO->P[1].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
-            | GPIO_P_MODEH_MODE11_PUSHPULLDRIVE;
     // [Port B Configuration]$
 
     // $[Port C Configuration]
@@ -408,14 +419,6 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
     GPIO->P[2].DOUT |= (1 << 0);
     GPIO->P[2].MODEL = (GPIO->P[2].MODEL & ~_GPIO_P_MODEL_MODE0_MASK)
             | GPIO_P_MODEL_MODE0_PUSHPULL;
-
-    /* Pin PC10 is configured to Push-pull */
-    GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE10_MASK)
-            | GPIO_P_MODEH_MODE10_PUSHPULL;
-
-    /* Pin PC11 is configured to Push-pull */
-    GPIO->P[2].MODEH = (GPIO->P[2].MODEH & ~_GPIO_P_MODEH_MODE11_MASK)
-            | GPIO_P_MODEH_MODE11_PUSHPULL;
     // [Port C Configuration]$
 
     // $[Port D Configuration]
@@ -434,10 +437,10 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void) {
 
     // $[Port F Configuration]
 
-    /* Pin PF2 is configured to Input enabled with pull-up */
+    /* Pin PF2 is configured to Input enabled with pull-up and filter */
     GPIO->P[5].DOUT |= (1 << 2);
     GPIO->P[5].MODEL = (GPIO->P[5].MODEL & ~_GPIO_P_MODEL_MODE2_MASK)
-            | GPIO_P_MODEL_MODE2_INPUTPULL;
+            | GPIO_P_MODEL_MODE2_INPUTPULLFILTER;
     // [Port F Configuration]$
 
     // $[Route Configuration]

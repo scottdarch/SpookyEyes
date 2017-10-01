@@ -98,8 +98,8 @@ int main(void) {
     // TODO: switch to real pin for v1x boards.
     s_ain = init_analog_input(&s_ain_data,
             cmuClock_ADC0,
-            ADJ_PWR_DEVKIT_PORT,
-            ADJ_PWR_DEVKIT_PIN,
+            ADJ_PWR_PORT,
+            ADJ_PWR_PIN,
             ADC0);
 
     nightPhantomMachine_init(&s_machine);

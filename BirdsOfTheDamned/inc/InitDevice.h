@@ -43,9 +43,6 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 #define ADJ_PIN                 (6)
 #define ADJ_PORT                (gpioPortD)
 
-#define ADJ_PWR_DEVKIT_PIN      (11)
-#define ADJ_PWR_DEVKIT_PORT     (gpioPortB)
-
 #define ADJ_PWR_PIN             (7)
 #define ADJ_PWR_PORT            (gpioPortB)
 
@@ -63,12 +60,6 @@ extern void PORTIO_enter_DefaultMode_from_RESET(void);
 
 #define I2C0_SDA_PIN            (12)
 #define I2C0_SDA_PORT           (gpioPortE)
-
-#define LED0_PIN                (10)
-#define LED0_PORT               (gpioPortC)
-
-#define LED1_PIN                (11)
-#define LED1_PORT               (gpioPortC)
 
 #define TIMER0_CC0_PIN          (0)
 #define TIMER0_CC0_PORT         (gpioPortA)

@@ -27,10 +27,9 @@
     <property object="PA0" propertyId="ports.settings.pinmode" value="Push-pull"/>
     <property object="PA0" propertyId="ports.settings.pulldirection" value="Pullup"/>
     <property object="PA0" propertyId="ports.settings.pullup" value="Enabled"/>
-    <property object="PB11" propertyId="ports.settings.custompinname" value="ADJ_PWR_DEVKIT"/>
+    <property object="PB11" propertyId="ports.settings.custompinname" value="ADJ_PWR"/>
     <property object="PB11" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
-    <property object="PB7" propertyId="ports.settings.custompinname" value="ADJ_PWR"/>
-    <property object="PB7" propertyId="ports.settings.pinmode" value="Push-pull drive"/>
+    <property object="PB7" propertyId="ports.settings.custompinname" value=""/>
     <property object="PC0" propertyId="ports.settings.custompinname" value="EYE_R"/>
     <property object="PC0" propertyId="ports.settings.dout" value="1"/>
     <property object="PC0" propertyId="ports.settings.filter" value="Enabled"/>
